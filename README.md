@@ -1,0 +1,2 @@
+# MLB-predictor
+predict outcomes
