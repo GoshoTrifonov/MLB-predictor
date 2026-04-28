@@ -2,6 +2,7 @@
 MLB Betting Prediction Dashboard — LIVE EDITION
 Fetches today's games + odds from The Odds API,
 runs each through the trained model to find value bets.
+All times displayed in Toronto timezone.
 """
 
 import streamlit as st
@@ -10,10 +11,13 @@ import numpy as np
 import joblib
 import requests
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
+TORONTO_TZ = ZoneInfo("America/Toronto")
 
 st.set_page_config(page_title="MLB Predictor", page_icon="⚾", layout="wide")
 st.title("⚾ MLB Game Predictor — Live")
-st.caption(f"Today's games • {datetime.now().strftime('%A, %B %d, %Y')}")
+st.caption(f"Today's games • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')} (Toronto time)")
 
 # ── API key ──
 try:
@@ -68,6 +72,12 @@ def avg_odds(game):
                     elif o["name"] == away: a.append(o["price"])
     return (np.mean(h) if h else None, np.mean(a) if a else None)
 
+def utc_to_toronto(utc_str):
+    """Convert ISO UTC time string to Toronto local time."""
+    dt_utc = datetime.fromisoformat(utc_str.replace("Z", "+00:00"))
+    dt_local = dt_utc.astimezone(TORONTO_TZ)
+    return dt_local.strftime("%I:%M %p").lstrip("0")
+
 # ── league-average baseline features ──
 DEFAULTS = {
     "home_runs_roll10": 4.5, "visitor_runs_roll10": 4.5,
@@ -99,7 +109,7 @@ for game in games:
     edge_away = model_away_prob - book_away_prob
 
     results.append({
-        "Time":         game["commence_time"][11:16] + " UTC",
+        "Time (TO)":    utc_to_toronto(game["commence_time"]),
         "Matchup":      f"{away} @ {home}",
         "Book Home %":  f"{book_home_prob:.1%}",
         "Model Home %": f"{model_home_prob:.1%}",
