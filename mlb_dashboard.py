@@ -78,6 +78,11 @@ def utc_to_toronto(utc_str):
     dt_local = dt_utc.astimezone(TORONTO_TZ)
     return dt_local.strftime("%I:%M %p").lstrip("0")
 
+def utc_to_toronto_date(utc_str):
+    """Return Toronto-local date for a UTC timestamp."""
+    dt_utc = datetime.fromisoformat(utc_str.replace("Z", "+00:00"))
+    return dt_utc.astimezone(TORONTO_TZ).date()
+
 # ── league-average baseline features ──
 DEFAULTS = {
     "home_runs_roll10": 4.5, "visitor_runs_roll10": 4.5,
@@ -90,9 +95,26 @@ DEFAULTS = {
 }
 
 # ── per-game predictions ──
+today_local = datetime.now(TORONTO_TZ).date()
+
+# Date selector (today / tomorrow)
+date_choice = st.radio(
+    "Show games for:",
+    ["Today", "Tomorrow", "All available"],
+    horizontal=True
+)
+
 results = []
 for game in games:
     home, away = game["home_team"], game["away_team"]
+    game_date = utc_to_toronto_date(game["commence_time"])
+
+    # Filter by selected date
+    if date_choice == "Today" and game_date != today_local:
+        continue
+    if date_choice == "Tomorrow" and (game_date - today_local).days != 1:
+        continue
+
     home_odds, away_odds = avg_odds(game)
     if home_odds is None or away_odds is None:
         continue
