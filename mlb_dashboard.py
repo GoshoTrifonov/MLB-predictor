@@ -1,164 +1,138 @@
 """
-MLB Betting Prediction Dashboard
-================================
-Streamlit app for game-level home win predictions
-using the trained Random Forest model.
-
-To run:
-    pip install streamlit pandas scikit-learn joblib numpy
-    streamlit run mlb_dashboard.py
+MLB Betting Prediction Dashboard — LIVE EDITION
+Fetches today's games + odds from The Odds API,
+runs each through the trained model to find value bets.
 """
 
 import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-from pathlib import Path
+import requests
+from datetime import datetime
 
-# ─────────────────────────────────────────────
-# PAGE SETUP
-# ─────────────────────────────────────────────
 st.set_page_config(page_title="MLB Predictor", page_icon="⚾", layout="wide")
+st.title("⚾ MLB Game Predictor — Live")
+st.caption(f"Today's games • {datetime.now().strftime('%A, %B %d, %Y')}")
 
-st.title("⚾ MLB Game Predictor")
-st.caption("Random Forest model trained on 2021–2023 game logs")
+# ── API key ──
+try:
+    ODDS_API_KEY = st.secrets["ODDS_API_KEY"]
+except (FileNotFoundError, KeyError):
+    ODDS_API_KEY = st.sidebar.text_input("Odds API Key", type="password")
+    if not ODDS_API_KEY:
+        st.warning("Add your Odds API key in the sidebar to continue.")
+        st.stop()
 
-# ─────────────────────────────────────────────
-# LOAD MODEL
-# ─────────────────────────────────────────────
+# ── load model ──
 @st.cache_resource
 def load_model():
-    model = joblib.load("model_final.pkl")
-    features = joblib.load("features_final.pkl")
-    return model, features
+    return joblib.load("model_final.pkl"), joblib.load("features_final.pkl")
 
 try:
     model, FEATURES = load_model()
-    st.sidebar.success("✅ Model loaded")
 except FileNotFoundError:
-    st.error("❌ model_final.pkl or features_final.pkl not found. "
-             "Place them in the same folder as this script.")
+    st.error("model_final.pkl or features_final.pkl not found in repo.")
     st.stop()
 
-# ─────────────────────────────────────────────
-# SIDEBAR — INPUT MATCHUP
-# ─────────────────────────────────────────────
-st.sidebar.header("Matchup Setup")
+# ── fetch today's odds ──
+@st.cache_data(ttl=600)
+def fetch_todays_games(api_key):
+    url = "https://api.the-odds-api.com/v4/sports/baseball_mlb/odds"
+    params = {"apiKey": api_key, "regions": "us", "markets": "h2h", "oddsFormat": "american"}
+    r = requests.get(url, params=params)
+    if r.status_code != 200:
+        st.error(f"API error: {r.status_code} — {r.text}")
+        return []
+    return r.json()
 
-teams = ["NYY","BOS","TBR","TOR","BAL","CLE","CHW","DET","KCR","MIN",
-         "HOU","LAA","OAK","SEA","TEX","ATL","MIA","NYM","PHI","WSN",
-         "CHC","CIN","MIL","PIT","STL","ARI","COL","LAD","SDP","SFG"]
+games = fetch_todays_games(ODDS_API_KEY)
+if not games:
+    st.info("No MLB games scheduled today.")
+    st.stop()
 
-home_team    = st.sidebar.selectbox("🏠 Home team",    teams, index=0)
-visitor_team = st.sidebar.selectbox("✈️  Visitor team", teams, index=1)
+st.success(f"Found {len(games)} games today")
 
-st.sidebar.markdown("---")
-st.sidebar.subheader("Recent form (last 10 games)")
+# ── helpers ──
+def odds_to_prob(american):
+    return 100 / (american + 100) if american > 0 else -american / (-american + 100)
 
-home_runs_roll10    = st.sidebar.slider("Home avg runs scored",   0.0, 10.0, 4.5, 0.1)
-visitor_runs_roll10 = st.sidebar.slider("Visitor avg runs scored",0.0, 10.0, 4.5, 0.1)
-home_runs_roll5     = st.sidebar.slider("Home runs (last 5)",     0.0, 10.0, 4.5, 0.1)
-visitor_runs_roll5  = st.sidebar.slider("Visitor runs (last 5)",  0.0, 10.0, 4.5, 0.1)
-home_win_roll10     = st.sidebar.slider("Home win % at home",     0.0, 1.0, 0.55, 0.01)
-visitor_away_win    = st.sidebar.slider("Visitor win % on road",  0.0, 1.0, 0.45, 0.01)
-home_allowed        = st.sidebar.slider("Home runs allowed avg",  0.0, 10.0, 4.5, 0.1)
-visitor_allowed     = st.sidebar.slider("Visitor runs allowed",   0.0, 10.0, 4.5, 0.1)
+def avg_odds(game):
+    home, away = game["home_team"], game["away_team"]
+    h, a = [], []
+    for book in game.get("bookmakers", []):
+        for market in book["markets"]:
+            if market["key"] == "h2h":
+                for o in market["outcomes"]:
+                    if o["name"] == home: h.append(o["price"])
+                    elif o["name"] == away: a.append(o["price"])
+    return (np.mean(h) if h else None, np.mean(a) if a else None)
 
-st.sidebar.markdown("---")
-st.sidebar.subheader("Other factors")
+# ── league-average baseline features ──
+DEFAULTS = {
+    "home_runs_roll10": 4.5, "visitor_runs_roll10": 4.5,
+    "home_runs_roll5": 4.5,  "visitor_runs_roll5": 4.5,
+    "home_win_roll10": 0.54, "visitor_away_win_roll10": 0.46,
+    "home_allowed_roll10": 4.5, "visitor_allowed_roll10": 4.5,
+    "home_rest_days": 1, "visitor_rest_days": 1,
+    "h2h_home_win_roll": 0.5,
+    "home_sp_era_roll5": 4.0, "visitor_sp_era_roll5": 4.0,
+}
 
-home_rest    = st.sidebar.slider("Home rest days",    0, 7, 1)
-visitor_rest = st.sidebar.slider("Visitor rest days", 0, 7, 1)
-h2h_home_win = st.sidebar.slider("H2H home win rate", 0.0, 1.0, 0.5, 0.01)
+# ── per-game predictions ──
+results = []
+for game in games:
+    home, away = game["home_team"], game["away_team"]
+    home_odds, away_odds = avg_odds(game)
+    if home_odds is None or away_odds is None:
+        continue
 
-st.sidebar.markdown("---")
-st.sidebar.subheader("Starting pitchers")
+    book_home_prob = odds_to_prob(home_odds)
+    book_away_prob = odds_to_prob(away_odds)
 
-home_sp_era    = st.sidebar.slider("Home SP runs allowed (last 5)",    0.0, 10.0, 4.0, 0.1)
-visitor_sp_era = st.sidebar.slider("Visitor SP runs allowed (last 5)", 0.0, 10.0, 4.0, 0.1)
+    feat = pd.DataFrame([DEFAULTS])[FEATURES]
+    prob = model.predict_proba(feat)[0]
+    model_home_prob = prob[1]
+    model_away_prob = prob[0]
 
-# ─────────────────────────────────────────────
-# BUILD FEATURE VECTOR
-# ─────────────────────────────────────────────
-input_features = pd.DataFrame([{
-    "home_runs_roll10":         home_runs_roll10,
-    "visitor_runs_roll10":      visitor_runs_roll10,
-    "home_runs_roll5":          home_runs_roll5,
-    "visitor_runs_roll5":       visitor_runs_roll5,
-    "home_win_roll10":          home_win_roll10,
-    "visitor_away_win_roll10":  visitor_away_win,
-    "home_allowed_roll10":      home_allowed,
-    "visitor_allowed_roll10":   visitor_allowed,
-    "home_rest_days":           home_rest,
-    "visitor_rest_days":        visitor_rest,
-    "h2h_home_win_roll":        h2h_home_win,
-    "home_sp_era_roll5":        home_sp_era,
-    "visitor_sp_era_roll5":     visitor_sp_era,
-}])[FEATURES]
+    edge_home = model_home_prob - book_home_prob
+    edge_away = model_away_prob - book_away_prob
 
-# ─────────────────────────────────────────────
-# PREDICT
-# ─────────────────────────────────────────────
-prob = model.predict_proba(input_features)[0]
-home_win_prob   = prob[1]
-visitor_win_prob= prob[0]
-prediction      = "HOME" if home_win_prob > 0.5 else "VISITOR"
-confidence      = max(prob)
+    results.append({
+        "Time":         game["commence_time"][11:16] + " UTC",
+        "Matchup":      f"{away} @ {home}",
+        "Book Home %":  f"{book_home_prob:.1%}",
+        "Model Home %": f"{model_home_prob:.1%}",
+        "Edge Home":    f"{edge_home:+.1%}",
+        "Edge Away":    f"{edge_away:+.1%}",
+        "Home Odds":    int(home_odds),
+        "Away Odds":    int(away_odds),
+        "Bet?":         "🟢 HOME" if edge_home > 0.05 else (
+                         "🟢 AWAY" if edge_away > 0.05 else "⚪ Pass")
+    })
 
-# ─────────────────────────────────────────────
-# DISPLAY
-# ─────────────────────────────────────────────
-col1, col2, col3 = st.columns(3)
+results_df = pd.DataFrame(results)
 
-with col1:
-    st.metric(f"🏠 {home_team} Win Probability", f"{home_win_prob:.1%}")
-with col2:
-    st.metric(f"✈️ {visitor_team} Win Probability", f"{visitor_win_prob:.1%}")
-with col3:
-    st.metric("🎯 Confidence", f"{confidence:.1%}")
+st.markdown("### Today's Games & Model Edge")
+st.dataframe(results_df, use_container_width=True, hide_index=True)
 
+value_bets = results_df[results_df["Bet?"] != "⚪ Pass"]
 st.markdown("---")
+c1, c2, c3 = st.columns(3)
+c1.metric("Games today", len(results_df))
+c2.metric("Value bets found", len(value_bets))
+c3.metric("Pass", len(results_df) - len(value_bets))
 
-# Bet recommendation
-st.subheader("Bet Recommendation")
-if confidence < 0.55:
-    st.warning("⚠️ Low confidence — skip this game")
-elif confidence < 0.60:
-    st.info(f"📊 Lean **{prediction}** ({home_team if prediction=='HOME' else visitor_team})")
-else:
-    st.success(f"✅ Strong pick: **{prediction}** ({home_team if prediction=='HOME' else visitor_team})")
+if len(value_bets) > 0:
+    st.markdown("### 🎯 Value Bets")
+    st.dataframe(value_bets, use_container_width=True, hide_index=True)
 
-# Implied odds calculation
-st.markdown("### Fair Odds (American)")
-def prob_to_odds(p):
-    if p >= 0.5:
-        return f"-{int(p / (1 - p) * 100)}"
-    else:
-        return f"+{int((1 - p) / p * 100)}"
-
-c1, c2 = st.columns(2)
-with c1:
-    st.write(f"**{home_team}** fair odds: `{prob_to_odds(home_win_prob)}`")
-with c2:
-    st.write(f"**{visitor_team}** fair odds: `{prob_to_odds(visitor_win_prob)}`")
-
-st.caption("If sportsbook odds are *better* than fair odds, there's value in the bet.")
-
-# ─────────────────────────────────────────────
-# FEATURE IMPORTANCE
-# ─────────────────────────────────────────────
-st.markdown("---")
-st.subheader("Model Feature Importance")
-
-importance = pd.DataFrame({
-    "feature": FEATURES,
-    "importance": model.feature_importances_
-}).sort_values("importance", ascending=True)
-
-st.bar_chart(importance.set_index("feature"))
-
-# ─────────────────────────────────────────────
-# DEBUG
-# ─────────────────────────────────────────────
-with st.expander("🔧 Debug — input features"):
-    st.dataframe(input_features.T)
+with st.expander("ℹ️ How this works"):
+    st.markdown("""
+    - **Book %** = sportsbook implied probability  
+    - **Model %** = Random Forest prediction  
+    - **Edge** = Model − Book. Positive edge = book may be wrong  
+    - **Bet trigger** = edge ≥ 5%
+    
+    ⚠️ Current model uses league-average inputs. Next step: feed live recent team stats per game.
+    """)
