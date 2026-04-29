@@ -1,7 +1,7 @@
 """
-MLB H+R+RBI Player Props Picker
-Combines form, AVG, and OPS into one composite score
-to surface today's top picks.
+MLB H+R+RBI Top Picks — Pitcher-Adjusted
+Combines batter form + opposing starting pitcher difficulty
+to surface the best plays for tonight.
 """
 
 import streamlit as st
@@ -14,8 +14,8 @@ from zoneinfo import ZoneInfo
 TORONTO_TZ = ZoneInfo("America/Toronto")
 
 st.set_page_config(page_title="H+R+RBI Picks", page_icon="🎯", layout="wide")
-st.title("🎯 MLB H+R+RBI Top Picks")
-st.caption(f"Today's top hitters by combined form score • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}")
+st.title("🎯 MLB H+R+RBI Top Picks — Pitcher Adjusted")
+st.caption(f"Tonight's hitters ranked vs opposing pitcher quality • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}")
 
 TEAM_IDS = [108,109,110,111,112,113,114,115,116,117,118,119,120,121,133,
             134,135,136,137,138,139,140,141,142,143,144,145,146,147,158]
@@ -28,6 +28,11 @@ TEAM_NAMES = {
     147:"NYY",158:"MIL"
 }
 
+LEAGUE_AVG_ERA = 4.20  # MLB league avg ERA baseline
+
+# ─────────────────────────────────────────────
+# DATA FETCHERS
+# ─────────────────────────────────────────────
 @st.cache_data(ttl=3600)
 def get_team_form(team_id, days_back=10):
     end = datetime.now(TORONTO_TZ).date()
@@ -45,20 +50,59 @@ def get_team_form(team_id, days_back=10):
         return {}
 
 @st.cache_data(ttl=3600)
-def get_todays_teams():
-    """Return set of team_ids playing today."""
+def get_todays_matchups():
+    """Return dict: team_id → opposing pitcher info."""
     today = datetime.now(TORONTO_TZ).strftime("%Y-%m-%d")
-    url = f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={today}"
+    url = f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={today}&hydrate=probablePitcher"
     try:
         data = requests.get(url, timeout=10).json()
-        playing = set()
-        for d in data.get("dates", []):
-            for g in d.get("games", []):
-                playing.add(g["teams"]["home"]["team"]["id"])
-                playing.add(g["teams"]["away"]["team"]["id"])
-        return playing
     except Exception:
-        return set(TEAM_IDS)  # fallback: all teams
+        return {}
+    
+    matchups = {}
+    for d in data.get("dates", []):
+        for g in d.get("games", []):
+            home = g["teams"]["home"]
+            away = g["teams"]["away"]
+            home_id, away_id = home["team"]["id"], away["team"]["id"]
+            home_pit = home.get("probablePitcher", {})
+            away_pit = away.get("probablePitcher", {})
+            
+            # Home batters face the AWAY pitcher
+            matchups[home_id] = {
+                "opp_pitcher_id":   away_pit.get("id"),
+                "opp_pitcher_name": away_pit.get("fullName", "TBD"),
+                "opp_team":         TEAM_NAMES.get(away_id, str(away_id)),
+            }
+            # Away batters face the HOME pitcher
+            matchups[away_id] = {
+                "opp_pitcher_id":   home_pit.get("id"),
+                "opp_pitcher_name": home_pit.get("fullName", "TBD"),
+                "opp_team":         TEAM_NAMES.get(home_id, str(home_id)),
+            }
+    return matchups
+
+@st.cache_data(ttl=3600)
+def get_pitcher_stats(pitcher_id, season=None):
+    """Pull pitcher's season ERA, WHIP, K/9, runs allowed."""
+    if pitcher_id is None:
+        return None
+    season = season or datetime.now(TORONTO_TZ).year
+    url = f"https://statsapi.mlb.com/api/v1/people/{pitcher_id}/stats"
+    params = {"stats":"season","group":"pitching","season":season}
+    try:
+        data = requests.get(url, params=params, timeout=10).json()
+        for split in data.get("stats", []):
+            for s in split.get("splits", []):
+                stat = s.get("stat", {})
+                era = pd.to_numeric(stat.get("era"), errors="coerce")
+                whip = pd.to_numeric(stat.get("whip"), errors="coerce")
+                avg_against = pd.to_numeric(stat.get("avg"), errors="coerce")
+                ip = pd.to_numeric(stat.get("inningsPitched"), errors="coerce")
+                return {"era": era, "whip": whip, "baa": avg_against, "ip": ip}
+    except Exception:
+        pass
+    return None
 
 @st.cache_data(ttl=3600)
 def fetch_all_batters(days_back=10):
@@ -88,72 +132,115 @@ def fetch_all_batters(days_back=10):
         time.sleep(0.1)
     return pd.DataFrame(rows)
 
-# ── Sidebar ──
+# ─────────────────────────────────────────────
+# SIDEBAR
+# ─────────────────────────────────────────────
 days = st.sidebar.slider("Days back for form", 5, 20, 10)
 min_games = st.sidebar.slider("Minimum games played", 3, 10, 5)
-playing_only = st.sidebar.checkbox("Only show players playing today", value=True)
 search = st.sidebar.text_input("Search player").lower()
 
-# ── Fetch ──
-with st.spinner(f"Pulling last {days}-day form for all hitters..."):
+# ─────────────────────────────────────────────
+# FETCH
+# ─────────────────────────────────────────────
+with st.spinner("Pulling batter form..."):
     df = fetch_all_batters(days)
+
+with st.spinner("Pulling tonight's matchups..."):
+    matchups = get_todays_matchups()
 
 df = df[df["G"] >= min_games].dropna(subset=["AVG","OPS"])
 
-if playing_only:
-    todays_teams = get_todays_teams()
-    df = df[df["team_id"].isin(todays_teams)]
+# Only show teams playing today
+df = df[df["team_id"].isin(matchups.keys())].copy()
+
+# Attach opposing pitcher info
+df["Opp Pitcher"] = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_pitcher_name", "TBD"))
+df["Opp Team"]    = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_team", "?"))
+df["opp_pit_id"]  = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_pitcher_id"))
+
+# ─────────────────────────────────────────────
+# PITCHER DIFFICULTY FACTOR (PDF)
+# ─────────────────────────────────────────────
+unique_pitchers = df["opp_pit_id"].dropna().unique()
+pitcher_cache = {}
+prog = st.progress(0, text="Fetching pitcher stats...")
+for i, pid in enumerate(unique_pitchers):
+    pitcher_cache[int(pid)] = get_pitcher_stats(int(pid))
+    prog.progress((i+1) / len(unique_pitchers))
+prog.empty()
+
+def pitcher_difficulty_factor(pid):
+    """Return multiplier: <1 = tough pitcher, >1 = easy pitcher."""
+    if pd.isna(pid):
+        return 1.0
+    stats = pitcher_cache.get(int(pid))
+    if not stats or pd.isna(stats.get("era")):
+        return 1.0
+    era = stats["era"]
+    # League avg ERA ≈ 4.2. Convert to multiplier.
+    # Tough pitcher ERA 2.0 → factor 2.0/4.2 = 0.48 (cut hitter output ~52%)
+    # Easy pitcher ERA 6.0 → factor 6.0/4.2 = 1.43 (boost output ~43%)
+    factor = era / LEAGUE_AVG_ERA
+    return max(0.5, min(1.5, factor))  # clamp to [0.5, 1.5]
+
+df["PDF"] = df["opp_pit_id"].apply(pitcher_difficulty_factor).round(2)
+df["Opp ERA"] = df["opp_pit_id"].apply(
+    lambda pid: round(pitcher_cache.get(int(pid), {}).get("era"), 2)
+                 if pd.notna(pid) and pitcher_cache.get(int(pid)) else None
+)
 
 if search:
     df = df[df["Player"].str.lower().str.contains(search)]
 
-# ── COMPOSITE SCORE ──
-# Normalize each metric to 0-1, then weight & combine
+# ─────────────────────────────────────────────
+# COMPOSITE SCORE — pitcher-adjusted
+# ─────────────────────────────────────────────
 df["pg_norm"]  = (df["Per Game"] - df["Per Game"].min()) / (df["Per Game"].max() - df["Per Game"].min())
 df["avg_norm"] = (df["AVG"] - df["AVG"].min()) / (df["AVG"].max() - df["AVG"].min())
 df["ops_norm"] = (df["OPS"] - df["OPS"].min()) / (df["OPS"].max() - df["OPS"].min())
 
-# Weights: form is most important (50%), then OPS (30%), then AVG (20%)
-df["Score"] = (df["pg_norm"]*0.5 + df["ops_norm"]*0.3 + df["avg_norm"]*0.2) * 100
-df["Score"] = df["Score"].round(1)
+base_score = (df["pg_norm"]*0.5 + df["ops_norm"]*0.3 + df["avg_norm"]*0.2) * 100
+df["Score"] = (base_score * df["PDF"]).round(1)
 
 df = df.sort_values("Score", ascending=False).reset_index(drop=True)
 
-# ── HEADLINE METRICS ──
+# ─────────────────────────────────────────────
+# DISPLAY
+# ─────────────────────────────────────────────
 c1, c2, c3 = st.columns(3)
-c1.metric("Hitters tracked", len(df))
-c2.metric("Avg form (H+R+RBI/G)", f"{df['Per Game'].mean():.2f}")
-c3.metric("Avg OPS", f"{df['OPS'].mean():.3f}")
+c1.metric("Hitters playing tonight", len(df))
+c2.metric("Avg form", f"{df['Per Game'].mean():.2f}")
+c3.metric("Avg opp ERA", f"{df['Opp ERA'].mean():.2f}" if df['Opp ERA'].notna().any() else "—")
 
 st.markdown("---")
 
-# ── TOP PICKS — Tiered View ──
+display_cols = ["Player","Team","Opp Team","Opp Pitcher","Opp ERA","PDF",
+                "G","Per Game","AVG","OPS","Score"]
+
 def show_picks(df_in, n, title, emoji):
     st.markdown(f"### {emoji} {title}")
-    cols_show = ["Player","Team","G","Per Game","AVG","OPS","Score"]
-    st.dataframe(df_in.head(n)[cols_show], hide_index=True, use_container_width=True)
+    st.dataframe(df_in.head(n)[display_cols], hide_index=True, use_container_width=True)
 
 show_picks(df, 3, "Top 3 — Strongest Plays", "🏆")
 show_picks(df.iloc[3:9], 6, "Picks 4–9 — Solid Backup Plays", "💎")
 show_picks(df.iloc[9:18], 9, "Picks 10–18 — Honorable Mentions", "📋")
 
-# ── FULL TABLE ──
 with st.expander("📊 Full ranked list"):
-    st.dataframe(df[["Player","Team","G","H","R","RBI","Per Game","AVG","OPS","Score"]],
-                 hide_index=True, use_container_width=True)
+    st.dataframe(df[display_cols], hide_index=True, use_container_width=True)
 
-# ── HOW IT WORKS ──
 with st.expander("ℹ️ How the Score is calculated"):
     st.markdown("""
-    The **Score** combines three metrics weighted by importance:
-    - **50% — Per Game (H+R+RBI)** form over the last N days
-    - **30% — OPS** (overall hitting quality)
-    - **20% — AVG** (consistency)
+    **Base Score** combines (normalized 0–1 across all hitters):
+    - 50% Per Game (H+R+RBI) form
+    - 30% OPS
+    - 20% AVG
     
-    Each metric is normalized 0–1 across all qualifying hitters, weighted, then scaled to 0–100.
+    **Pitcher Difficulty Factor (PDF)** = opposing pitcher ERA ÷ league avg (4.20)
+    - Tough pitcher (ERA 2.0) → PDF ≈ 0.5 → cuts batter score in half
+    - Easy pitcher (ERA 6.0) → PDF ≈ 1.4 → boosts batter score 40%
+    - Clamped to range [0.5, 1.5] so no extreme outliers
     
-    **How to bet:**
-    - Top 3 = strongest plays — H+R+RBI 1.5 line is usually a smart Over
-    - Picks 4–9 = solid backups for parlays
-    - Cross-reference with the opposing pitcher's recent ERA on the Home page
+    **Final Score = Base × PDF** — surfaces hitters in good form **AND** facing weaker pitching.
+    
+    **TBD pitchers** default to PDF = 1.0 (neutral).
     """)
