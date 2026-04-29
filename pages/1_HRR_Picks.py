@@ -1,5 +1,5 @@
 """
-MLB H+R+RBI Top Picks — Pitcher-Adjusted (with Save button)
+MLB H+R+RBI Top Picks — Pitcher + Home/Away Adjusted
 """
 
 import streamlit as st
@@ -17,7 +17,7 @@ TORONTO_TZ = ZoneInfo("America/Toronto")
 
 st.set_page_config(page_title="H+R+RBI Picks", page_icon="🎯", layout="wide")
 st.title("🎯 MLB H+R+RBI Top Picks")
-st.caption(f"Tonight's hitters ranked vs opposing pitcher quality • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}")
+st.caption(f"Tonight's hitters ranked vs pitcher + home/away splits • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}")
 
 TEAM_IDS = [108,109,110,111,112,113,114,115,116,117,118,119,120,121,133,
             134,135,136,137,138,139,140,141,142,143,144,145,146,147,158]
@@ -33,7 +33,7 @@ TEAM_NAMES = {
 LEAGUE_AVG_ERA = 4.20
 
 @st.cache_data(ttl=3600)
-def get_team_form(team_id, days_back=10):
+def get_team_form(team_id, days_back=15):
     end = datetime.now(TORONTO_TZ).date()
     start = end - timedelta(days=days_back)
     url = "https://statsapi.mlb.com/api/v1/stats"
@@ -47,6 +47,42 @@ def get_team_form(team_id, days_back=10):
         return requests.get(url, params=params, timeout=10).json()
     except Exception:
         return {}
+
+@st.cache_data(ttl=3600)
+def get_team_splits(team_id):
+    """Fetch home/away splits for all hitters on a team this season."""
+    season = datetime.now(TORONTO_TZ).year
+    url = "https://statsapi.mlb.com/api/v1/stats"
+    params = {
+        "stats": "statSplits",
+        "group": "hitting",
+        "sitCodes": "h,a",   # h = home, a = away
+        "teamId": team_id,
+        "season": season,
+        "sportIds": 1,
+    }
+    try:
+        return requests.get(url, params=params, timeout=10).json()
+    except Exception:
+        return {}
+
+def parse_team_splits(data):
+    """Return dict: {player_id: {'home_ops': X, 'away_ops': Y}}."""
+    out = {}
+    for split in data.get("stats", []):
+        for s in split.get("splits", []):
+            sit_code = s.get("split", {}).get("code")
+            player = s.get("player", {})
+            pid = player.get("id")
+            if not pid: continue
+            ops = pd.to_numeric(s.get("stat", {}).get("ops"), errors="coerce")
+            if pid not in out:
+                out[pid] = {}
+            if sit_code == "h":
+                out[pid]["home_ops"] = ops
+            elif sit_code == "a":
+                out[pid]["away_ops"] = ops
+    return out
 
 @st.cache_data(ttl=3600)
 def get_todays_matchups():
@@ -68,18 +104,19 @@ def get_todays_matchups():
                 "opp_pit_id": away_pit.get("id"),
                 "opp_pit_name": away_pit.get("fullName", "TBD"),
                 "opp_team": TEAM_NAMES.get(away_id, str(away_id)),
+                "is_home": True,
             }
             matchups[away_id] = {
                 "opp_pit_id": home_pit.get("id"),
                 "opp_pit_name": home_pit.get("fullName", "TBD"),
                 "opp_team": TEAM_NAMES.get(home_id, str(home_id)),
+                "is_home": False,
             }
     return matchups
 
 @st.cache_data(ttl=3600)
 def get_pitcher_stats(pitcher_id):
-    if pitcher_id is None:
-        return None
+    if pitcher_id is None: return None
     season = datetime.now(TORONTO_TZ).year
     url = f"https://statsapi.mlb.com/api/v1/people/{pitcher_id}/stats"
     params = {"stats":"season","group":"pitching","season":season}
@@ -95,10 +132,15 @@ def get_pitcher_stats(pitcher_id):
     return None
 
 @st.cache_data(ttl=3600)
-def fetch_all_batters(days_back=10):
+def fetch_all_batters(days_back=15):
     rows = []
+    splits_by_player = {}
     for tid in TEAM_IDS:
         data = get_team_form(tid, days_back)
+        splits_data = get_team_splits(tid)
+        team_splits = parse_team_splits(splits_data)
+        splits_by_player.update(team_splits)
+        
         for split in data.get("stats", []):
             for s in split.get("splits", []):
                 p = s.get("player", {})
@@ -106,7 +148,9 @@ def fetch_all_batters(days_back=10):
                 g = st_.get("gamesPlayed", 0)
                 if g < 3: continue
                 hrr = st_.get("hits",0) + st_.get("runs",0) + st_.get("rbi",0)
+                pid = p.get("id")
                 rows.append({
+                    "player_id": pid,
                     "Player":   p.get("fullName"),
                     "team_id":  tid,
                     "Team":     TEAM_NAMES.get(tid, str(tid)),
@@ -118,6 +162,8 @@ def fetch_all_batters(days_back=10):
                     "Per Game": round(hrr / g, 2) if g else 0,
                     "AVG":      pd.to_numeric(st_.get("avg"), errors="coerce"),
                     "OPS":      pd.to_numeric(st_.get("ops"), errors="coerce"),
+                    "home_ops": splits_by_player.get(pid, {}).get("home_ops"),
+                    "away_ops": splits_by_player.get(pid, {}).get("away_ops"),
                 })
         time.sleep(0.1)
     return pd.DataFrame(rows)
@@ -127,7 +173,7 @@ days = st.sidebar.slider("Days back for form", 5, 20, 15)
 min_games = st.sidebar.slider("Minimum games played", 3, 10, 7)
 search = st.sidebar.text_input("Search player").lower()
 
-with st.spinner("Pulling batter form..."):
+with st.spinner("Pulling batter form + home/away splits..."):
     df = fetch_all_batters(days)
 
 with st.spinner("Pulling tonight's matchups..."):
@@ -139,7 +185,10 @@ df = df[df["team_id"].isin(matchups.keys())].copy()
 df["Opp Pitcher"] = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_pit_name", "TBD"))
 df["Opp Team"]    = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_team", "?"))
 df["opp_pit_id"]  = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_pit_id"))
+df["is_home"]     = df["team_id"].map(lambda t: matchups.get(t, {}).get("is_home", False))
+df["H/A"]         = df["is_home"].map({True:"🏠 Home", False:"✈️ Away"})
 
+# Pitcher stats
 unique_pitchers = df["opp_pit_id"].dropna().unique()
 pitcher_cache = {}
 prog = st.progress(0, text="Fetching pitcher stats...")
@@ -160,23 +209,42 @@ df["Opp ERA"] = df["opp_pit_id"].apply(
                  if pd.notna(pid) and pitcher_cache.get(int(pid)) else None
 )
 
+# ── HOME/AWAY LOCATION FACTOR ──
+def location_factor(row):
+    """How much better/worse is this player at home vs away?"""
+    h = row.get("home_ops")
+    a = row.get("away_ops")
+    if pd.isna(h) or pd.isna(a) or a == 0:
+        return 1.0
+    is_home = row["is_home"]
+    relevant_ops = h if is_home else a
+    avg_ops = (h + a) / 2
+    if avg_ops == 0:
+        return 1.0
+    factor = relevant_ops / avg_ops
+    return max(0.7, min(1.3, factor))   # clamp 0.7-1.3
+
+df["Loc Factor"] = df.apply(location_factor, axis=1).round(2)
+
 if search:
     df = df[df["Player"].str.lower().str.contains(search)]
 
+# Composite score
 df["pg_norm"]  = (df["Per Game"] - df["Per Game"].min()) / (df["Per Game"].max() - df["Per Game"].min())
 df["avg_norm"] = (df["AVG"] - df["AVG"].min()) / (df["AVG"].max() - df["AVG"].min())
 df["ops_norm"] = (df["OPS"] - df["OPS"].min()) / (df["OPS"].max() - df["OPS"].min())
 
 base = (df["pg_norm"]*0.5 + df["ops_norm"]*0.3 + df["avg_norm"]*0.2) * 100
-df["Score"] = (base * df["PDF"]).round(1)
+df["Score"] = (base * df["PDF"] * df["Loc Factor"]).round(1)
 df = df.sort_values("Score", ascending=False).reset_index(drop=True)
 
-# ── SAVE BUTTON ──
+# Save button
 c1, c2, c3 = st.columns([2,1,2])
 with c2:
     if st.button("💾 Save Today's Picks", use_container_width=True):
         top10 = df.head(10).copy()
-        picks_to_save = top10[["Player","Team","Opp Team","Opp Pitcher","Score","Per Game","AVG","OPS"]].to_dict(orient="records")
+        picks_to_save = top10[["Player","Team","Opp Team","Opp Pitcher",
+                                "H/A","Loc Factor","Score","Per Game","AVG","OPS"]].to_dict(orient="records")
         if save_todays_picks("hrr", picks_to_save):
             st.success("✅ Top 10 H+R+RBI picks saved!")
         else:
@@ -189,7 +257,7 @@ c1.metric("Hitters playing tonight", len(df))
 c2.metric("Avg form", f"{df['Per Game'].mean():.2f}")
 c3.metric("Avg opp ERA", f"{df['Opp ERA'].mean():.2f}" if df['Opp ERA'].notna().any() else "—")
 
-display_cols = ["Player","Team","Opp Team","Opp Pitcher","Opp ERA","PDF",
+display_cols = ["Player","Team","H/A","Opp Team","Opp Pitcher","Opp ERA","PDF","Loc Factor",
                 "G","Per Game","AVG","OPS","Score"]
 
 def show_picks(df_in, n, title, emoji):
@@ -202,3 +270,20 @@ show_picks(df.iloc[9:18], 9, "Picks 10–18 — Honorable Mentions", "📋")
 
 with st.expander("📊 Full ranked list"):
     st.dataframe(df[display_cols], hide_index=True, use_container_width=True)
+
+with st.expander("ℹ️ How the Score is calculated"):
+    st.markdown("""
+    **Base Score** combines (normalized 0-1 across all hitters):
+    - 50% Per Game (H+R+RBI) form
+    - 30% OPS
+    - 20% AVG
+    
+    **PDF** = Pitcher Difficulty Factor (opp ERA ÷ 4.20, clamped 0.5-1.5)
+    
+    **Loc Factor** = Home/away OPS split. Compares player's OPS at tonight's location 
+    vs their average. Clamped to 0.7-1.3 to prevent outliers.
+    
+    **Final Score = Base × PDF × Loc Factor**
+    
+    Surfaces hitters in good form, vs weak pitching, in their preferred location.
+    """)
