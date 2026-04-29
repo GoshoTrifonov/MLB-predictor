@@ -1,5 +1,5 @@
 """
-Results Tracker — see how yesterday's (and prior) picks actually performed.
+Results Tracker — A/B/C model comparison with rolling stats.
 """
 
 import streamlit as st
@@ -16,135 +16,206 @@ from picks_storage import load_picks_history, save_picks_history, get_player_res
 TORONTO_TZ = ZoneInfo("America/Toronto")
 
 st.set_page_config(page_title="Results Tracker", page_icon="📊", layout="wide")
-st.title("📊 Results Tracker")
-st.caption("See how saved picks actually performed")
+st.title("📊 Results Tracker — A/B/C Comparison")
+st.caption("Compare how each model's picks actually performed")
 
-# ── Load history ──
 history, sha = load_picks_history()
 
 if not history:
-    st.info("No picks saved yet. Go to **HRR Picks** or **HR Picks** and click 'Save Today's Picks' to start tracking!")
+    st.info("No picks saved yet. Go to **HRR Picks** or **HR Picks** and click 'Save All 3 Models' to start tracking!")
     st.stop()
 
 dates_sorted = sorted(history.keys(), reverse=True)
 st.sidebar.markdown(f"**Tracked days:** {len(dates_sorted)}")
 
-# ── Date picker ──
 selected_date = st.selectbox("Pick a date to review", dates_sorted)
-
-# ── Verify button ──
 day_data = history[selected_date]
-all_verified = all(v.get("verified") for v in day_data.values()) if day_data else False
+
+# Detect format: new (with model_A/B/C subkeys) or old (single picks list)
+def is_multi_model(prop_data):
+    if not isinstance(prop_data, dict): return False
+    return any(k.startswith("model_") for k in prop_data.keys())
+
+# ── VERIFY BUTTON ──
+def all_verified(day_data):
+    flat_picks = []
+    for prop_data in day_data.values():
+        if is_multi_model(prop_data):
+            for k, lst in prop_data.items():
+                if k.startswith("model_"):
+                    flat_picks.extend(lst)
+        elif "picks" in prop_data:
+            flat_picks.extend(prop_data["picks"])
+    return all(p.get("verified_date") == selected_date for p in flat_picks) if flat_picks else False
+
+verified = all_verified(day_data)
 
 c1, c2 = st.columns([3,1])
 with c1:
     st.subheader(f"Picks from {selected_date}")
 with c2:
-    if not all_verified:
+    if not verified:
         if st.button("🔍 Check Results"):
             with st.spinner("Pulling actual results..."):
-                for prop_type, prop_data in day_data.items():
-                    for pick in prop_data["picks"]:
-                        results = get_player_results(pick["Player"], selected_date)
-                        if results:
-                            pick["actual_HRR"] = results.get("HRR", 0)
-                            pick["actual_HR"]  = results.get("HR", 0)
-                            pick["played"]     = results.get("played", False)
-                        time.sleep(0.2)
-                    prop_data["verified"] = True
+                # Build one set of unique players to query (avoid duplicate API calls)
+                unique_players = set()
+                for prop_data in day_data.values():
+                    if is_multi_model(prop_data):
+                        for k, lst in prop_data.items():
+                            if k.startswith("model_"):
+                                for p in lst:
+                                    unique_players.add(p["Player"])
+                    elif "picks" in prop_data:
+                        for p in prop_data["picks"]:
+                            unique_players.add(p["Player"])
+                
+                results_map = {}
+                for name in unique_players:
+                    results_map[name] = get_player_results(name, selected_date)
+                    time.sleep(0.15)
+                
+                # Apply results back to all picks
+                for prop_data in day_data.values():
+                    if is_multi_model(prop_data):
+                        for k, lst in prop_data.items():
+                            if k.startswith("model_"):
+                                for p in lst:
+                                    r = results_map.get(p["Player"]) or {}
+                                    p["actual_HRR"] = r.get("HRR", 0)
+                                    p["actual_HR"]  = r.get("HR", 0)
+                                    p["played"]     = r.get("played", False)
+                                    p["verified_date"] = selected_date
+                    elif "picks" in prop_data:
+                        for p in prop_data["picks"]:
+                            r = results_map.get(p["Player"]) or {}
+                            p["actual_HRR"] = r.get("HRR", 0)
+                            p["actual_HR"]  = r.get("HR", 0)
+                            p["played"]     = r.get("played", False)
+                            p["verified_date"] = selected_date
                 save_picks_history(history, sha)
             st.success("Results updated!")
             st.rerun()
     else:
         st.success("✅ Verified")
 
-# ── Display picks ──
+# ── DISPLAY PER MODEL ──
+def hrr_won(p):
+    return p.get("actual_HRR", 0) >= 1
+def hr_won(p):
+    return p.get("actual_HR", 0) >= 1
+
+def model_summary(picks, win_fn):
+    played = [p for p in picks if p.get("played")]
+    wins = sum(1 for p in played if win_fn(p))
+    return wins, len(played)
+
 for prop_type, prop_data in day_data.items():
     label = "🎯 H+R+RBI Picks" if prop_type == "hrr" else "💥 HR Picks"
+    win_fn = hrr_won if prop_type == "hrr" else hr_won
+    actual_col = "actual_HRR" if prop_type == "hrr" else "actual_HR"
+    
     st.markdown(f"### {label}")
     
-    picks = prop_data["picks"]
-    df = pd.DataFrame(picks)
-    
-    if prop_data.get("verified"):
-        # Show actual results
-        if prop_type == "hrr":
-            # Win condition: actual H+R+RBI >= 2 (typical 1.5 line)
-            df["Win?"] = df.apply(
-                lambda r: "—" if not r.get("played") 
-                else ("✅" if r.get("actual_HRR", 0) >= 1 else "❌"),
-                axis=1
-            )
-            cols_show = ["Player","Team","Opp Pitcher","Score","actual_HRR","Win?"]
-        else:  # HR picks
+    if is_multi_model(prop_data):
+        # New 3-model format
+        cols = st.columns(3)
+        for i, model_key in enumerate(["model_A","model_B","model_C"]):
+            picks = prop_data.get(model_key, [])
+            wins, total = model_summary(picks, win_fn) if verified else (0, 0)
+            with cols[i]:
+                model_letter = model_key.split("_")[1]
+                if verified and total > 0:
+                    st.metric(f"Model {model_letter}", f"{wins}/{total}", f"{wins/total*100:.0f}%")
+                else:
+                    st.metric(f"Model {model_letter}", "—", f"{len(picks)} picks")
+        
+        # Detailed table
+        chosen = st.radio(f"Show table for", ["A","B","C"], horizontal=True, key=f"{prop_type}_radio")
+        picks = prop_data.get(f"model_{chosen}", [])
+        df = pd.DataFrame(picks)
+        if verified and "played" in df.columns:
             df["Win?"] = df.apply(
                 lambda r: "—" if not r.get("played")
-                else ("✅" if r.get("actual_HR", 0) >= 1 else "❌"),
+                else ("✅" if win_fn(r) else "❌"),
                 axis=1
             )
-            cols_show = ["Player","Team","Opp Pitcher","HR Prob %","actual_HR","Win?"]
-        
-        cols_show = [c for c in cols_show if c in df.columns]
+            cols_show = ["Player","Team","Opp Pitcher", actual_col, "Win?"]
+            cols_show = [c for c in cols_show if c in df.columns]
+        else:
+            cols_show = [c for c in df.columns if c in [
+                "Player","Team","Opp Team","Opp Pitcher","Score","HR Prob %","Per Game","H/A"
+            ]]
         st.dataframe(df[cols_show], hide_index=True, use_container_width=True)
-        
-        # Summary
-        played = df["Win?"] != "—"
-        wins = (df["Win?"] == "✅").sum()
-        total = played.sum()
-        if total > 0:
-            st.metric(f"{label} Win Rate", f"{wins}/{total} ({wins/total*100:.1f}%)")
-    else:
-        cols_show = [c for c in df.columns if c in [
-            "Player","Team","Opp Pitcher","Score","HR Prob %","Per Game"]]
+    elif "picks" in prop_data:
+        # Legacy single-model format
+        picks = prop_data["picks"]
+        df = pd.DataFrame(picks)
+        if verified and "played" in df.columns:
+            df["Win?"] = df.apply(
+                lambda r: "—" if not r.get("played")
+                else ("✅" if win_fn(r) else "❌"),
+                axis=1
+            )
+            cols_show = [c for c in ["Player","Team","Opp Pitcher", actual_col, "Win?"] if c in df.columns]
+        else:
+            cols_show = [c for c in df.columns if c in [
+                "Player","Team","Opp Pitcher","Score","HR Prob %","Per Game"
+            ]]
         st.dataframe(df[cols_show], hide_index=True, use_container_width=True)
 
-# ── ROLLING STATS ──
+# ── ROLLING A/B/C LEADERBOARD ──
 st.markdown("---")
-st.subheader("📈 Rolling Performance")
+st.subheader("📈 Rolling Performance (All Tracked Days)")
 
-all_hrr_results = []
-all_hr_results = []
-for date, day_data in history.items():
-    if "hrr" in day_data and day_data["hrr"].get("verified"):
-        for p in day_data["hrr"]["picks"]:
-            if p.get("played"):
-                all_hrr_results.append({
-                    "date": date,
-                    "player": p["Player"],
-                    "won": p.get("actual_HRR", 0) >= 2
-                })
-    if "hr" in day_data and day_data["hr"].get("verified"):
-        for p in day_data["hr"]["picks"]:
-            if p.get("played"):
-                all_hr_results.append({
-                    "date": date,
-                    "player": p["Player"],
-                    "won": p.get("actual_HR", 0) >= 1
-                })
+def aggregate(prop_type, win_fn):
+    by_model = {"A":[], "B":[], "C":[], "legacy":[]}
+    for date, day_data in history.items():
+        prop_data = day_data.get(prop_type)
+        if not prop_data: continue
+        if is_multi_model(prop_data):
+            for letter in ["A","B","C"]:
+                for p in prop_data.get(f"model_{letter}", []):
+                    if p.get("played"):
+                        by_model[letter].append(win_fn(p))
+        elif "picks" in prop_data:
+            for p in prop_data["picks"]:
+                if p.get("played"):
+                    by_model["legacy"].append(win_fn(p))
+    return by_model
 
 c1, c2 = st.columns(2)
+
 with c1:
-    st.markdown("**🎯 H+R+RBI Picks Overall**")
-    if all_hrr_results:
-        wr = sum(r["won"] for r in all_hrr_results) / len(all_hrr_results) * 100
-        st.metric("Win Rate", f"{wr:.1f}%", f"{len(all_hrr_results)} picks tracked")
-    else:
-        st.info("No verified HRR picks yet")
+    st.markdown("**🎯 H+R+RBI Models**")
+    agg = aggregate("hrr", hrr_won)
+    for letter in ["A","B","C"]:
+        results = agg[letter]
+        if results:
+            wr = sum(results)/len(results)*100
+            st.metric(f"Model {letter}", f"{wr:.1f}%", f"{sum(results)}/{len(results)}")
+        else:
+            st.metric(f"Model {letter}", "—")
 
 with c2:
-    st.markdown("**💥 HR Picks Overall**")
-    if all_hr_results:
-        wr = sum(r["won"] for r in all_hr_results) / len(all_hr_results) * 100
-        st.metric("HR Hit Rate", f"{wr:.1f}%", f"{len(all_hr_results)} picks tracked")
-    else:
-        st.info("No verified HR picks yet")
+    st.markdown("**💥 HR Models**")
+    agg = aggregate("hr", hr_won)
+    for letter in ["A","B","C"]:
+        results = agg[letter]
+        if results:
+            wr = sum(results)/len(results)*100
+            st.metric(f"Model {letter}", f"{wr:.1f}%", f"{sum(results)}/{len(results)}")
+        else:
+            st.metric(f"Model {letter}", "—")
 
-with st.expander("ℹ️ How tracking works"):
+with st.expander("ℹ️ How A/B/C tracking works"):
     st.markdown("""
-    - **HRR pick wins** if the player's actual H+R+RBI is **2 or more** (typical 1.5 line)
-    - **HR pick wins** if the player hits **1+ home run**
-    - Click **Check Results** the day after picks are saved to verify
-    - "—" means the player didn't play (rest day, sub, etc.)
+    **For each saved day, we store top 10 picks from all 3 models simultaneously.**
     
-    Picks are saved to your GitHub repo as `picks_history.json`.
+    When you click "Check Results", actual H+R+RBI and HRs are pulled and each pick is graded.
+    
+    - **HRR pick wins** = actual H+R+RBI ≥ 1
+    - **HR pick wins** = actual HR ≥ 1
+    
+    The rolling leaderboard accumulates across **all days** — after a week of data, 
+    you'll see clearly whether pitcher and home/away factors actually improve win rate.
     """)
