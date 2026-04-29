@@ -1,0 +1,110 @@
+{
+  "2026-04-29": {
+    "hrr": {
+      "picks": [
+        {
+          "Player": "Christian Walker",
+          "Team": "HOU",
+          "Opp Team": "BAL",
+          "Opp Pitcher": "Chris Bassitt",
+          "Score": 117.4,
+          "Per Game": 3.25,
+          "AVG": 0.387,
+          "OPS": 1.215
+        },
+        {
+          "Player": "Edouard Julien",
+          "Team": "COL",
+          "Opp Team": "CIN",
+          "Opp Pitcher": "Brandon Williamson",
+          "Score": 116.7,
+          "Per Game": 4.0,
+          "AVG": 0.448,
+          "OPS": 1.19
+        },
+        {
+          "Player": "Miguel Vargas",
+          "Team": "CHW",
+          "Opp Team": "LAA",
+          "Opp Pitcher": "Yusei Kikuchi",
+          "Score": 112.1,
+          "Per Game": 3.0,
+          "AVG": 0.355,
+          "OPS": 1.298
+        },
+        {
+          "Player": "Seiya Suzuki",
+          "Team": "CHC",
+          "Opp Team": "SDP",
+          "Opp Pitcher": "Matt Waldron",
+          "Score": 110.7,
+          "Per Game": 2.9,
+          "AVG": 0.378,
+          "OPS": 1.236
+        },
+        {
+          "Player": "Vladimir Guerrero Jr.",
+          "Team": "TOR",
+          "Opp Team": "BOS",
+          "Opp Pitcher": "Brayan Bello",
+          "Score": 109.1,
+          "Per Game": 3.22,
+          "AVG": 0.394,
+          "OPS": 1.02
+        },
+        {
+          "Player": "Yordan Alvarez",
+          "Team": "HOU",
+          "Opp Team": "BAL",
+          "Opp Pitcher": "Chris Bassitt",
+          "Score": 101.4,
+          "Per Game": 2.88,
+          "AVG": 0.382,
+          "OPS": 1.018
+        },
+        {
+          "Player": "Colson Montgomery",
+          "Team": "CHW",
+          "Opp Team": "LAA",
+          "Opp Pitcher": "Yusei Kikuchi",
+          "Score": 100.0,
+          "Per Game": 2.89,
+          "AVG": 0.324,
+          "OPS": 1.116
+        },
+        {
+          "Player": "Aaron Judge",
+          "Team": "NYY",
+          "Opp Team": "TEX",
+          "Opp Pitcher": "Nathan Eovaldi",
+          "Score": 97.6,
+          "Per Game": 2.67,
+          "AVG": 0.333,
+          "OPS": 1.312
+        },
+        {
+          "Player": "Munetaka Murakami",
+          "Team": "CHW",
+          "Opp Team": "LAA",
+          "Opp Pitcher": "Yusei Kikuchi",
+          "Score": 96.5,
+          "Per Game": 3.11,
+          "AVG": 0.293,
+          "OPS": 0.985
+        },
+        {
+          "Player": "Mickey Moniak",
+          "Team": "COL",
+          "Opp Team": "CIN",
+          "Opp Pitcher": "Brandon Williamson",
+          "Score": 95.1,
+          "Per Game": 3.12,
+          "AVG": 0.382,
+          "OPS": 1.123
+        }
+      ],
+      "saved_at": "2026-04-29T06:02:45.632211-04:00",
+      "verified": false
+    }
+  }
+}
