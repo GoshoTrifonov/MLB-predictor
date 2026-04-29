@@ -1,7 +1,5 @@
 """
-MLB Home Run Probability Picks
-Combines batter HR rate, opposing pitcher HR/9 allowed, and park factor
-to estimate each hitter's HR probability tonight.
+MLB Home Run Probability Picks (with Save button)
 """
 
 import streamlit as st
@@ -10,6 +8,10 @@ import requests
 import time
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from picks_storage import save_todays_picks
 
 TORONTO_TZ = ZoneInfo("America/Toronto")
 
@@ -28,49 +30,17 @@ TEAM_NAMES = {
     147:"NYY",158:"MIL"
 }
 
-# Park HR factors (>1 = boosts HRs, <1 = suppresses)
-# Based on 5-year averages from Baseball Savant park factors
 PARK_HR_FACTORS = {
-    115: 1.35,  # COL — Coors Field 🏔️
-    147: 1.20,  # NYY — Yankee Stadium
-    113: 1.18,  # CIN — Great American Ball Park
-    111: 1.15,  # BOS — Fenway Park
-    140: 1.13,  # TEX — Globe Life Field
-    142: 1.10,  # MIN — Target Field
-    158: 1.08,  # MIL — American Family Field
-    110: 1.07,  # BAL — Camden Yards
-    143: 1.05,  # PHI — Citizens Bank Park
-    121: 1.03,  # NYM — Citi Field
-    144: 1.02,  # ATL — Truist Park
-    109: 1.01,  # ARI — Chase Field
-    116: 1.00,  # DET — Comerica Park
-    117: 0.99,  # HOU — Minute Maid
-    119: 0.98,  # LAD — Dodger Stadium
-    138: 0.97,  # STL — Busch Stadium
-    108: 0.97,  # LAA — Angel Stadium
-    145: 0.96,  # CHW — Guaranteed Rate
-    146: 0.95,  # MIA — loanDepot park
-    134: 0.95,  # PIT — PNC Park
-    112: 0.94,  # CHC — Wrigley Field
-    133: 0.93,  # OAK — Oakland Coliseum
-    114: 0.93,  # CLE — Progressive Field
-    136: 0.92,  # SEA — T-Mobile Park
-    118: 0.92,  # KCR — Kauffman Stadium
-    120: 0.90,  # WSN — Nationals Park
-    141: 0.90,  # TOR — Rogers Centre
-    137: 0.85,  # SFG — Oracle Park
-    135: 0.83,  # SDP — Petco Park
-    139: 0.82,  # TBR — Tropicana Field
+    115:1.35,147:1.20,113:1.18,111:1.15,140:1.13,142:1.10,158:1.08,110:1.07,
+    143:1.05,121:1.03,144:1.02,109:1.01,116:1.00,117:0.99,119:0.98,138:0.97,
+    108:0.97,145:0.96,146:0.95,134:0.95,112:0.94,133:0.93,114:0.93,136:0.92,
+    118:0.92,120:0.90,141:0.90,137:0.85,135:0.83,139:0.82,
 }
 
-LEAGUE_AVG_HR_RATE = 0.034  # ~3.4% chance per PA league-wide
+LEAGUE_AVG_HR_PER_9 = 1.20
 
-# ─────────────────────────────────────────────
-# DATA FETCHERS
-# ─────────────────────────────────────────────
 @st.cache_data(ttl=3600)
 def get_batter_season(team_id):
-    """Pull season-to-date hitting stats for a team."""
     season = datetime.now(TORONTO_TZ).year
     url = "https://statsapi.mlb.com/api/v1/stats"
     params = {"stats":"season","group":"hitting","teamId":team_id,
@@ -88,7 +58,6 @@ def get_todays_matchups():
         data = requests.get(url, timeout=10).json()
     except Exception:
         return {}
-    
     matchups = {}
     for d in data.get("dates", []):
         for g in d.get("games", []):
@@ -97,25 +66,22 @@ def get_todays_matchups():
             home_id, away_id = home["team"]["id"], away["team"]["id"]
             home_pit = home.get("probablePitcher", {})
             away_pit = away.get("probablePitcher", {})
-            venue_id = home_id  # game is at home team's park
-            
             matchups[home_id] = {
                 "opp_pit_id": away_pit.get("id"),
                 "opp_pit_name": away_pit.get("fullName", "TBD"),
                 "opp_team": TEAM_NAMES.get(away_id, str(away_id)),
-                "park_team_id": venue_id,
+                "park_team_id": home_id,
             }
             matchups[away_id] = {
                 "opp_pit_id": home_pit.get("id"),
                 "opp_pit_name": home_pit.get("fullName", "TBD"),
                 "opp_team": TEAM_NAMES.get(home_id, str(home_id)),
-                "park_team_id": venue_id,
+                "park_team_id": home_id,
             }
     return matchups
 
 @st.cache_data(ttl=3600)
 def get_pitcher_hr_rate(pitcher_id):
-    """Return pitcher's HR/9 from season stats."""
     if pitcher_id is None:
         return None
     season = datetime.now(TORONTO_TZ).year
@@ -130,14 +96,13 @@ def get_pitcher_hr_rate(pitcher_id):
                 ip_str = stat.get("inningsPitched", "0")
                 ip = float(ip_str) if ip_str else 0
                 if ip > 0:
-                    return {"hr_per_9": (hr / ip) * 9, "ip": ip, "hr": hr}
+                    return {"hr_per_9": (hr / ip) * 9}
     except Exception:
         pass
     return None
 
 @st.cache_data(ttl=3600)
 def fetch_all_batter_hr_stats():
-    """Get every batter's season HR + PA stats."""
     rows = []
     for tid in TEAM_IDS:
         data = get_batter_season(tid)
@@ -146,36 +111,26 @@ def fetch_all_batter_hr_stats():
                 p = s.get("player", {})
                 st_ = s.get("stat", {})
                 pa = st_.get("plateAppearances", 0)
-                if pa < 30:  # need meaningful sample
-                    continue
+                if pa < 30: continue
                 hr = st_.get("homeRuns", 0)
-                ab = st_.get("atBats", 0)
                 rows.append({
                     "Player":  p.get("fullName"),
                     "team_id": tid,
                     "Team":    TEAM_NAMES.get(tid, str(tid)),
                     "G":       st_.get("gamesPlayed", 0),
                     "PA":      pa,
-                    "AB":      ab,
                     "HR":      hr,
                     "HR/PA":   round(hr / pa, 4) if pa else 0,
-                    "AB/HR":   round(ab / hr, 1) if hr else None,
-                    "ISO":     pd.to_numeric(st_.get("ops"), errors="coerce"),  # OPS as power proxy
                     "SLG":     pd.to_numeric(st_.get("slg"), errors="coerce"),
                 })
         time.sleep(0.1)
     return pd.DataFrame(rows)
 
-# ─────────────────────────────────────────────
-# SIDEBAR
-# ─────────────────────────────────────────────
+# Sidebar
 min_pa = st.sidebar.slider("Min plate appearances", 30, 100, 50)
 min_hr = st.sidebar.slider("Min season HRs", 0, 10, 1)
 search = st.sidebar.text_input("Search player").lower()
 
-# ─────────────────────────────────────────────
-# FETCH
-# ─────────────────────────────────────────────
 with st.spinner("Pulling batter HR stats..."):
     df = fetch_all_batter_hr_stats()
 
@@ -183,24 +138,18 @@ with st.spinner("Pulling tonight's matchups..."):
     matchups = get_todays_matchups()
 
 df = df[(df["PA"] >= min_pa) & (df["HR"] >= min_hr)].copy()
-
-# Filter to today's teams
 df = df[df["team_id"].isin(matchups.keys())].copy()
 
 if len(df) == 0:
     st.warning("No qualifying batters playing today.")
     st.stop()
 
-# Attach matchup info
 df["Opp Pitcher"] = df["team_id"].map(lambda t: matchups.get(t,{}).get("opp_pit_name","TBD"))
 df["Opp Team"]    = df["team_id"].map(lambda t: matchups.get(t,{}).get("opp_team","?"))
 df["opp_pit_id"]  = df["team_id"].map(lambda t: matchups.get(t,{}).get("opp_pit_id"))
 df["park_id"]     = df["team_id"].map(lambda t: matchups.get(t,{}).get("park_team_id"))
 df["Park Factor"] = df["park_id"].map(PARK_HR_FACTORS).fillna(1.0).round(2)
 
-# ─────────────────────────────────────────────
-# FETCH PITCHER STATS
-# ─────────────────────────────────────────────
 unique_pids = df["opp_pit_id"].dropna().unique()
 pit_cache = {}
 prog = st.progress(0, text="Fetching pitcher HR/9...")
@@ -209,16 +158,11 @@ for i, pid in enumerate(unique_pids):
     prog.progress((i+1)/len(unique_pids))
 prog.empty()
 
-LEAGUE_AVG_HR_PER_9 = 1.20
-
 def pitcher_hr_factor(pid):
-    if pd.isna(pid):
-        return 1.0
+    if pd.isna(pid): return 1.0
     stats = pit_cache.get(int(pid))
-    if not stats or stats.get("hr_per_9") is None:
-        return 1.0
-    factor = stats["hr_per_9"] / LEAGUE_AVG_HR_PER_9
-    return max(0.5, min(2.0, factor))
+    if not stats or stats.get("hr_per_9") is None: return 1.0
+    return max(0.5, min(2.0, stats["hr_per_9"] / LEAGUE_AVG_HR_PER_9))
 
 df["Opp HR/9"] = df["opp_pit_id"].apply(
     lambda pid: round(pit_cache.get(int(pid),{}).get("hr_per_9"), 2)
@@ -226,26 +170,14 @@ df["Opp HR/9"] = df["opp_pit_id"].apply(
 )
 df["Pit Factor"] = df["opp_pit_id"].apply(pitcher_hr_factor).round(2)
 
-# ─────────────────────────────────────────────
-# HR PROBABILITY CALCULATION
-# ─────────────────────────────────────────────
-# Estimated PA per game ≈ 4
 PA_PER_GAME = 4
-
-# Adjusted HR/PA = batter base × pitcher factor × park factor
 df["Adj HR/PA"] = (df["HR/PA"] * df["Pit Factor"] * df["Park Factor"]).round(4)
+df["HR Prob %"] = ((1 - (1 - df["Adj HR/PA"])**PA_PER_GAME) * 100).round(1)
 
-# P(at least 1 HR) = 1 - (1 - HR/PA)^PA
-df["HR Prob %"] = (1 - (1 - df["Adj HR/PA"])**PA_PER_GAME) * 100
-df["HR Prob %"] = df["HR Prob %"].round(1)
-
-# Implied fair odds for "to hit a HR"
 def prob_to_odds(p):
     p = p / 100
-    if p <= 0 or p >= 1:
-        return "—"
-    if p >= 0.5:
-        return f"-{int(p / (1 - p) * 100)}"
+    if p <= 0 or p >= 1: return "—"
+    if p >= 0.5: return f"-{int(p / (1 - p) * 100)}"
     return f"+{int((1 - p) / p * 100)}"
 
 df["Fair Odds"] = df["HR Prob %"].apply(prob_to_odds)
@@ -255,15 +187,23 @@ if search:
 
 df = df.sort_values("HR Prob %", ascending=False).reset_index(drop=True)
 
-# ─────────────────────────────────────────────
-# DISPLAY
-# ─────────────────────────────────────────────
+# ── SAVE BUTTON ──
+c1, c2, c3 = st.columns([2,1,2])
+with c2:
+    if st.button("💾 Save Today's Picks", use_container_width=True):
+        top10 = df.head(10).copy()
+        picks_to_save = top10[["Player","Team","Opp Team","Opp Pitcher","HR Prob %","Fair Odds","HR/PA"]].to_dict(orient="records")
+        if save_todays_picks("hr", picks_to_save):
+            st.success("✅ Top 10 HR picks saved!")
+        else:
+            st.error("Save failed — check GITHUB_TOKEN in secrets.")
+
+st.markdown("---")
+
 c1, c2, c3 = st.columns(3)
 c1.metric("Batters playing tonight", len(df))
 c2.metric("Avg HR Prob", f"{df['HR Prob %'].mean():.1f}%")
 c3.metric("Top HR Prob", f"{df['HR Prob %'].max():.1f}%")
-
-st.markdown("---")
 
 display_cols = ["Player","Team","Opp Team","Opp Pitcher","Opp HR/9","Park Factor","Pit Factor",
                 "PA","HR","HR/PA","HR Prob %","Fair Odds"]
@@ -278,25 +218,3 @@ show_picks(df.iloc[9:18], 9, "Picks 10–18 — Honorable Mentions", "📋")
 
 with st.expander("📊 Full ranked list"):
     st.dataframe(df[display_cols], hide_index=True, use_container_width=True)
-
-with st.expander("ℹ️ How HR probability is calculated"):
-    st.markdown("""
-    **Inputs:**
-    - **HR/PA** — batter's home run rate per plate appearance (season)
-    - **Pit Factor** — opposing pitcher's HR/9 ÷ league avg (1.20)
-    - **Park Factor** — venue's historical HR boost/suppression (Coors = 1.35, Petco = 0.83)
-    
-    **Formula:**
-    ```
-    Adjusted HR/PA = HR/PA × Pit Factor × Park Factor
-    HR Prob % = 1 - (1 - Adjusted HR/PA)^4
-    ```
-    (Using 4 plate appearances per game as the average.)
-    
-    **Fair Odds** = the American odds equivalent of the HR probability.
-    
-    **How to bet:**
-    - If sportsbook offers HR odds **better** than Fair Odds → potential value
-    - Example: Fair Odds +400, sportsbook offers +500 → +1% edge per bet
-    - HR props are high-variance — never stake more than 1% of bankroll per pick
-    """)
