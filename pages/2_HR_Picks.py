@@ -127,8 +127,8 @@ def fetch_all_batter_hr_stats():
     return pd.DataFrame(rows)
 
 # Sidebar
-min_pa = st.sidebar.slider("Min plate appearances", 30, 100, 50)
-min_hr = st.sidebar.slider("Min season HRs", 0, 10, 1)
+min_pa = st.sidebar.slider("Min plate appearances", 30, 150, 80)
+min_hr = st.sidebar.slider("Min season HRs", 0, 15, 2)
 search = st.sidebar.text_input("Search player").lower()
 
 with st.spinner("Pulling batter HR stats..."):
