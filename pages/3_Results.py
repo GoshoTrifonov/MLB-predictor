@@ -72,7 +72,7 @@ for prop_type, prop_data in day_data.items():
             # Win condition: actual H+R+RBI >= 2 (typical 1.5 line)
             df["Win?"] = df.apply(
                 lambda r: "—" if not r.get("played") 
-                else ("✅" if r.get("actual_HRR", 0) >= 2 else "❌"),
+                else ("✅" if r.get("actual_HRR", 0) >= 1 else "❌"),
                 axis=1
             )
             cols_show = ["Player","Team","Opp Pitcher","Score","actual_HRR","Win?"]
