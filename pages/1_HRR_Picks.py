@@ -123,8 +123,8 @@ def fetch_all_batters(days_back=10):
     return pd.DataFrame(rows)
 
 # Sidebar
-days = st.sidebar.slider("Days back for form", 5, 20, 10)
-min_games = st.sidebar.slider("Minimum games played", 3, 10, 5)
+days = st.sidebar.slider("Days back for form", 5, 20, 15)
+min_games = st.sidebar.slider("Minimum games played", 3, 10, 7)
 search = st.sidebar.text_input("Search player").lower()
 
 with st.spinner("Pulling batter form..."):
