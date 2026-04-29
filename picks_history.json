@@ -7,7 +7,7 @@
           "Team": "ARI",
           "Opp Team": "MIL",
           "Opp Pitcher": "Brandon Sproat",
-          "Score": 136.7,
+          "Score": 138.0,
           "Per Game": 3.64,
           "AVG": 0.341,
           "OPS": 1.129
@@ -17,27 +17,17 @@
           "Team": "HOU",
           "Opp Team": "BAL",
           "Opp Pitcher": "Chris Bassitt",
-          "Score": 135.9,
+          "Score": 137.4,
           "Per Game": 3.31,
           "AVG": 0.389,
           "OPS": 1.19
-        },
-        {
-          "Player": "Munetaka Murakami",
-          "Team": "CHW",
-          "Opp Team": "LAA",
-          "Opp Pitcher": "Yusei Kikuchi",
-          "Score": 124.9,
-          "Per Game": 3.29,
-          "AVG": 0.316,
-          "OPS": 1.146
         },
         {
           "Player": "Seiya Suzuki",
           "Team": "CHC",
           "Opp Team": "SDP",
           "Opp Pitcher": "Matt Waldron",
-          "Score": 118.0,
+          "Score": 119.3,
           "Per Game": 2.86,
           "AVG": 0.358,
           "OPS": 1.103
@@ -47,17 +37,27 @@
           "Team": "TOR",
           "Opp Team": "BOS",
           "Opp Pitcher": "Brayan Bello",
-          "Score": 106.4,
-          "Per Game": 2.79,
-          "AVG": 0.358,
-          "OPS": 0.895
+          "Score": 117.3,
+          "Per Game": 2.93,
+          "AVG": 0.393,
+          "OPS": 0.961
+        },
+        {
+          "Player": "Munetaka Murakami",
+          "Team": "CHW",
+          "Opp Team": "LAA",
+          "Opp Pitcher": "Yusei Kikuchi",
+          "Score": 111.3,
+          "Per Game": 3.07,
+          "AVG": 0.305,
+          "OPS": 1.135
         },
         {
           "Player": "Christian Walker",
           "Team": "HOU",
           "Opp Team": "BAL",
           "Opp Pitcher": "Chris Bassitt",
-          "Score": 104.9,
+          "Score": 106.1,
           "Per Game": 2.62,
           "AVG": 0.319,
           "OPS": 1.027
@@ -67,43 +67,43 @@
           "Team": "CHC",
           "Opp Team": "SDP",
           "Opp Pitcher": "Matt Waldron",
-          "Score": 97.5,
+          "Score": 98.3,
           "Per Game": 2.93,
           "AVG": 0.286,
           "OPS": 0.777
-        },
-        {
-          "Player": "Aaron Judge",
-          "Team": "NYY",
-          "Opp Team": "TEX",
-          "Opp Pitcher": "Nathan Eovaldi",
-          "Score": 97.5,
-          "Per Game": 2.36,
-          "AVG": 0.298,
-          "OPS": 1.225
         },
         {
           "Player": "Dansby Swanson",
           "Team": "CHC",
           "Opp Team": "SDP",
           "Opp Pitcher": "Matt Waldron",
-          "Score": 91.8,
+          "Score": 92.7,
           "Per Game": 2.57,
           "AVG": 0.261,
           "OPS": 0.89
         },
         {
-          "Player": "Colson Montgomery",
-          "Team": "CHW",
-          "Opp Team": "LAA",
-          "Opp Pitcher": "Yusei Kikuchi",
-          "Score": 91.5,
-          "Per Game": 2.36,
-          "AVG": 0.275,
-          "OPS": 0.991
+          "Player": "Josh Jung",
+          "Team": "TEX",
+          "Opp Team": "NYY",
+          "Opp Pitcher": "Elmer Rodr\u00edguez",
+          "Score": 89.3,
+          "Per Game": 2.87,
+          "AVG": 0.375,
+          "OPS": 1.188
+        },
+        {
+          "Player": "Mickey Moniak",
+          "Team": "COL",
+          "Opp Team": "CIN",
+          "Opp Pitcher": "Brandon Williamson",
+          "Score": 87.1,
+          "Per Game": 2.38,
+          "AVG": 0.34,
+          "OPS": 1.009
         }
       ],
-      "saved_at": "2026-04-29T06:05:28.677147-04:00",
+      "saved_at": "2026-04-29T18:29:19.495506-04:00",
       "verified": false
     },
     "hr": {
