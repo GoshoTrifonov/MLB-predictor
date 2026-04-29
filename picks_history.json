@@ -105,6 +105,102 @@
       ],
       "saved_at": "2026-04-29T06:05:28.677147-04:00",
       "verified": false
+    },
+    "hr": {
+      "picks": [
+        {
+          "Player": "Aaron Judge",
+          "Team": "NYY",
+          "Opp Team": "TEX",
+          "Opp Pitcher": "Nathan Eovaldi",
+          "HR Prob %": 60.5,
+          "Fair Odds": "-153",
+          "HR/PA": 0.0916
+        },
+        {
+          "Player": "Ben Rice",
+          "Team": "NYY",
+          "Opp Team": "TEX",
+          "Opp Pitcher": "Nathan Eovaldi",
+          "HR Prob %": 57.3,
+          "Fair Odds": "-134",
+          "HR/PA": 0.0847
+        },
+        {
+          "Player": "Elly De La Cruz",
+          "Team": "CIN",
+          "Opp Team": "COL",
+          "Opp Pitcher": "Tomoyuki Sugano",
+          "HR Prob %": 42.9,
+          "Fair Odds": "+133",
+          "HR/PA": 0.0769
+        },
+        {
+          "Player": "Sal Stewart",
+          "Team": "CIN",
+          "Opp Team": "COL",
+          "Opp Pitcher": "Tomoyuki Sugano",
+          "HR Prob %": 40.4,
+          "Fair Odds": "+147",
+          "HR/PA": 0.0714
+        },
+        {
+          "Player": "Dillon Dingler",
+          "Team": "DET",
+          "Opp Team": "ATL",
+          "Opp Pitcher": "JR Ritchie",
+          "HR Prob %": 35.0,
+          "Fair Odds": "+185",
+          "HR/PA": 0.05
+        },
+        {
+          "Player": "Yordan Alvarez",
+          "Team": "HOU",
+          "Opp Team": "BAL",
+          "Opp Pitcher": "Chris Bassitt",
+          "HR Prob %": 32.6,
+          "Fair Odds": "+206",
+          "HR/PA": 0.0821
+        },
+        {
+          "Player": "Spencer Torkelson",
+          "Team": "DET",
+          "Opp Team": "ATL",
+          "Opp Pitcher": "JR Ritchie",
+          "HR Prob %": 32.0,
+          "Fair Odds": "+212",
+          "HR/PA": 0.045
+        },
+        {
+          "Player": "Hunter Goodman",
+          "Team": "COL",
+          "Opp Team": "CIN",
+          "Opp Pitcher": "Brandon Williamson",
+          "HR Prob %": 31.2,
+          "Fair Odds": "+220",
+          "HR/PA": 0.0631
+        },
+        {
+          "Player": "Willson Contreras",
+          "Team": "BOS",
+          "Opp Team": "TOR",
+          "Opp Pitcher": "Eric Lauer",
+          "HR Prob %": 30.5,
+          "Fair Odds": "+227",
+          "HR/PA": 0.0484
+        },
+        {
+          "Player": "Spencer Steer",
+          "Team": "CIN",
+          "Opp Team": "COL",
+          "Opp Pitcher": "Tomoyuki Sugano",
+          "HR Prob %": 29.1,
+          "Fair Odds": "+243",
+          "HR/PA": 0.0485
+        }
+      ],
+      "saved_at": "2026-04-29T06:10:31.813348-04:00",
+      "verified": false
     }
   }
 }
