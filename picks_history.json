@@ -113,18 +113,18 @@
           "Team": "NYY",
           "Opp Team": "TEX",
           "Opp Pitcher": "Nathan Eovaldi",
-          "HR Prob %": 60.5,
-          "Fair Odds": "-153",
-          "HR/PA": 0.0916
+          "HR Prob %": 53.2,
+          "Fair Odds": "-113",
+          "HR/PA": 0.0889
         },
         {
           "Player": "Ben Rice",
           "Team": "NYY",
           "Opp Team": "TEX",
           "Opp Pitcher": "Nathan Eovaldi",
-          "HR Prob %": 57.3,
-          "Fair Odds": "-134",
-          "HR/PA": 0.0847
+          "HR Prob %": 50.1,
+          "Fair Odds": "-100",
+          "HR/PA": 0.082
         },
         {
           "Player": "Elly De La Cruz",
@@ -154,6 +154,15 @@
           "HR/PA": 0.05
         },
         {
+          "Player": "Willson Contreras",
+          "Team": "BOS",
+          "Opp Team": "TOR",
+          "Opp Pitcher": "Eric Lauer",
+          "HR Prob %": 33.1,
+          "Fair Odds": "+202",
+          "HR/PA": 0.0547
+        },
+        {
           "Player": "Yordan Alvarez",
           "Team": "HOU",
           "Opp Team": "BAL",
@@ -181,15 +190,6 @@
           "HR/PA": 0.0631
         },
         {
-          "Player": "Willson Contreras",
-          "Team": "BOS",
-          "Opp Team": "TOR",
-          "Opp Pitcher": "Eric Lauer",
-          "HR Prob %": 30.5,
-          "Fair Odds": "+227",
-          "HR/PA": 0.0484
-        },
-        {
           "Player": "Spencer Steer",
           "Team": "CIN",
           "Opp Team": "COL",
@@ -199,7 +199,7 @@
           "HR/PA": 0.0485
         }
       ],
-      "saved_at": "2026-04-29T06:10:31.813348-04:00",
+      "saved_at": "2026-04-29T18:29:29.699353-04:00",
       "verified": false
     }
   }
