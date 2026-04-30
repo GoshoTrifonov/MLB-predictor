@@ -42,11 +42,13 @@ def all_verified(day_data):
     for prop_data in day_data.values():
         if is_multi_model(prop_data):
             for k, lst in prop_data.items():
-                if k.startswith("model_"):
+                if k.startswith("model_") and isinstance(lst, list):
                     flat_picks.extend(lst)
-        elif "picks" in prop_data:
+        elif isinstance(prop_data, dict) and "picks" in prop_data:
             flat_picks.extend(prop_data["picks"])
-    return all(p.get("verified_date") == selected_date for p in flat_picks) if flat_picks else False
+    if not flat_picks:
+        return False
+    return all(isinstance(p, dict) and p.get("verified_date") == selected_date for p in flat_picks)
 
 verified = all_verified(day_data)
 
