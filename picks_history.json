@@ -14,7 +14,11 @@
             "AVG": 0.341,
             "OPS": 1.129,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Yordan Alvarez",
@@ -27,7 +31,11 @@
             "AVG": 0.389,
             "OPS": 1.19,
             "PDF": 1.5,
-            "Loc Factor": 0.85
+            "Loc Factor": 0.85,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Matt Olson",
@@ -40,7 +48,11 @@
             "AVG": 0.315,
             "OPS": 1.066,
             "PDF": 0.64,
-            "Loc Factor": 0.96
+            "Loc Factor": 0.96,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Josh Jung",
@@ -53,7 +65,11 @@
             "AVG": 0.375,
             "OPS": 1.188,
             "PDF": 1.07,
-            "Loc Factor": 1.12
+            "Loc Factor": 1.12,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Ozzie Albies",
@@ -66,7 +82,11 @@
             "AVG": 0.352,
             "OPS": 1.067,
             "PDF": 0.64,
-            "Loc Factor": 1.05
+            "Loc Factor": 1.05,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Hunter Goodman",
@@ -79,7 +99,11 @@
             "AVG": 0.3,
             "OPS": 1.184,
             "PDF": 1.45,
-            "Loc Factor": 1.03
+            "Loc Factor": 1.03,
+            "actual_HRR": 10,
+            "actual_HR": 2,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Munetaka Murakami",
@@ -92,7 +116,11 @@
             "AVG": 0.305,
             "OPS": 1.135,
             "PDF": 1.38,
-            "Loc Factor": 0.82
+            "Loc Factor": 0.82,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Seiya Suzuki",
@@ -105,7 +133,11 @@
             "AVG": 0.358,
             "OPS": 1.103,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Michael Harris II",
@@ -118,7 +150,11 @@
             "AVG": 0.391,
             "OPS": 1.137,
             "PDF": 0.64,
-            "Loc Factor": 0.75
+            "Loc Factor": 0.75,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Vladimir Guerrero Jr.",
@@ -131,7 +167,11 @@
             "AVG": 0.393,
             "OPS": 0.961,
             "PDF": 1.5,
-            "Loc Factor": 1.03
+            "Loc Factor": 1.03,
+            "actual_HRR": 5,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           }
         ],
         "model_B": [
@@ -146,7 +186,11 @@
             "AVG": 0.341,
             "OPS": 1.129,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Yordan Alvarez",
@@ -159,7 +203,11 @@
             "AVG": 0.389,
             "OPS": 1.19,
             "PDF": 1.5,
-            "Loc Factor": 0.85
+            "Loc Factor": 0.85,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Hunter Goodman",
@@ -172,7 +220,11 @@
             "AVG": 0.3,
             "OPS": 1.184,
             "PDF": 1.45,
-            "Loc Factor": 1.03
+            "Loc Factor": 1.03,
+            "actual_HRR": 10,
+            "actual_HR": 2,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Seiya Suzuki",
@@ -185,7 +237,11 @@
             "AVG": 0.358,
             "OPS": 1.103,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Vladimir Guerrero Jr.",
@@ -198,7 +254,11 @@
             "AVG": 0.393,
             "OPS": 0.961,
             "PDF": 1.5,
-            "Loc Factor": 1.03
+            "Loc Factor": 1.03,
+            "actual_HRR": 5,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Munetaka Murakami",
@@ -211,7 +271,11 @@
             "AVG": 0.305,
             "OPS": 1.135,
             "PDF": 1.38,
-            "Loc Factor": 0.82
+            "Loc Factor": 0.82,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Christian Walker",
@@ -224,7 +288,11 @@
             "AVG": 0.319,
             "OPS": 1.027,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Mickey Moniak",
@@ -237,7 +305,11 @@
             "AVG": 0.34,
             "OPS": 1.03,
             "PDF": 1.45,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Nico Hoerner",
@@ -250,7 +322,11 @@
             "AVG": 0.284,
             "OPS": 0.771,
             "PDF": 1.5,
-            "Loc Factor": 1.05
+            "Loc Factor": 1.05,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Dansby Swanson",
@@ -263,7 +339,11 @@
             "AVG": 0.261,
             "OPS": 0.89,
             "PDF": 1.5,
-            "Loc Factor": 1.16
+            "Loc Factor": 1.16,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           }
         ],
         "model_C": [
@@ -278,7 +358,11 @@
             "AVG": 0.341,
             "OPS": 1.129,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Hunter Goodman",
@@ -291,7 +375,11 @@
             "AVG": 0.3,
             "OPS": 1.184,
             "PDF": 1.45,
-            "Loc Factor": 1.03
+            "Loc Factor": 1.03,
+            "actual_HRR": 10,
+            "actual_HR": 2,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Vladimir Guerrero Jr.",
@@ -304,7 +392,11 @@
             "AVG": 0.393,
             "OPS": 0.961,
             "PDF": 1.5,
-            "Loc Factor": 1.03
+            "Loc Factor": 1.03,
+            "actual_HRR": 5,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Seiya Suzuki",
@@ -317,7 +409,11 @@
             "AVG": 0.358,
             "OPS": 1.103,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Yordan Alvarez",
@@ -330,7 +426,11 @@
             "AVG": 0.389,
             "OPS": 1.19,
             "PDF": 1.5,
-            "Loc Factor": 0.85
+            "Loc Factor": 0.85,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Dansby Swanson",
@@ -343,7 +443,11 @@
             "AVG": 0.261,
             "OPS": 0.89,
             "PDF": 1.5,
-            "Loc Factor": 1.16
+            "Loc Factor": 1.16,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Christian Walker",
@@ -356,7 +460,11 @@
             "AVG": 0.319,
             "OPS": 1.027,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Josh Jung",
@@ -369,7 +477,11 @@
             "AVG": 0.375,
             "OPS": 1.188,
             "PDF": 1.07,
-            "Loc Factor": 1.12
+            "Loc Factor": 1.12,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Mickey Moniak",
@@ -382,7 +494,11 @@
             "AVG": 0.34,
             "OPS": 1.03,
             "PDF": 1.45,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Nico Hoerner",
@@ -395,7 +511,11 @@
             "AVG": 0.284,
             "OPS": 0.771,
             "PDF": 1.5,
-            "Loc Factor": 1.05
+            "Loc Factor": 1.05,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           }
         ]
       },
@@ -417,7 +537,11 @@
             "HR": 12,
             "Park Factor": 1.13,
             "Pit Factor": 1.72,
-            "Loc Factor": 0.84
+            "Loc Factor": 0.84,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Munetaka Murakami",
@@ -431,7 +555,11 @@
             "HR": 12,
             "Park Factor": 0.96,
             "Pit Factor": 0.73,
-            "Loc Factor": 0.73
+            "Loc Factor": 0.73,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Yordan Alvarez",
@@ -445,7 +573,11 @@
             "HR": 11,
             "Park Factor": 1.07,
             "Pit Factor": 1.07,
-            "Loc Factor": 0.78
+            "Loc Factor": 0.78,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Ben Rice",
@@ -459,7 +591,11 @@
             "HR": 10,
             "Park Factor": 1.13,
             "Pit Factor": 1.72,
-            "Loc Factor": 0.68
+            "Loc Factor": 0.68,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Max Muncy",
@@ -473,7 +609,11 @@
             "HR": 9,
             "Park Factor": 0.98,
             "Pit Factor": 0.64,
-            "Loc Factor": 1.07
+            "Loc Factor": 1.07,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Hunter Goodman",
@@ -487,7 +627,11 @@
             "HR": 9,
             "Park Factor": 1.18,
             "Pit Factor": 1.07,
-            "Loc Factor": 1.28
+            "Loc Factor": 1.28,
+            "actual_HRR": 10,
+            "actual_HR": 2,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Elly De La Cruz",
@@ -501,7 +645,11 @@
             "HR": 10,
             "Park Factor": 1.18,
             "Pit Factor": 1.2,
-            "Loc Factor": 1.32
+            "Loc Factor": 1.32,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Mike Trout",
@@ -515,7 +663,11 @@
             "HR": 10,
             "Park Factor": 0.96,
             "Pit Factor": 1.13,
-            "Loc Factor": 1.4
+            "Loc Factor": 1.4,
+            "actual_HRR": 3,
+            "actual_HR": 1,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Kyle Schwarber",
@@ -529,7 +681,11 @@
             "HR": 9,
             "Park Factor": 1.05,
             "Pit Factor": 0.5,
-            "Loc Factor": 1.25
+            "Loc Factor": 1.25,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Sal Stewart",
@@ -543,7 +699,11 @@
             "HR": 9,
             "Park Factor": 1.18,
             "Pit Factor": 1.2,
-            "Loc Factor": 1.25
+            "Loc Factor": 1.25,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           }
         ],
         "model_B": [
@@ -559,7 +719,11 @@
             "HR": 12,
             "Park Factor": 1.13,
             "Pit Factor": 1.72,
-            "Loc Factor": 0.84
+            "Loc Factor": 0.84,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Ben Rice",
@@ -573,7 +737,11 @@
             "HR": 10,
             "Park Factor": 1.13,
             "Pit Factor": 1.72,
-            "Loc Factor": 0.68
+            "Loc Factor": 0.68,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Ildemaro Vargas",
@@ -587,7 +755,11 @@
             "HR": 6,
             "Park Factor": 1.08,
             "Pit Factor": 2.0,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Willson Contreras",
@@ -601,7 +773,11 @@
             "HR": 7,
             "Park Factor": 0.9,
             "Pit Factor": 1.94,
-            "Loc Factor": 1.02
+            "Loc Factor": 1.02,
+            "actual_HRR": 4,
+            "actual_HR": 1,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Nolan Arenado",
@@ -615,7 +791,11 @@
             "HR": 5,
             "Park Factor": 1.08,
             "Pit Factor": 2.0,
-            "Loc Factor": 1.04
+            "Loc Factor": 1.04,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Elly De La Cruz",
@@ -629,7 +809,11 @@
             "HR": 10,
             "Park Factor": 1.18,
             "Pit Factor": 1.2,
-            "Loc Factor": 1.32
+            "Loc Factor": 1.32,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Dillon Dingler",
@@ -643,7 +827,11 @@
             "HR": 5,
             "Park Factor": 1.02,
             "Pit Factor": 1.86,
-            "Loc Factor": 0.65
+            "Loc Factor": 0.65,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Ian Happ",
@@ -657,7 +845,11 @@
             "HR": 7,
             "Park Factor": 0.83,
             "Pit Factor": 1.7,
-            "Loc Factor": 0.6
+            "Loc Factor": 0.6,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Yordan Alvarez",
@@ -671,7 +863,11 @@
             "HR": 11,
             "Park Factor": 1.07,
             "Pit Factor": 1.07,
-            "Loc Factor": 0.78
+            "Loc Factor": 0.78,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": false,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Kazuma Okamoto",
@@ -685,7 +881,11 @@
             "HR": 5,
             "Park Factor": 0.9,
             "Pit Factor": 2.0,
-            "Loc Factor": 1.4
+            "Loc Factor": 1.4,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           }
         ],
         "model_C": [
@@ -701,7 +901,11 @@
             "HR": 12,
             "Park Factor": 1.13,
             "Pit Factor": 1.72,
-            "Loc Factor": 0.84
+            "Loc Factor": 0.84,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Ildemaro Vargas",
@@ -715,7 +919,11 @@
             "HR": 6,
             "Park Factor": 1.08,
             "Pit Factor": 2.0,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Elly De La Cruz",
@@ -729,7 +937,11 @@
             "HR": 10,
             "Park Factor": 1.18,
             "Pit Factor": 1.2,
-            "Loc Factor": 1.32
+            "Loc Factor": 1.32,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Hunter Goodman",
@@ -743,7 +955,11 @@
             "HR": 9,
             "Park Factor": 1.18,
             "Pit Factor": 1.07,
-            "Loc Factor": 1.28
+            "Loc Factor": 1.28,
+            "actual_HRR": 10,
+            "actual_HR": 2,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Ketel Marte",
@@ -757,7 +973,11 @@
             "HR": 5,
             "Park Factor": 1.08,
             "Pit Factor": 2.0,
-            "Loc Factor": 1.4
+            "Loc Factor": 1.4,
+            "actual_HRR": 4,
+            "actual_HR": 1,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Sal Stewart",
@@ -771,7 +991,11 @@
             "HR": 9,
             "Park Factor": 1.18,
             "Pit Factor": 1.2,
-            "Loc Factor": 1.25
+            "Loc Factor": 1.25,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Nolan Arenado",
@@ -785,7 +1009,11 @@
             "HR": 5,
             "Park Factor": 1.08,
             "Pit Factor": 2.0,
-            "Loc Factor": 1.04
+            "Loc Factor": 1.04,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Ben Rice",
@@ -799,7 +1027,11 @@
             "HR": 10,
             "Park Factor": 1.13,
             "Pit Factor": 1.72,
-            "Loc Factor": 0.68
+            "Loc Factor": 0.68,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Kazuma Okamoto",
@@ -813,7 +1045,11 @@
             "HR": 5,
             "Park Factor": 0.9,
             "Pit Factor": 2.0,
-            "Loc Factor": 1.4
+            "Loc Factor": 1.4,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "played": true,
+            "verified_date": "2026-04-29"
           },
           {
             "Player": "Mike Trout",
@@ -827,7 +1063,11 @@
             "HR": 10,
             "Park Factor": 0.96,
             "Pit Factor": 1.13,
-            "Loc Factor": 1.4
+            "Loc Factor": 1.4,
+            "actual_HRR": 3,
+            "actual_HR": 1,
+            "played": true,
+            "verified_date": "2026-04-29"
           }
         ]
       },
