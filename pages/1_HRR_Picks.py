@@ -273,7 +273,7 @@ c1.metric("Hitters playing", len(df))
 c2.metric("Avg form (H+R+RBI/G)", f"{df['Per Game'].mean():.2f}")
 c3.metric("Avg opp ERA", f"{df['Opp ERA'].mean():.2f}" if df['Opp ERA'].notna().any() else "—")
 
-display_cols = ["Player","Team","H/A","Opp Team","Opp Pitcher","Opp ERA","PDF","Loc Factor",
+display_cols = ["Player","Last 5","Team","H/A","Opp Team","Opp Pitcher","Opp ERA","PDF","Loc Factor",
                 "Per Game","AVG","OPS","Score A","Score B","Score C"]
 
 st.markdown(f"### Showing rankings by **{which_model}**")
