@@ -122,7 +122,21 @@ def get_pitcher_stats(pitcher_id):
     except Exception:
         pass
     return None
-
+@st.cache_data(ttl=3600)
+def get_player_gamelog(player_id):
+    season = datetime.now(TORONTO_TZ).year
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats"
+    params = {"stats": "gameLog", "group": "hitting", "season": season}
+    try:
+        data = requests.get(url, params=params, timeout=10).json()
+        games = []
+        for split_group in data.get("stats", []):
+            for s in split_group.get("splits", []):
+                stat = s.get("stat", {})
+                games.append(stat.get("hits", 0) + stat.get("runs", 0) + stat.get("rbi", 0))
+        return games  # oldest → newest
+    except Exception:
+        return []
 @st.cache_data(ttl=3600)
 def fetch_all_batters(days_back=15):
     rows = []
@@ -183,7 +197,21 @@ for i, pid in enumerate(unique_pitchers):
     pitcher_cache[int(pid)] = get_pitcher_stats(int(pid))
     prog.progress((i+1) / len(unique_pitchers))
 prog.empty()
+# Last 5 games streak
+streak_ids = df["player_id"].dropna().unique()
+streak_prog = st.progress(0, text="Fetching last 5 game logs...")
+for i, pid in enumerate(streak_ids):
+    get_player_gamelog(int(pid))
+    streak_prog.progress((i + 1) / len(streak_ids))
+streak_prog.empty()
 
+def make_last5(player_id, threshold=1):
+    games = get_player_gamelog(int(player_id))
+    last5 = games[-5:]
+    icons = "".join("✅" if g >= threshold else "❌" for g in last5)
+    return icons if icons else "—"
+
+df["Last 5"] = df["player_id"].apply(make_last5)
 def pitcher_difficulty_factor(pid):
     if pd.isna(pid): return 1.0
     stats = pitcher_cache.get(int(pid))
