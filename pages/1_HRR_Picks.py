@@ -133,7 +133,9 @@ def get_player_gamelog(player_id):
         for split_group in data.get("stats", []):
             for s in split_group.get("splits", []):
                 stat = s.get("stat", {})
-                games.append(stat.get("hits", 0) + stat.get("runs", 0) + stat.get("rbi", 0))
+                hrr = stat.get("hits", 0) + stat.get("runs", 0) + stat.get("rbi", 0)
+                is_home = s.get("isHome", None)
+                games.append({"hrr": hrr, "is_home": is_home})
         return games  # oldest → newest
     except Exception:
         return []
@@ -205,13 +207,22 @@ for i, pid in enumerate(streak_ids):
     streak_prog.progress((i + 1) / len(streak_ids))
 streak_prog.empty()
 
-def make_last5(player_id, threshold=1):
+def make_last10(player_id, threshold=1):
     games = get_player_gamelog(int(player_id))
-    last5 = games[-5:]
-    icons = "".join("✅" if g >= threshold else "❌" for g in last5)
-    return icons if icons else "—"
+    last10 = games[-10:]
+    icons = []
+    for g in last10:
+        result = "✅" if g["hrr"] >= threshold else "❌"
+        if g.get("is_home") is True:
+            loc = "H"
+        elif g.get("is_home") is False:
+            loc = "A"
+        else:
+            loc = ""
+        icons.append(result + loc)
+    return " ".join(icons) if icons else "—"
 
-df["Last 5"] = df["player_id"].apply(make_last5)
+df["Last 10 (old→new)"] = df["player_id"].apply(make_last10)
 def pitcher_difficulty_factor(pid):
     if pd.isna(pid): return 1.0
     stats = pitcher_cache.get(int(pid))
@@ -273,7 +284,7 @@ c1.metric("Hitters playing", len(df))
 c2.metric("Avg form (H+R+RBI/G)", f"{df['Per Game'].mean():.2f}")
 c3.metric("Avg opp ERA", f"{df['Opp ERA'].mean():.2f}" if df['Opp ERA'].notna().any() else "—")
 
-display_cols = ["Player","Last 5","Team","H/A","Opp Team","Opp Pitcher","Score A","Score B","Score C"]
+display_cols = ["Player","Last 10 (old→new)","Team","H/A","Opp Team","Opp Pitcher","Score A","Score B","Score C"]
 
 st.markdown(f"### Showing rankings by **{which_model}**")
 def show_picks(df_in, n, title, emoji):
