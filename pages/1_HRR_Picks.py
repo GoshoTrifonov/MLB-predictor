@@ -207,11 +207,11 @@ for i, pid in enumerate(streak_ids):
     streak_prog.progress((i + 1) / len(streak_ids))
 streak_prog.empty()
 
-def make_last10(player_id, threshold=1):
+def make_last7(player_id, threshold=1):
     games = get_player_gamelog(int(player_id))
-    last10 = games[-10:]
+    last7 = games[-7:]
     icons = []
-    for g in last10:
+    for g in last7:
         result = "✅" if g["hrr"] >= threshold else "❌"
         if g.get("is_home") is True:
             loc = "H"
@@ -222,7 +222,7 @@ def make_last10(player_id, threshold=1):
         icons.append(result + loc)
     return " ".join(icons) if icons else "—"
 
-df["Last 10 (old→new)"] = df["player_id"].apply(make_last10)
+df["Last 7 (old→new)"] = df["player_id"].apply(make_last7)
 def pitcher_difficulty_factor(pid):
     if pd.isna(pid): return 1.0
     stats = pitcher_cache.get(int(pid))
@@ -284,7 +284,7 @@ c1.metric("Hitters playing", len(df))
 c2.metric("Avg form (H+R+RBI/G)", f"{df['Per Game'].mean():.2f}")
 c3.metric("Avg opp ERA", f"{df['Opp ERA'].mean():.2f}" if df['Opp ERA'].notna().any() else "—")
 
-display_cols = ["Player","Last 10 (old→new)","Team","H/A","Opp Team","Opp Pitcher","Score A","Score B","Score C"]
+display_cols = ["Player","Last 7 (old→new)","Team","H/A","Opp Team","Opp Pitcher","Score A","Score B","Score C"]
 
 st.markdown(f"### Showing rankings by **{which_model}**")
 def show_picks(df_in, n, title, emoji):
