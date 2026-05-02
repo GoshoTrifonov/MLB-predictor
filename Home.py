@@ -257,6 +257,8 @@ if len(results_df) > 0:
         if st.button("💾 Save Today's Picks", use_container_width=True):
             picks_to_save = []
             for r in results:
+                if "Pass" in r["Bet?"]:
+                    continue  # Skip non-value bets
                 picks_to_save.append({
                     "matchup":   r["Matchup"],
                     "home_l10":  r["Home L10 R"],
