@@ -306,8 +306,20 @@ for date_key in sorted(ml_history.keys(), reverse=True):
     day = ml_history[date_key]
     if "moneyline" not in day:
         continue
-    for pick in day["moneyline"]:
-        actual = find_actual_result(pick["matchup"], date_key)
+    
+    # Handle both flat list and nested {"picks": [...]} structures
+    ml_data = day["moneyline"]
+    if isinstance(ml_data, dict):
+        picks_list = ml_data.get("picks", [])
+    elif isinstance(ml_data, list):
+        picks_list = ml_data
+    else:
+        picks_list = []
+    
+    for pick in picks_list:
+        if not isinstance(pick, dict):
+            continue
+        actual = find_actual_result(pick.get("matchup", ""), date_key)
         row = {
             "Date":     date_key,
             "Matchup":  pick["matchup"],
@@ -338,7 +350,7 @@ for date_key in sorted(ml_history.keys(), reverse=True):
             row["Diff"]      = "—"
         ml_rows.append(row)
 
-if not ml_rows:
+if not :
     st.info("No moneyline picks saved yet. Go to **Home** and click '💾 Save Today's Picks'.")
 else:
     ml_df = pd.DataFrame(ml_rows)
