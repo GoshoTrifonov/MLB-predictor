@@ -235,16 +235,14 @@ for i, game in enumerate(games):
         "Matchup":       f"{away} @ {home}",
         "Home L10 R":    f"{home_stats['runs_10']:.1f}",
         "Away L10 R":    f"{away_stats['runs_10']:.1f}",
-        "Home L20 R":    f"{home_stats['runs_20']:.1f}",
-        "Away L20 R":    f"{away_stats['runs_20']:.1f}",
         "Book H%":       f"{book_home_prob:.1%}",
         "Model H%":      f"{model_home_prob:.1%}",
         "Edge H":        f"{edge_home:+.1%}",
         "Edge A":        f"{edge_away:+.1%}",
         "H Odds":        int(home_odds),
         "A Odds":        int(away_odds),
-        "Bet?":          "🟢 HOME" if edge_home > 0.05 else (
-                          "🟢 AWAY" if edge_away > 0.05 else "⚪ Pass")
+        "Bet?":          "🟢 Away" if edge_home > 0.05 else (
+                          "🟢 Home" if edge_away > 0.05 else "⚪ Pass")
     })
 
 progress_text.empty()
