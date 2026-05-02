@@ -250,7 +250,7 @@ with st.expander("ℹ️ How A/B/C tracking works"):
     Rolling leaderboard accumulates across all tracked days.
     """)
 
-    st.dataframe(ml_df, hide_index=True, use_container_width=True)
+
 # ═══════════════════════════════════════════════════════════════════════════
 # MONEYLINE & EXP RUNS TRACKING (from Home page)
 # ═══════════════════════════════════════════════════════════════════════════
