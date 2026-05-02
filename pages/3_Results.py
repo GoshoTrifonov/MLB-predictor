@@ -249,3 +249,114 @@ with st.expander("ℹ️ How A/B/C tracking works"):
     
     Rolling leaderboard accumulates across all tracked days.
     """)
+# ═══════════════════════════════════════════════════════════════════════════
+# MONEYLINE & EXP RUNS TRACKING (from Home page)
+# ═══════════════════════════════════════════════════════════════════════════
+
+import requests
+
+st.markdown("---")
+st.markdown("## ⚾ Moneyline & Run Total Tracker")
+st.caption("From the Home page picks (value bets only)")
+
+ml_history = history  # reuse already-loaded data
+
+@st.cache_data(ttl=900)
+def get_finished_games(date_str):
+    url = "https://statsapi.mlb.com/api/v1/schedule"
+    params = {"sportId": 1, "date": date_str, "hydrate": "linescore"}
+    try:
+        r = requests.get(url, params=params, timeout=10)
+        if r.status_code != 200:
+            return []
+        out = []
+        for d in r.json().get("dates", []):
+            for g in d.get("games", []):
+                if g.get("status", {}).get("abstractGameState") != "Final":
+                    continue
+                home = g["teams"]["home"]
+                away = g["teams"]["away"]
+                out.append({
+                    "home":       home["team"]["name"],
+                    "away":       away["team"]["name"],
+                    "home_score": home.get("score", 0),
+                    "away_score": away.get("score", 0),
+                })
+        return out
+    except Exception:
+        return []
+
+def find_actual_result(matchup_str, date_str):
+    if " @ " not in matchup_str:
+        return None
+    away, home = matchup_str.split(" @ ")
+    for g in get_finished_games(date_str):
+        if (home.lower() in g["home"].lower() or g["home"].lower() in home.lower()) and \
+           (away.lower() in g["away"].lower() or g["away"].lower() in away.lower()):
+            winner = "Home" if g["home_score"] > g["away_score"] else "Away"
+            return {
+                "winner": winner,
+                "total":  g["home_score"] + g["away_score"],
+                "score":  f"{g['away_score']}-{g['home_score']}",
+            }
+    return None
+
+ml_rows = []
+for date_key in sorted(ml_history.keys(), reverse=True):
+    day = ml_history[date_key]
+    if "moneyline" not in day:
+        continue
+    for pick in day["moneyline"]:
+        actual = find_actual_result(pick["matchup"], date_key)
+        row = {
+            "Date":     date_key,
+            "Matchup":  pick["matchup"],
+            "Home L10": pick.get("home_l10", "—"),
+            "Away L10": pick.get("away_l10", "—"),
+            "Exp Runs": pick.get("exp_runs", "—"),
+            "Bet":      pick.get("bet", "—"),
+        }
+        if actual:
+            row["Score"] = actual["score"]
+            row["Total"] = actual["total"]
+            bet = pick.get("bet", "")
+            if "Home" in bet:
+                row["ML Result"] = "✅ Win" if actual["winner"] == "Home" else "❌ Loss"
+            elif "Away" in bet:
+                row["ML Result"] = "✅ Win" if actual["winner"] == "Away" else "❌ Loss"
+            else:
+                row["ML Result"] = "➖ Pass"
+            try:
+                exp = float(pick.get("exp_runs", 0))
+                row["Diff"] = round(abs(exp - actual["total"]), 1)
+            except (ValueError, TypeError):
+                row["Diff"] = "—"
+        else:
+            row["Score"]     = "—"
+            row["Total"]     = "—"
+            row["ML Result"] = "⏳ Pending"
+            row["Diff"]      = "—"
+        ml_rows.append(row)
+
+if not ml_rows:
+    st.info("No moneyline picks saved yet. Go to **Home** and click '💾 Save Today's Picks'.")
+else:
+    ml_df = pd.DataFrame(ml_rows)
+    settled = ml_df[ml_df["ML Result"].isin(["✅ Win", "❌ Loss"])]
+    wins    = (settled["ML Result"] == "✅ Win").sum()
+    total_b = len(settled)
+    win_pct = round(wins / total_b * 100, 1) if total_b else 0
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Total Picks", len(ml_df))
+    c2.metric("Settled Bets", total_b)
+    c3.metric("ML Win Rate", f"{win_pct}%")
+    c4.metric("Pending", (ml_df["ML Result"] == "⏳ Pending").sum())
+
+    valid_diffs = [r["Diff"] for r in ml_rows if isinstance(r["Diff"], (int, float))]
+    if valid_diffs:
+        avg_diff = round(sum(valid_diffs) / len(valid_diffs), 2)
+        st.metric("Avg Exp Runs Error", f"±{avg_diff} runs",
+                  help="Lower = better run total predictions")
+
+    st.dataframe(ml_df, hide_index=True, use_container_width=True)
