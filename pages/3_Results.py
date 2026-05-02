@@ -22,11 +22,7 @@ st.caption("Compare how each model's picks actually performed")
 history, sha = load_picks_history()
 
 
-with st.expander("🔍 Debug — what's in storage"):
-    history_check, _ = load_all_picks()
-    st.write("Dates in history:", list(history_check.keys()))
-    for date_key, day in history_check.items():
-        st.write(f"**{date_key}** has categories:", list(day.keys()))
+
 if not history:
     st.info("No picks saved yet. Save picks on **HRR Picks** or **HR Picks** first!")
     st.stop()
