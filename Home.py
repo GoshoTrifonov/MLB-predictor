@@ -10,6 +10,9 @@ import joblib
 import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from picks_storage import save_todays_picks
 
 TORONTO_TZ = ZoneInfo("America/Toronto")
 
@@ -247,7 +250,24 @@ results_df = pd.DataFrame(results)
 
 st.markdown("### Today's Games & Model Edge")
 st.dataframe(results_df, use_container_width=True, hide_index=True)
-
+# Save button — saves moneyline + exp runs picks
+if len(results_df) > 0:
+    c1, c2, c3 = st.columns([2, 1, 2])
+    with c2:
+        if st.button("💾 Save Today's Picks", use_container_width=True):
+            picks_to_save = []
+            for r in results:
+                picks_to_save.append({
+                    "matchup":   r["Matchup"],
+                    "home_l10":  r["Home L10 R"],
+                    "away_l10":  r["Away L10 R"],
+                    "exp_runs":  r["Exp Runs"],
+                    "bet":       r["Bet?"],
+                })
+            if save_todays_picks("moneyline", picks_to_save):
+                st.success("✅ Picks saved!")
+            else:
+                st.error("Save failed — check GITHUB_TOKEN.")
 value_bets = results_df[results_df["Bet?"] != "⚪ Pass"]
 st.markdown("---")
 c1, c2, c3 = st.columns(3)
