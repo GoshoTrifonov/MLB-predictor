@@ -20,7 +20,7 @@ st.title("📊 Results Tracker — A/B/C Comparison")
 st.caption("Compare how each model's picks actually performed")
 
 history, sha = load_picks_history()
-from picks_storage import load_all_picks
+
 
 with st.expander("🔍 Debug — what's in storage"):
     history_check, _ = load_all_picks()
