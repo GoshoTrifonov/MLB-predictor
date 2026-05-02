@@ -230,7 +230,7 @@ for i, game in enumerate(games):
     edge_home = model_home_prob - book_home_prob
     edge_away = model_away_prob - book_away_prob
 
-expected_runs = (home_stats["runs_10"] + away_stats["runs_10"]) / 1.2
+    expected_runs = (home_stats["runs_10"] + away_stats["runs_10"]) / 1.2
 
     results.append({
         "Time (TO)":     utc_to_toronto(game["commence_time"]),
