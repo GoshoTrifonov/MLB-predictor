@@ -230,11 +230,14 @@ for i, game in enumerate(games):
     edge_home = model_home_prob - book_home_prob
     edge_away = model_away_prob - book_away_prob
 
+expected_runs = (home_stats["runs_10"] + away_stats["runs_10"]) / 1.2
+
     results.append({
         "Time (TO)":     utc_to_toronto(game["commence_time"]),
         "Matchup":       f"{away} @ {home}",
         "Home L10 R":    f"{home_stats['runs_10']:.1f}",
         "Away L10 R":    f"{away_stats['runs_10']:.1f}",
+        "Exp Runs":      f"{expected_runs:.1f}",
         "Bet?":          "🟢 Away" if edge_home > 0.05 else (
                           "🟢 Home" if edge_away > 0.05 else "⚪ Pass")
     })
