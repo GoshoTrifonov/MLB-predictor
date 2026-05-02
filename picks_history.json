@@ -3753,53 +3753,11 @@
     "moneyline": {
       "picks": [
         {
-          "matchup": "Baltimore Orioles @ New York Yankees",
-          "home_l10": "5.0",
-          "away_l10": "4.9",
-          "exp_runs": "8.2",
-          "bet": "\u26aa Pass"
-        },
-        {
-          "matchup": "Toronto Blue Jays @ Minnesota Twins",
-          "home_l10": "4.0",
-          "away_l10": "4.1",
-          "exp_runs": "6.8",
-          "bet": "\u26aa Pass"
-        },
-        {
           "matchup": "Arizona Diamondbacks @ Chicago Cubs",
           "home_l10": "5.8",
           "away_l10": "5.1",
           "exp_runs": "9.1",
           "bet": "\ud83d\udfe2 Home"
-        },
-        {
-          "matchup": "Cincinnati Reds @ Pittsburgh Pirates",
-          "home_l10": "4.8",
-          "away_l10": "5.6",
-          "exp_runs": "8.7",
-          "bet": "\u26aa Pass"
-        },
-        {
-          "matchup": "Cleveland Guardians @ Athletics",
-          "home_l10": "4.5",
-          "away_l10": "3.6",
-          "exp_runs": "6.8",
-          "bet": "\u26aa Pass"
-        },
-        {
-          "matchup": "Milwaukee Brewers @ Washington Nationals",
-          "home_l10": "5.1",
-          "away_l10": "6.0",
-          "exp_runs": "9.2",
-          "bet": "\u26aa Pass"
-        },
-        {
-          "matchup": "Houston Astros @ Boston Red Sox",
-          "home_l10": "3.7",
-          "away_l10": "3.9",
-          "exp_runs": "6.3",
-          "bet": "\u26aa Pass"
         },
         {
           "matchup": "Philadelphia Phillies @ Miami Marlins",
@@ -3842,23 +3800,9 @@
           "away_l10": "5.5",
           "exp_runs": "8.5",
           "bet": "\ud83d\udfe2 Home"
-        },
-        {
-          "matchup": "New York Mets @ Los Angeles Angels",
-          "home_l10": "3.8",
-          "away_l10": "3.5",
-          "exp_runs": "6.1",
-          "bet": "\u26aa Pass"
-        },
-        {
-          "matchup": "Kansas City Royals @ Seattle Mariners",
-          "home_l10": "5.0",
-          "away_l10": "6.2",
-          "exp_runs": "9.3",
-          "bet": "\u26aa Pass"
         }
       ],
-      "saved_at": "2026-05-02T11:02:01.049888-04:00",
+      "saved_at": "2026-05-02T12:05:12.176170-04:00",
       "verified": false
     },
     "hr": {
