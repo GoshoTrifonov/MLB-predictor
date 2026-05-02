@@ -249,6 +249,8 @@ with st.expander("ℹ️ How A/B/C tracking works"):
     
     Rolling leaderboard accumulates across all tracked days.
     """)
+
+    st.dataframe(ml_df, hide_index=True, use_container_width=True)
 # ═══════════════════════════════════════════════════════════════════════════
 # MONEYLINE & EXP RUNS TRACKING (from Home page)
 # ═══════════════════════════════════════════════════════════════════════════
@@ -259,7 +261,7 @@ st.markdown("---")
 st.markdown("## ⚾ Moneyline & Run Total Tracker")
 st.caption("From the Home page picks (value bets only)")
 
-ml_history = history  # reuse already-loaded data
+ml_history = history
 
 @st.cache_data(ttl=900)
 def get_finished_games(date_str):
@@ -277,8 +279,8 @@ def get_finished_games(date_str):
                 home = g["teams"]["home"]
                 away = g["teams"]["away"]
                 out.append({
-                    "home":       home["team"]["name"],
-                    "away":       away["team"]["name"],
+                    "home": home["team"]["name"],
+                    "away": away["team"]["name"],
                     "home_score": home.get("score", 0),
                     "away_score": away.get("score", 0),
                 })
@@ -296,8 +298,8 @@ def find_actual_result(matchup_str, date_str):
             winner = "Home" if g["home_score"] > g["away_score"] else "Away"
             return {
                 "winner": winner,
-                "total":  g["home_score"] + g["away_score"],
-                "score":  f"{g['away_score']}-{g['home_score']}",
+                "total": g["home_score"] + g["away_score"],
+                "score": f"{g['away_score']}-{g['home_score']}",
             }
     return None
 
@@ -306,8 +308,6 @@ for date_key in sorted(ml_history.keys(), reverse=True):
     day = ml_history[date_key]
     if "moneyline" not in day:
         continue
-    
-    # Handle both flat list and nested {"picks": [...]} structures
     ml_data = day["moneyline"]
     if isinstance(ml_data, dict):
         picks_list = ml_data.get("picks", [])
@@ -315,18 +315,17 @@ for date_key in sorted(ml_history.keys(), reverse=True):
         picks_list = ml_data
     else:
         picks_list = []
-    
     for pick in picks_list:
         if not isinstance(pick, dict):
             continue
         actual = find_actual_result(pick.get("matchup", ""), date_key)
         row = {
-            "Date":     date_key,
-            "Matchup":  pick["matchup"],
+            "Date": date_key,
+            "Matchup": pick.get("matchup", "—"),
             "Home L10": pick.get("home_l10", "—"),
             "Away L10": pick.get("away_l10", "—"),
             "Exp Runs": pick.get("exp_runs", "—"),
-            "Bet":      pick.get("bet", "—"),
+            "Bet": pick.get("bet", "—"),
         }
         if actual:
             row["Score"] = actual["score"]
@@ -344,18 +343,18 @@ for date_key in sorted(ml_history.keys(), reverse=True):
             except (ValueError, TypeError):
                 row["Diff"] = "—"
         else:
-            row["Score"]     = "—"
-            row["Total"]     = "—"
+            row["Score"] = "—"
+            row["Total"] = "—"
             row["ML Result"] = "⏳ Pending"
-            row["Diff"]      = "—"
+            row["Diff"] = "—"
         ml_rows.append(row)
 
-if not :
+if not ml_rows:
     st.info("No moneyline picks saved yet. Go to **Home** and click '💾 Save Today's Picks'.")
 else:
     ml_df = pd.DataFrame(ml_rows)
     settled = ml_df[ml_df["ML Result"].isin(["✅ Win", "❌ Loss"])]
-    wins    = (settled["ML Result"] == "✅ Win").sum()
+    wins = (settled["ML Result"] == "✅ Win").sum()
     total_b = len(settled)
     win_pct = round(wins / total_b * 100, 1) if total_b else 0
 
