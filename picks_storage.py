@@ -75,18 +75,31 @@ def save_todays_picks(picks_type, picks_list):
     }
     return save_picks_history(history, sha)
 
+@st.cache_data(ttl=86400)
+def _player_id_lookup(player_name):
+    """Find MLB player ID by name. Cached for 24h."""
+    url = "https://statsapi.mlb.com/api/v1/sports/1/players"
+    params = {"season": datetime.now(TORONTO_TZ).year}
+    try:
+        r = requests.get(url, params=params, timeout=15).json()
+        for p in r.get("people", []):
+            if p.get("fullName", "").lower() == player_name.lower():
+                return p["id"]
+        # Fallback: partial match
+        for p in r.get("people", []):
+            if player_name.lower() in p.get("fullName", "").lower():
+                return p["id"]
+    except Exception:
+        pass
+    return None
+
+
 def get_player_results(player_name, date_str):
     """Look up actual H+R+RBI and HRs for a player on a given date."""
-    url = "https://statsapi.mlb.com/api/v1/people/search"
-    try:
-        r = requests.get(url, params={"names": player_name}, timeout=10).json()
-        people = r.get("people", [])
-        if not people:
-            return None
-        player_id = people[0]["id"]
-    except Exception:
-        return None
-    # Get game log for that date
+    player_id = _player_id_lookup(player_name)
+    if not player_id:
+        return {"played": False, "HRR": 0, "HR": 0}
+
     url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats"
     params = {
         "stats": "gameLog",
@@ -103,9 +116,9 @@ def get_player_results(player_name, date_str):
                 stat = s.get("stat", {})
                 hits = stat.get("hits", 0)
                 runs = stat.get("runs", 0)
-                rbi = stat.get("rbi", 0)
-                hrs = stat.get("homeRuns", 0)
-                ab = stat.get("atBats", 0)
+                rbi  = stat.get("rbi", 0)
+                hrs  = stat.get("homeRuns", 0)
+                ab   = stat.get("atBats", 0)
                 return {
                     "H": hits, "R": runs, "RBI": rbi, "HR": hrs, "AB": ab,
                     "HRR": hits + runs + rbi,
