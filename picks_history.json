@@ -5976,13 +5976,6 @@
           "bet": "\ud83d\udfe2 Home"
         },
         {
-          "matchup": "Philadelphia Phillies @ Miami Marlins",
-          "home_l10": "3.8",
-          "away_l10": "4.2",
-          "exp_runs": "6.7",
-          "bet": "\ud83d\udfe2 Away"
-        },
-        {
           "matchup": "Baltimore Orioles @ New York Yankees",
           "home_l10": "6.2",
           "away_l10": "4.3",
@@ -6004,20 +5997,6 @@
           "bet": "\ud83d\udfe2 Away"
         },
         {
-          "matchup": "Milwaukee Brewers @ St. Louis Cardinals",
-          "home_l10": "5.4",
-          "away_l10": "5.2",
-          "exp_runs": "8.8",
-          "bet": "\ud83d\udfe2 Away"
-        },
-        {
-          "matchup": "Los Angeles Dodgers @ Houston Astros",
-          "home_l10": "4.1",
-          "away_l10": "4.1",
-          "exp_runs": "6.8",
-          "bet": "\ud83d\udfe2 Away"
-        },
-        {
           "matchup": "Chicago White Sox @ Los Angeles Angels",
           "home_l10": "3.9",
           "away_l10": "4.4",
@@ -6032,7 +6011,7 @@
           "bet": "\ud83d\udfe2 Home"
         }
       ],
-      "saved_at": "2026-05-04T05:39:59.524737-04:00",
+      "saved_at": "2026-05-04T12:40:25.765147-04:00",
       "verified": false
     },
     "hr": {
