@@ -119,8 +119,10 @@ def get_player_results(player_name, date_str):
                 rbi  = stat.get("rbi", 0)
                 hrs  = stat.get("homeRuns", 0)
                 ab   = stat.get("atBats", 0)
+                ks = stat.get("strikeOuts", 0)
                 return {
                     "H": hits, "R": runs, "RBI": rbi, "HR": hrs, "AB": ab,
+                    "K": ks,
                     "HRR": hits + runs + rbi,
                     "played": ab > 0,
                 }
