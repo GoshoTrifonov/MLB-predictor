@@ -21,7 +21,7 @@ from picks_storage import save_todays_picks
 TORONTO_TZ = ZoneInfo("America/Toronto")
 
 st.set_page_config(page_title="K Picks", page_icon="🎰", layout="wide")
-st.title("🎰 MLB Batter Strikeout UNDER Picks")
+st.title("🎰 MLB Batter Strikeout Picks")
 st.caption(f"3-model A/B/C comparison • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}")
 
 TEAM_IDS = [108,109,110,111,112,113,114,115,116,117,118,119,120,121,133,
