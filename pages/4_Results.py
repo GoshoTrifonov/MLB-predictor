@@ -112,6 +112,7 @@ with c2:
                             r = results_map.get(p.get("Player")) or {}
                             p["actual_HRR"]    = r.get("HRR", 0)
                             p["actual_HR"]     = r.get("HR", 0)
+                            p["actual_K"]      = r.get("K", 0)
                             p["played"]        = r.get("played", False)
                             p["verified_date"] = selected_date
                 save_picks_history(history, sha)
@@ -128,7 +129,9 @@ def hrr_won(p):
 
 def hr_won(p):
     return p.get("actual_HR", 0) >= 1
-
+def k_won(p):
+    return p.get("actual_K", 0) >= 1
+    
 def model_summary(picks, win_fn):
     played = [p for p in picks if isinstance(p, dict) and p.get("played")]
     wins = sum(1 for p in played if win_fn(p))
@@ -137,10 +140,16 @@ def model_summary(picks, win_fn):
 # ─────────────────────────────────────────────
 # DISPLAY EACH PROP TYPE
 # ─────────────────────────────────────────────
+PROP_CONFIG = {
+    "hrr":    ("🎯 H+R+RBI Picks", hrr_won, "actual_HRR"),
+    "hr":     ("💥 HR Picks",      hr_won,  "actual_HR"),
+    "k_over": ("🎰 K Over 0.5 Picks", k_won, "actual_K"),
+}
+
 for prop_type, prop_data in day_data.items():
-    label = "🎯 H+R+RBI Picks" if prop_type == "hrr" else "💥 HR Picks"
-    win_fn = hrr_won if prop_type == "hrr" else hr_won
-    actual_col = "actual_HRR" if prop_type == "hrr" else "actual_HR"
+    if prop_type not in PROP_CONFIG:
+        continue
+    label, win_fn, actual_col = PROP_CONFIG[prop_type]
     
     st.markdown(f"### {label}")
     
@@ -214,29 +223,23 @@ def aggregate(prop_type, win_fn):
                     by_model["legacy"].append(win_fn(p))
     return by_model
 
-c1, c2 = st.columns(2)
+c1, c2, c3 = st.columns(3)
 
-with c1:
-    st.markdown("**🎯 H+R+RBI Models**")
-    agg = aggregate("hrr", hrr_won)
-    for letter in ["A","B","C"]:
-        results = agg[letter]
-        if results:
-            wr = sum(results)/len(results)*100
-            st.metric(f"Model {letter}", f"{wr:.1f}%", f"{sum(results)}/{len(results)}")
-        else:
-            st.metric(f"Model {letter}", "—")
+def render_leaderboard(col, label, prop_type, win_fn):
+    with col:
+        st.markdown(f"**{label}**")
+        agg = aggregate(prop_type, win_fn)
+        for letter in ["A","B","C"]:
+            results = agg[letter]
+            if results:
+                wr = sum(results)/len(results)*100
+                st.metric(f"Model {letter}", f"{wr:.1f}%", f"{sum(results)}/{len(results)}")
+            else:
+                st.metric(f"Model {letter}", "—")
 
-with c2:
-    st.markdown("**💥 HR Models**")
-    agg = aggregate("hr", hr_won)
-    for letter in ["A","B","C"]:
-        results = agg[letter]
-        if results:
-            wr = sum(results)/len(results)*100
-            st.metric(f"Model {letter}", f"{wr:.1f}%", f"{sum(results)}/{len(results)}")
-        else:
-            st.metric(f"Model {letter}", "—")
+render_leaderboard(c1, "🎯 H+R+RBI Models", "hrr",    hrr_won)
+render_leaderboard(c2, "💥 HR Models",      "hr",     hr_won)
+render_leaderboard(c3, "🎰 K Over Models",  "k_over", k_won)
 
 with st.expander("ℹ️ How A/B/C tracking works"):
     st.markdown("""
