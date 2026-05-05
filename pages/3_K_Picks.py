@@ -231,11 +231,16 @@ streak_prog.empty()
 st.warning(f"🔍 CHECKPOINT 3: Streak fetch done. Fetched {len(streak_ids)} player gamelogs")
 
 def make_last7(player_id, ks_for_win=1):
-    games = get_player_gamelog(int(player_id))
+    if pd.isna(player_id):
+        return "—"
+    try:
+        games = get_player_gamelog(int(player_id))
+    except (ValueError, TypeError):
+        return "—"
     last7 = games[-7:]
     icons = []
     for g in last7:
-        result = "✅" if g["ks"] >= ks_for_win else "❌"
+        result = "✅" if g.get("ks", 0) >= ks_for_win else "❌"
         if g.get("is_home") is True:    loc = "H"
         elif g.get("is_home") is False: loc = "A"
         else:                           loc = ""
