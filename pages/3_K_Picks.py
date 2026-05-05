@@ -98,3 +98,236 @@ def get_todays_matchups():
             matchups[away_id] = {
                 "opp_pit_id": home_pit.get("id"),
                 "opp_pit_name": home_pit.get("fullName", "TBD"),
+                "opp_team": TEAM_NAMES.get(home_id, str(home_id)),
+                "is_home": False,
+            }
+    return matchups
+
+@st.cache_data(ttl=3600)
+def get_pitcher_k9(pitcher_id):
+    if pitcher_id is None: return None
+    season = datetime.now(TORONTO_TZ).year
+    url = f"https://statsapi.mlb.com/api/v1/people/{pitcher_id}/stats"
+    params = {"stats":"season","group":"pitching","season":season}
+    try:
+        data = requests.get(url, params=params, timeout=10).json()
+        for split in data.get("stats", []):
+            for s in split.get("splits", []):
+                stat = s.get("stat", {})
+                k9 = pd.to_numeric(stat.get("strikeoutsPer9Inn"), errors="coerce")
+                if pd.notna(k9):
+                    return {"k9": k9}
+                ks = stat.get("strikeOuts", 0)
+                ip = pd.to_numeric(stat.get("inningsPitched", "0.0"), errors="coerce")
+                if pd.notna(ip) and ip > 0:
+                    return {"k9": (ks * 9) / ip}
+    except Exception:
+        pass
+    return None
+
+@st.cache_data(ttl=3600)
+def get_player_gamelog(player_id):
+    season = datetime.now(TORONTO_TZ).year
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats"
+    params = {"stats": "gameLog", "group": "hitting", "season": season}
+    try:
+        data = requests.get(url, params=params, timeout=10).json()
+        games = []
+        for split_group in data.get("stats", []):
+            for s in split_group.get("splits", []):
+                stat = s.get("stat", {})
+                ks = stat.get("strikeOuts", 0)
+                is_home = s.get("isHome", None)
+                games.append({"ks": ks, "is_home": is_home})
+        return games
+    except Exception:
+        return []
+
+@st.cache_data(ttl=3600)
+def fetch_all_batters(days_back=15):
+    rows = []
+    splits_by_player = {}
+    for tid in TEAM_IDS:
+        data = get_team_form(tid, days_back)
+        splits_data = get_team_splits(tid)
+        splits_by_player.update(parse_team_splits(splits_data))
+        for split in data.get("stats", []):
+            for s in split.get("splits", []):
+                p = s.get("player", {})
+                st_ = s.get("stat", {})
+                g = st_.get("gamesPlayed", 0)
+                if g < 3: continue
+                ks = st_.get("strikeOuts", 0)
+                pa = st_.get("plateAppearances", 0)
+                pid = p.get("id")
+                rows.append({
+                    "player_id": pid,
+                    "Player":   p.get("fullName"),
+                    "team_id":  tid,
+                    "Team":     TEAM_NAMES.get(tid, str(tid)),
+                    "G":        g,
+                    "PA":       pa,
+                    "K/G":      round(ks / g, 2) if g else 0,
+                    "K/PA":     round(ks / pa, 3) if pa else 0,
+                    "AVG":      pd.to_numeric(st_.get("avg"), errors="coerce"),
+                    "OPS":      pd.to_numeric(st_.get("ops"), errors="coerce"),
+                    "home_ops": splits_by_player.get(pid, {}).get("home_ops"),
+                    "away_ops": splits_by_player.get(pid, {}).get("away_ops"),
+                })
+        time.sleep(0.1)
+    return pd.DataFrame(rows)
+
+# Sidebar
+days = st.sidebar.slider("Days back for form", 5, 20, 15)
+min_games = st.sidebar.slider("Minimum games played", 3, 10, 7)
+search = st.sidebar.text_input("Search player").lower()
+which_model = st.sidebar.radio("Display model", ["Model C (Full)","Model B","Model A"], index=0)
+k_threshold = st.sidebar.slider("Win = Ks ≥", 1, 3, 1)
+
+with st.spinner("Pulling batter form + splits..."):
+    df = fetch_all_batters(days)
+
+with st.spinner("Pulling tonight's matchups..."):
+    matchups = get_todays_matchups()
+
+df = df[df["G"] >= min_games].dropna(subset=["AVG","OPS"])
+df = df[df["team_id"].isin(matchups.keys())].copy()
+
+df["Opp Pitcher"] = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_pit_name", "TBD"))
+df["Opp Team"]    = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_team", "?"))
+df["opp_pit_id"]  = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_pit_id"))
+df["is_home"]     = df["team_id"].map(lambda t: matchups.get(t, {}).get("is_home", False))
+df["H/A"]         = df["is_home"].map({True:"🏠", False:"✈️"})
+
+# Pitcher fetch
+unique_pitchers = df["opp_pit_id"].dropna().unique()
+pitcher_cache = {}
+if len(unique_pitchers) > 0:
+    prog = st.progress(0, text="Fetching pitcher K/9 stats...")
+    for i, pid in enumerate(unique_pitchers):
+        pitcher_cache[int(pid)] = get_pitcher_k9(int(pid))
+        prog.progress((i+1) / len(unique_pitchers))
+    prog.empty()
+
+# Last 7 streak
+streak_ids = df["player_id"].dropna().unique()
+if len(streak_ids) > 0:
+    streak_prog = st.progress(0, text="Fetching last 7 game logs...")
+    for i, pid in enumerate(streak_ids):
+        get_player_gamelog(int(pid))
+        streak_prog.progress((i + 1) / len(streak_ids))
+    streak_prog.empty()
+
+def make_last7(player_id, ks_for_win=1):
+    if pd.isna(player_id):
+        return "—"
+    try:
+        games = get_player_gamelog(int(player_id))
+    except (ValueError, TypeError):
+        return "—"
+    last7 = games[-7:]
+    icons = []
+    for g in last7:
+        result = "✅" if g.get("ks", 0) >= ks_for_win else "❌"
+        if g.get("is_home") is True:    loc = "H"
+        elif g.get("is_home") is False: loc = "A"
+        else:                           loc = ""
+        icons.append(result + loc)
+    return " ".join(icons) if icons else "—"
+
+df["Last 7 (old→new)"] = df["player_id"].apply(lambda pid: make_last7(pid, k_threshold))
+
+def pitcher_k_difficulty(pid):
+    if pd.isna(pid): return 1.0
+    stats = pitcher_cache.get(int(pid))
+    if not stats or pd.isna(stats.get("k9")): return 1.0
+    return max(0.5, min(1.5, stats["k9"] / LEAGUE_AVG_K9))
+
+def location_factor(row):
+    h = row.get("home_ops"); a = row.get("away_ops")
+    if pd.isna(h) or pd.isna(a) or a == 0: return 1.0
+    relevant = h if row["is_home"] else a
+    avg = (h + a) / 2
+    if avg == 0 or relevant == 0: return 1.0
+    return max(0.7, min(1.3, avg / relevant))
+
+df["PDF"]        = df["opp_pit_id"].apply(pitcher_k_difficulty).round(2)
+df["Loc Factor"] = df.apply(location_factor, axis=1).round(2)
+df["Opp K/9"]    = df["opp_pit_id"].apply(
+    lambda pid: round(pitcher_cache.get(int(pid), {}).get("k9"), 2)
+                 if pd.notna(pid) and pitcher_cache.get(int(pid)) else None
+)
+
+if search:
+    df = df[df["Player"].str.lower().str.contains(search)]
+
+def safe_norm(series, invert=False):
+    lo, hi = series.min(), series.max()
+    if pd.isna(lo) or pd.isna(hi) or hi == lo:
+        return pd.Series(0.5, index=series.index)
+    n = (series - lo) / (hi - lo)
+    return 1 - n if invert else n
+
+df["k_norm"]   = safe_norm(df["K/PA"])
+df["avg_norm"] = safe_norm(df["AVG"], invert=True)
+df["ops_norm"] = safe_norm(df["OPS"], invert=True)
+
+base = (df["k_norm"]*0.5 + df["avg_norm"]*0.3 + df["ops_norm"]*0.2) * 100
+
+df["Score A"] = base.round(1)
+df["Score B"] = (base * df["PDF"]).round(1)
+df["Score C"] = (base * df["PDF"] * df["Loc Factor"]).round(1)
+
+active_score = {"Model A":"Score A","Model B":"Score B","Model C (Full)":"Score C"}[which_model]
+df = df.sort_values(active_score, ascending=False).reset_index(drop=True)
+
+# Save button
+c1, c2, c3 = st.columns([2,1,2])
+with c2:
+    if st.button("💾 Save All 3 Models", use_container_width=True):
+        out = {}
+        for m, score_col in [("A","Score A"),("B","Score B"),("C","Score C")]:
+            top10 = df.sort_values(score_col, ascending=False).head(10).copy()
+            out[f"model_{m}"] = top10[[
+                "Player","Team","Opp Team","Opp Pitcher","H/A",
+                score_col,"K/G","K/PA","AVG","OPS","PDF","Loc Factor"
+            ]].rename(columns={score_col:"Score"}).to_dict(orient="records")
+        if save_todays_picks("k_over", out):
+            st.success("✅ All 3 model picks saved!")
+        else:
+            st.error("Save failed — check GITHUB_TOKEN.")
+
+st.markdown("---")
+
+c1, c2, c3 = st.columns(3)
+c1.metric("Hitters playing", len(df))
+c2.metric("Avg K/G", f"{df['K/G'].mean():.2f}" if len(df) else "—")
+c3.metric("Avg opp K/9", f"{df['Opp K/9'].mean():.2f}" if df['Opp K/9'].notna().any() else "—")
+
+display_cols = ["Player","Last 7 (old→new)","Team","H/A","Opp Team","Opp Pitcher",
+                "Opp K/9","K/G","Score A","Score B","Score C"]
+
+st.markdown(f"### Showing rankings by **{which_model}**")
+def show_picks(df_in, n, title, emoji):
+    st.markdown(f"#### {emoji} {title}")
+    st.dataframe(df_in.head(n)[display_cols], hide_index=True, use_container_width=True)
+
+show_picks(df, 3, "Top 3", "🏆")
+show_picks(df.iloc[3:9], 6, "Picks 4–9", "💎")
+show_picks(df.iloc[9:18], 9, "Picks 10–18", "📋")
+
+with st.expander("📊 Full ranked list"):
+    st.dataframe(df[display_cols], hide_index=True, use_container_width=True)
+
+with st.expander("ℹ️ Models explained"):
+    st.markdown(f"""
+    **Goal:** Pick batters most likely to strike out at least **{k_threshold}** time(s).
+    
+    Base Score: 50% K rate + 30% (low AVG) + 20% (low OPS).
+    
+    - **Model A** = Base only
+    - **Model B** = Base × PDF (PDF = opp pitcher K/9 ÷ league avg K/9)
+    - **Model C** = Base × PDF × Loc Factor
+    
+    **Last 7 streak:** ✅ = ≥ {k_threshold} K(s) that game (over wins).
+    """)
