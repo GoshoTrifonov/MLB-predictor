@@ -194,7 +194,10 @@ with st.spinner("Pulling batter form + splits..."):
 
 with st.spinner("Pulling tonight's matchups..."):
     matchups = get_todays_matchups()
-
+# DEBUG
+st.warning(f"🔍 DEBUG: matchups found = {len(matchups)} | batters before filter = {len(df)}")
+df_after_team = df[df["team_id"].isin(matchups.keys())]
+st.warning(f"🔍 DEBUG: batters after team filter = {len(df_after_team)}")
 df = df[df["G"] >= min_games].dropna(subset=["AVG","OPS"])
 df = df[df["team_id"].isin(matchups.keys())].copy()
 
