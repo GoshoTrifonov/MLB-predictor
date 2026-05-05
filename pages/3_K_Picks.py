@@ -207,6 +207,8 @@ df["opp_pit_id"]  = df["team_id"].map(lambda t: matchups.get(t, {}).get("opp_pit
 df["is_home"]     = df["team_id"].map(lambda t: matchups.get(t, {}).get("is_home", False))
 df["H/A"]         = df["is_home"].map({True:"🏠", False:"✈️"})
 
+st.warning(f"🔍 CHECKPOINT 1: After matchup columns added. df rows={len(df)}")
+
 # Pitcher fetch
 unique_pitchers = df["opp_pit_id"].dropna().unique()
 pitcher_cache = {}
@@ -216,6 +218,8 @@ for i, pid in enumerate(unique_pitchers):
     prog.progress((i+1) / len(unique_pitchers))
 prog.empty()
 
+st.warning(f"🔍 CHECKPOINT 2: Pitcher fetch done. {len(pitcher_cache)} pitchers cached")
+
 # Last 7 streak
 streak_ids = df["player_id"].dropna().unique()
 streak_prog = st.progress(0, text="Fetching last 7 game logs...")
@@ -223,6 +227,8 @@ for i, pid in enumerate(streak_ids):
     get_player_gamelog(int(pid))
     streak_prog.progress((i + 1) / len(streak_ids))
 streak_prog.empty()
+
+st.warning(f"🔍 CHECKPOINT 3: Streak fetch done. Fetched {len(streak_ids)} player gamelogs")
 
 def make_last7(player_id, ks_for_win=1):
     games = get_player_gamelog(int(player_id))
