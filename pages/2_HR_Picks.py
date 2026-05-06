@@ -1,8 +1,5 @@
 """
 MLB HR Probability — 3 Models for A/B/C comparison
-- Model A: HR/PA only (baseline)
-- Model B: HR/PA + Pitcher
-- Model C: HR/PA + Pitcher + Park + Home/Away (full)
 """
 
 import streamlit as st
@@ -111,23 +108,7 @@ def get_todays_matchups():
                 "park_team_id": home_id, "is_home": False,
             }
     return matchups
-@st.cache_data(ttl=3600)
-def get_player_gamelog(player_id):
-    season = datetime.now(TORONTO_TZ).year
-    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats"
-    params = {"stats": "gameLog", "group": "hitting", "season": season}
-    try:
-        data = requests.get(url, params=params, timeout=10).json()
-        games = []
-        for split_group in data.get("stats", []):
-            for s in split_group.get("splits", []):
-                stat = s.get("stat", {})
-                hrs = stat.get("homeRuns", 0)
-                is_home = s.get("isHome", None)
-                games.append({"hrs": hrs, "is_home": is_home})
-        return games
-    except Exception:
-        return []
+
 @st.cache_data(ttl=3600)
 def get_pitcher_hr_rate(pitcher_id):
     if pitcher_id is None: return None
@@ -147,6 +128,24 @@ def get_pitcher_hr_rate(pitcher_id):
     except Exception:
         pass
     return None
+
+@st.cache_data(ttl=3600)
+def get_player_gamelog(player_id):
+    season = datetime.now(TORONTO_TZ).year
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats"
+    params = {"stats": "gameLog", "group": "hitting", "season": season}
+    try:
+        data = requests.get(url, params=params, timeout=10).json()
+        games = []
+        for split_group in data.get("stats", []):
+            for s in split_group.get("splits", []):
+                stat = s.get("stat", {})
+                hrs = stat.get("homeRuns", 0)
+                is_home = s.get("isHome", None)
+                games.append({"hrs": hrs, "is_home": is_home})
+        return games
+    except Exception:
+        return []
 
 @st.cache_data(ttl=3600)
 def fetch_all_batter_hr_stats():
@@ -209,27 +208,42 @@ df["Park Factor"] = df["park_id"].map(PARK_HR_FACTORS).fillna(1.0).round(2)
 # Pitcher fetch
 unique_pids = df["opp_pit_id"].dropna().unique()
 pit_cache = {}
-prog = st.progress(0, text="Fetching pitcher HR/9...")
-for i, pid in enumerate(unique_pids):
-    pit_cache[int(pid)] = get_pitcher_hr_rate(int(pid))
-    prog.progress((i+1)/len(unique_pids))
-@st.cache_data(ttl=3600)
-def get_player_gamelog(player_id):
-    season = datetime.now(TORONTO_TZ).year
-    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats"
-    params = {"stats": "gameLog", "group": "hitting", "season": season}
+if len(unique_pids) > 0:
+    prog = st.progress(0, text="Fetching pitcher HR/9...")
+    for i, pid in enumerate(unique_pids):
+        pit_cache[int(pid)] = get_pitcher_hr_rate(int(pid))
+        prog.progress((i+1)/len(unique_pids))
+    prog.empty()
+
+# Last 7 streak
+streak_ids = df["player_id"].dropna().unique()
+if len(streak_ids) > 0:
+    streak_prog = st.progress(0, text="Fetching last 7 game logs...")
+    for i, pid in enumerate(streak_ids):
+        get_player_gamelog(int(pid))
+        streak_prog.progress((i + 1) / len(streak_ids))
+    streak_prog.empty()
+
+def make_last7_hr(player_id):
+    if pd.isna(player_id):
+        return "—"
     try:
-        data = requests.get(url, params=params, timeout=10).json()
-        games = []
-        for split_group in data.get("stats", []):
-            for s in split_group.get("splits", []):
-                stat = s.get("stat", {})
-                hrs = stat.get("homeRuns", 0)
-                is_home = s.get("isHome", None)
-                games.append({"hrs": hrs, "is_home": is_home})
-        return games
-    except Exception:
-        return []
+        games = get_player_gamelog(int(player_id))
+    except (ValueError, TypeError):
+        return "—"
+    last7 = games[-7:]
+    icons = []
+    for g in last7:
+        result = "✅" if g.get("hrs", 0) >= 1 else "❌"
+        if g.get("is_home") is True:    loc = "H"
+        elif g.get("is_home") is False: loc = "A"
+        else:                           loc = ""
+        icons.append(result + loc)
+    return " ".join(icons) if icons else "—"
+
+df["Last 7 (old→new)"] = df["player_id"].apply(make_last7_hr)
+
+def pitcher_hr_factor(pid):
     if pd.isna(pid): return 1.0
     stats = pit_cache.get(int(pid))
     if not stats or stats.get("hr_per_9") is None: return 1.0
@@ -300,7 +314,7 @@ c2.metric(f"Avg HR Prob ({which_model[:7]})", f"{df[active_col].mean():.1f}%")
 c3.metric(f"Top HR Prob ({which_model[:7]})", f"{df[active_col].max():.1f}%")
 
 display_cols = ["Player","Last 7 (old→new)","Team","H/A","Opp Team","Opp Pitcher","Opp HR/9",
-               "HR","Fair Odds C"]
+                "HR","Fair Odds C"]
 
 st.markdown(f"### Showing rankings by **{which_model}**")
 
