@@ -9517,6 +9517,20 @@
             "Loc Factor": 1.36
           },
           {
+            "Player": "Ian Happ",
+            "Team": "CHC",
+            "Opp Team": "CIN",
+            "Opp Pitcher": "Brady Singer",
+            "H/A": "\ud83c\udfe0",
+            "HR Prob %": 37.5,
+            "HR/PA": 0.0513,
+            "PA": 156,
+            "HR": 8,
+            "Park Factor": 0.94,
+            "Pit Factor": 1.64,
+            "Loc Factor": 1.4
+          },
+          {
             "Player": "Trent Grisham",
             "Team": "NYY",
             "Opp Team": "TEX",
@@ -9557,24 +9571,10 @@
             "Park Factor": 0.9,
             "Pit Factor": 2.0,
             "Loc Factor": 1.4
-          },
-          {
-            "Player": "Casey Schmitt",
-            "Team": "SFG",
-            "Opp Team": "SDP",
-            "Opp Pitcher": "Matt Waldron",
-            "H/A": "\ud83c\udfe0",
-            "HR Prob %": 34.5,
-            "HR/PA": 0.0496,
-            "PA": 121,
-            "HR": 6,
-            "Park Factor": 0.85,
-            "Pit Factor": 1.7,
-            "Loc Factor": 1.4
           }
         ]
       },
-      "saved_at": "2026-05-06T05:42:52.471703-04:00",
+      "saved_at": "2026-05-06T05:48:12.674737-04:00",
       "verified": false
     },
     "hrr": {
