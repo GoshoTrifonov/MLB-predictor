@@ -8631,5 +8631,69 @@
       "saved_at": "2026-05-05T17:39:08.808590-04:00",
       "verified": false
     }
+  },
+  "2026-05-06": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Milwaukee Brewers @ St. Louis Cardinals",
+          "home_l10": "4.9",
+          "away_l10": "5.1",
+          "exp_runs": "8.3",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Los Angeles Dodgers @ Houston Astros",
+          "home_l10": "3.9",
+          "away_l10": "4.3",
+          "exp_runs": "6.8",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Chicago White Sox @ Los Angeles Angels",
+          "home_l10": "3.3",
+          "away_l10": "4.4",
+          "exp_runs": "6.4",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Baltimore Orioles @ Miami Marlins",
+          "home_l10": "3.2",
+          "away_l10": "4.2",
+          "exp_runs": "6.2",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Boston Red Sox @ Detroit Tigers",
+          "home_l10": "4.3",
+          "away_l10": "5.0",
+          "exp_runs": "7.8",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Minnesota Twins @ Washington Nationals",
+          "home_l10": "3.9",
+          "away_l10": "4.7",
+          "exp_runs": "7.2",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Cleveland Guardians @ Kansas City Royals",
+          "home_l10": "5.7",
+          "away_l10": "3.8",
+          "exp_runs": "7.9",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "New York Mets @ Colorado Rockies",
+          "home_l10": "4.0",
+          "away_l10": "3.1",
+          "exp_runs": "5.9",
+          "bet": "\ud83d\udfe2 Away"
+        }
+      ],
+      "saved_at": "2026-05-06T05:33:24.015730-04:00",
+      "verified": false
+    }
   }
 }
