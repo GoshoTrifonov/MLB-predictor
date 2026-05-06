@@ -111,7 +111,23 @@ def get_todays_matchups():
                 "park_team_id": home_id, "is_home": False,
             }
     return matchups
-
+@st.cache_data(ttl=3600)
+def get_player_gamelog(player_id):
+    season = datetime.now(TORONTO_TZ).year
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats"
+    params = {"stats": "gameLog", "group": "hitting", "season": season}
+    try:
+        data = requests.get(url, params=params, timeout=10).json()
+        games = []
+        for split_group in data.get("stats", []):
+            for s in split_group.get("splits", []):
+                stat = s.get("stat", {})
+                hrs = stat.get("homeRuns", 0)
+                is_home = s.get("isHome", None)
+                games.append({"hrs": hrs, "is_home": is_home})
+        return games
+    except Exception:
+        return []
 @st.cache_data(ttl=3600)
 def get_pitcher_hr_rate(pitcher_id):
     if pitcher_id is None: return None
@@ -197,9 +213,23 @@ prog = st.progress(0, text="Fetching pitcher HR/9...")
 for i, pid in enumerate(unique_pids):
     pit_cache[int(pid)] = get_pitcher_hr_rate(int(pid))
     prog.progress((i+1)/len(unique_pids))
-prog.empty()
-
-def pitcher_hr_factor(pid):
+@st.cache_data(ttl=3600)
+def get_player_gamelog(player_id):
+    season = datetime.now(TORONTO_TZ).year
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats"
+    params = {"stats": "gameLog", "group": "hitting", "season": season}
+    try:
+        data = requests.get(url, params=params, timeout=10).json()
+        games = []
+        for split_group in data.get("stats", []):
+            for s in split_group.get("splits", []):
+                stat = s.get("stat", {})
+                hrs = stat.get("homeRuns", 0)
+                is_home = s.get("isHome", None)
+                games.append({"hrs": hrs, "is_home": is_home})
+        return games
+    except Exception:
+        return []
     if pd.isna(pid): return 1.0
     stats = pit_cache.get(int(pid))
     if not stats or stats.get("hr_per_9") is None: return 1.0
@@ -269,9 +299,8 @@ c1.metric("Batters playing", len(df))
 c2.metric(f"Avg HR Prob ({which_model[:7]})", f"{df[active_col].mean():.1f}%")
 c3.metric(f"Top HR Prob ({which_model[:7]})", f"{df[active_col].max():.1f}%")
 
-display_cols = ["Player","Team","H/A","Opp Team","Opp Pitcher","Opp HR/9",
-                "Park Factor","Pit Factor","Loc Factor",
-                "PA","HR","HR/PA","HR% A","HR% B","HR% C","Fair Odds C"]
+display_cols = ["Player","Last 7 (old→new)","Team","H/A","Opp Team","Opp Pitcher","Opp HR/9",
+               "HR","Fair Odds C"]
 
 st.markdown(f"### Showing rankings by **{which_model}**")
 
