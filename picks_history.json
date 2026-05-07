@@ -12168,6 +12168,40 @@
       },
       "saved_at": "2026-05-07T05:37:53.222660-04:00",
       "verified": false
+    },
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Minnesota Twins @ Washington Nationals",
+          "home_l10": "5.0",
+          "away_l10": "4.8",
+          "exp_runs": "8.2",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "New York Mets @ Colorado Rockies",
+          "home_l10": "4.2",
+          "away_l10": "4.0",
+          "exp_runs": "6.8",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Athletics @ Philadelphia Phillies",
+          "home_l10": "4.5",
+          "away_l10": "3.9",
+          "exp_runs": "7.0",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "St. Louis Cardinals @ San Diego Padres",
+          "home_l10": "4.6",
+          "away_l10": "4.9",
+          "exp_runs": "7.9",
+          "bet": "\ud83d\udfe2 Home"
+        }
+      ],
+      "saved_at": "2026-05-07T05:41:29.469969-04:00",
+      "verified": false
     }
   }
 }
