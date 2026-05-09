@@ -1,11 +1,12 @@
 """
-Results Tracker — A/B/C model comparison
-Handles nested structure: history[date][prop_type]["picks"]["model_X"]
+Results Tracker — Multi-model comparison
+Handles dynamic model letters (A/B/C historical, B/C/D current, etc.)
 """
 
 import streamlit as st
 import pandas as pd
 import time
+import requests
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -16,15 +17,13 @@ from picks_storage import load_picks_history, save_picks_history, get_player_res
 TORONTO_TZ = ZoneInfo("America/Toronto")
 
 st.set_page_config(page_title="Results Tracker", page_icon="📊", layout="wide")
-st.title("📊 Results Tracker — A/B/C Comparison")
+st.title("📊 Results Tracker — Model Comparison")
 st.caption("Compare how each model's picks actually performed")
 
 history, sha = load_picks_history()
 
-
-
 if not history:
-    st.info("No picks saved yet. Save picks on **HRR Picks** or **HR Picks** first!")
+    st.info("No picks saved yet. Save picks on **HRR Picks**, **HR Picks**, or **K Picks** first!")
     st.stop()
 
 dates_sorted = sorted(history.keys(), reverse=True)
@@ -34,15 +33,13 @@ selected_date = st.selectbox("Pick a date to review", dates_sorted)
 day_data = history[selected_date]
 
 # ─────────────────────────────────────────────
-# HELPER: Extract all picks from a day's data
+# HELPER: Extract picks from a day's data
 # ─────────────────────────────────────────────
 def get_models_dict(prop_data):
-    """Returns {'A': [...], 'B': [...], 'C': [...]} or None if legacy format."""
     if not isinstance(prop_data, dict):
         return None
     picks_field = prop_data.get("picks")
     if isinstance(picks_field, dict):
-        # New format: picks is a dict with model_A/B/C keys
         result = {}
         for k, v in picks_field.items():
             if k.startswith("model_") and isinstance(v, list):
@@ -52,7 +49,6 @@ def get_models_dict(prop_data):
     return None
 
 def get_legacy_picks(prop_data):
-    """Returns picks list for legacy single-model format, or None."""
     if not isinstance(prop_data, dict):
         return None
     picks_field = prop_data.get("picks")
@@ -61,7 +57,6 @@ def get_legacy_picks(prop_data):
     return None
 
 def all_pick_lists(prop_data):
-    """Yield all pick lists regardless of format."""
     models = get_models_dict(prop_data)
     if models:
         for letter, lst in models.items():
@@ -71,7 +66,6 @@ def all_pick_lists(prop_data):
         yield legacy
 
 def is_verified(day_data):
-    """A day is verified if any pick has the verified_date set."""
     for prop_data in day_data.values():
         for pick_list in all_pick_lists(prop_data):
             for p in pick_list:
@@ -91,20 +85,18 @@ with c2:
     if not verified:
         if st.button("🔍 Check Results"):
             with st.spinner("Pulling actual results..."):
-                # Collect unique players to query
                 unique_players = set()
                 for prop_data in day_data.values():
                     for pick_list in all_pick_lists(prop_data):
                         for p in pick_list:
                             if isinstance(p, dict) and "Player" in p:
                                 unique_players.add(p["Player"])
-                
+
                 results_map = {}
                 for name in unique_players:
                     results_map[name] = get_player_results(name, selected_date)
                     time.sleep(0.15)
-                
-                # Apply results back to all picks
+
                 for prop_data in day_data.values():
                     for pick_list in all_pick_lists(prop_data):
                         for p in pick_list:
@@ -124,14 +116,10 @@ with c2:
 # ─────────────────────────────────────────────
 # WIN FUNCTIONS
 # ─────────────────────────────────────────────
-def hrr_won(p):
-    return p.get("actual_HRR", 0) >= 1
+def hrr_won(p): return p.get("actual_HRR", 0) >= 1
+def hr_won(p):  return p.get("actual_HR", 0) >= 1
+def k_won(p):   return p.get("actual_K", 0) >= 1
 
-def hr_won(p):
-    return p.get("actual_HR", 0) >= 1
-def k_won(p):
-    return p.get("actual_K", 0) >= 1
-    
 def model_summary(picks, win_fn):
     played = [p for p in picks if isinstance(p, dict) and p.get("played")]
     wins = sum(1 for p in played if win_fn(p))
@@ -141,8 +129,8 @@ def model_summary(picks, win_fn):
 # DISPLAY EACH PROP TYPE
 # ─────────────────────────────────────────────
 PROP_CONFIG = {
-    "hrr":    ("🎯 H+R+RBI Picks", hrr_won, "actual_HRR"),
-    "hr":     ("💥 HR Picks",      hr_won,  "actual_HR"),
+    "hrr":    ("🎯 H+R+RBI Picks",  hrr_won, "actual_HRR"),
+    "hr":     ("💥 HR Picks",       hr_won,  "actual_HR"),
     "k_over": ("🎰 K Over 0.5 Picks", k_won, "actual_K"),
 }
 
@@ -150,12 +138,12 @@ for prop_type, prop_data in day_data.items():
     if prop_type not in PROP_CONFIG:
         continue
     label, win_fn, actual_col = PROP_CONFIG[prop_type]
-    
+
     st.markdown(f"### {label}")
-    
+
     models = get_models_dict(prop_data)
-    
-if models:
+
+    if models:
         model_letters = sorted(models.keys())
         cols = st.columns(len(model_letters))
         for i, letter in enumerate(model_letters):
@@ -166,7 +154,7 @@ if models:
                     st.metric(f"Model {letter}", f"{wins}/{total}", f"{wins/total*100:.0f}%")
                 else:
                     st.metric(f"Model {letter}", "—", f"{len(picks)} picks")
-        
+
         chosen = st.radio("Show table for", model_letters, horizontal=True, key=f"{prop_type}_radio")
         picks = models.get(chosen, [])
         df = pd.DataFrame(picks)
@@ -200,15 +188,15 @@ if models:
             st.dataframe(df[cols_show], hide_index=True, use_container_width=True)
 
 # ─────────────────────────────────────────────
-# ROLLING A/B/C LEADERBOARD
+# ROLLING LEADERBOARD
 # ─────────────────────────────────────────────
 st.markdown("---")
 st.subheader("📈 Rolling Performance (All Tracked Days)")
 
 def aggregate(prop_type, win_fn):
     by_model = {}
-    for date, day_data in history.items():
-        prop_data = day_data.get(prop_type)
+    for date, day in history.items():
+        prop_data = day.get(prop_type)
         if not prop_data: continue
         models = get_models_dict(prop_data)
         if models:
@@ -233,6 +221,9 @@ def render_leaderboard(col, label, prop_type, win_fn):
     with col:
         st.markdown(f"**{label}**")
         agg = aggregate(prop_type, win_fn)
+        if not agg:
+            st.metric("—", "—")
+            return
         for letter in sorted(agg.keys()):
             results = agg[letter]
             if results:
@@ -240,31 +231,28 @@ def render_leaderboard(col, label, prop_type, win_fn):
                 st.metric(f"Model {letter}", f"{wr:.1f}%", f"{sum(results)}/{len(results)}")
             else:
                 st.metric(f"Model {letter}", "—")
-        if not agg:
-            st.metric("—", "—")
-            
+
 render_leaderboard(c1, "🎯 H+R+RBI Models", "hrr",    hrr_won)
 render_leaderboard(c2, "💥 HR Models",      "hr",     hr_won)
 render_leaderboard(c3, "🎰 K Over Models",  "k_over", k_won)
 
-with st.expander("ℹ️ How A/B/C tracking works"):
+with st.expander("ℹ️ How tracking works"):
     st.markdown("""
-    Each save stores top 10 picks from all 3 models simultaneously.
+    Each save stores top 10 picks from each model.
     
     Click **Check Results** the day after to verify.
     
     - **HRR pick wins** = actual H+R+RBI ≥ 1
     - **HR pick wins** = actual HR ≥ 1
+    - **K Over wins** = actual K ≥ 1
     
     Rolling leaderboard accumulates across all tracked days.
+    Models display dynamically — old data shows A/B/C, new HRR data shows B/C/D.
     """)
-
 
 # ═══════════════════════════════════════════════════════════════════════════
 # MONEYLINE & EXP RUNS TRACKING (from Home page)
 # ═══════════════════════════════════════════════════════════════════════════
-
-import requests
 
 st.markdown("---")
 st.markdown("## ⚾ Moneyline & Run Total Tracker")
