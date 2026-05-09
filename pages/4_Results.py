@@ -155,10 +155,10 @@ for prop_type, prop_data in day_data.items():
     
     models = get_models_dict(prop_data)
     
-    if models:
-        # 3-model format
-        cols = st.columns(3)
-        for i, letter in enumerate(["A","B","C"]):
+if models:
+        model_letters = sorted(models.keys())
+        cols = st.columns(len(model_letters))
+        for i, letter in enumerate(model_letters):
             picks = models.get(letter, [])
             wins, total = model_summary(picks, win_fn) if verified else (0, 0)
             with cols[i]:
@@ -167,7 +167,7 @@ for prop_type, prop_data in day_data.items():
                 else:
                     st.metric(f"Model {letter}", "—", f"{len(picks)} picks")
         
-        chosen = st.radio("Show table for", ["A","B","C"], horizontal=True, key=f"{prop_type}_radio")
+        chosen = st.radio("Show table for", model_letters, horizontal=True, key=f"{prop_type}_radio")
         picks = models.get(chosen, [])
         df = pd.DataFrame(picks)
         if verified and "played" in df.columns:
@@ -206,18 +206,22 @@ st.markdown("---")
 st.subheader("📈 Rolling Performance (All Tracked Days)")
 
 def aggregate(prop_type, win_fn):
-    by_model = {"A":[], "B":[], "C":[], "legacy":[]}
+    by_model = {}
     for date, day_data in history.items():
         prop_data = day_data.get(prop_type)
         if not prop_data: continue
         models = get_models_dict(prop_data)
         if models:
             for letter, picks in models.items():
+                if letter not in by_model:
+                    by_model[letter] = []
                 for p in picks:
                     if isinstance(p, dict) and p.get("played"):
                         by_model[letter].append(win_fn(p))
         else:
             legacy = get_legacy_picks(prop_data) or []
+            if "legacy" not in by_model:
+                by_model["legacy"] = []
             for p in legacy:
                 if isinstance(p, dict) and p.get("played"):
                     by_model["legacy"].append(win_fn(p))
@@ -229,14 +233,16 @@ def render_leaderboard(col, label, prop_type, win_fn):
     with col:
         st.markdown(f"**{label}**")
         agg = aggregate(prop_type, win_fn)
-        for letter in ["A","B","C"]:
+        for letter in sorted(agg.keys()):
             results = agg[letter]
             if results:
                 wr = sum(results)/len(results)*100
                 st.metric(f"Model {letter}", f"{wr:.1f}%", f"{sum(results)}/{len(results)}")
             else:
                 st.metric(f"Model {letter}", "—")
-
+        if not agg:
+            st.metric("—", "—")
+            
 render_leaderboard(c1, "🎯 H+R+RBI Models", "hrr",    hrr_won)
 render_leaderboard(c2, "💥 HR Models",      "hr",     hr_won)
 render_leaderboard(c3, "🎰 K Over Models",  "k_over", k_won)
