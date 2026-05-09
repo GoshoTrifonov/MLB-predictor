@@ -14533,138 +14533,6 @@
     },
     "hrr": {
       "picks": {
-        "model_A": [
-          {
-            "Player": "Shea Langeliers",
-            "Team": "OAK",
-            "Opp Team": "BAL",
-            "Opp Pitcher": "Shane Baz",
-            "H/A": "\u2708\ufe0f",
-            "Score": 92.9,
-            "Per Game": 3.2,
-            "AVG": 0.391,
-            "OPS": 1.113,
-            "PDF": 1.19,
-            "Loc Factor": 0.94
-          },
-          {
-            "Player": "Kazuma Okamoto",
-            "Team": "TOR",
-            "Opp Team": "LAA",
-            "Opp Pitcher": "Jack Kochanowicz",
-            "H/A": "\ud83c\udfe0",
-            "Score": 88.5,
-            "Per Game": 3.07,
-            "AVG": 0.32,
-            "OPS": 1.174,
-            "PDF": 0.73,
-            "Loc Factor": 0.94
-          },
-          {
-            "Player": "Matt Olson",
-            "Team": "ATL",
-            "Opp Team": "LAD",
-            "Opp Pitcher": "Blake Snell",
-            "H/A": "\u2708\ufe0f",
-            "Score": 88.3,
-            "Per Game": 3.0,
-            "AVG": 0.319,
-            "OPS": 1.208,
-            "PDF": 1.0,
-            "Loc Factor": 1.08
-          },
-          {
-            "Player": "Adley Rutschman",
-            "Team": "BAL",
-            "Opp Team": "OAK",
-            "Opp Pitcher": "Aaron Civale",
-            "H/A": "\ud83c\udfe0",
-            "Score": 87.2,
-            "Per Game": 3.25,
-            "AVG": 0.333,
-            "OPS": 1.019,
-            "PDF": 0.7,
-            "Loc Factor": 1.0
-          },
-          {
-            "Player": "Aaron Judge",
-            "Team": "NYY",
-            "Opp Team": "MIL",
-            "Opp Pitcher": "Kyle Harrison",
-            "H/A": "\u2708\ufe0f",
-            "Score": 86.7,
-            "Per Game": 2.93,
-            "AVG": 0.32,
-            "OPS": 1.2,
-            "PDF": 0.5,
-            "Loc Factor": 0.87
-          },
-          {
-            "Player": "Chase DeLauter",
-            "Team": "CLE",
-            "Opp Team": "MIN",
-            "Opp Pitcher": "Joe Ryan",
-            "H/A": "\ud83c\udfe0",
-            "Score": 83.5,
-            "Per Game": 2.5,
-            "AVG": 0.442,
-            "OPS": 1.138,
-            "PDF": 0.89,
-            "Loc Factor": 0.85
-          },
-          {
-            "Player": "Samuel Basallo",
-            "Team": "BAL",
-            "Opp Team": "OAK",
-            "Opp Pitcher": "Aaron Civale",
-            "H/A": "\ud83c\udfe0",
-            "Score": 81.3,
-            "Per Game": 2.58,
-            "AVG": 0.395,
-            "OPS": 1.107,
-            "PDF": 0.7,
-            "Loc Factor": 1.0
-          },
-          {
-            "Player": "Cody Bellinger",
-            "Team": "NYY",
-            "Opp Team": "MIL",
-            "Opp Pitcher": "Kyle Harrison",
-            "H/A": "\u2708\ufe0f",
-            "Score": 80.1,
-            "Per Game": 2.86,
-            "AVG": 0.321,
-            "OPS": 1.045,
-            "PDF": 0.5,
-            "Loc Factor": 0.7
-          },
-          {
-            "Player": "Byron Buxton",
-            "Team": "MIN",
-            "Opp Team": "CLE",
-            "Opp Pitcher": "Tanner Bibee",
-            "H/A": "\u2708\ufe0f",
-            "Score": 79.6,
-            "Per Game": 2.92,
-            "AVG": 0.298,
-            "OPS": 1.035,
-            "PDF": 1.09,
-            "Loc Factor": 0.75
-          },
-          {
-            "Player": "Ozzie Albies",
-            "Team": "ATL",
-            "Opp Team": "LAD",
-            "Opp Pitcher": "Blake Snell",
-            "H/A": "\u2708\ufe0f",
-            "Score": 78.8,
-            "Per Game": 2.77,
-            "AVG": 0.34,
-            "OPS": 1.024,
-            "PDF": 1.0,
-            "Loc Factor": 0.91
-          }
-        ],
         "model_B": [
           {
             "Player": "Otto Lopez",
@@ -14677,7 +14545,8 @@
             "AVG": 0.407,
             "OPS": 0.949,
             "PDF": 1.5,
-            "Loc Factor": 1.08
+            "Loc Factor": 1.08,
+            "Momentum": 1.15
           },
           {
             "Player": "Andy Pages",
@@ -14690,7 +14559,8 @@
             "AVG": 0.314,
             "OPS": 0.902,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "Momentum": 1.11
           },
           {
             "Player": "Shea Langeliers",
@@ -14703,7 +14573,8 @@
             "AVG": 0.391,
             "OPS": 1.113,
             "PDF": 1.19,
-            "Loc Factor": 0.94
+            "Loc Factor": 0.94,
+            "Momentum": 1.15
           },
           {
             "Player": "Josh Naylor",
@@ -14716,7 +14587,8 @@
             "AVG": 0.347,
             "OPS": 0.936,
             "PDF": 1.36,
-            "Loc Factor": 0.98
+            "Loc Factor": 0.98,
+            "Momentum": 1.15
           },
           {
             "Player": "Julio Rodr\u00edguez",
@@ -14729,7 +14601,8 @@
             "AVG": 0.298,
             "OPS": 0.942,
             "PDF": 1.36,
-            "Loc Factor": 0.94
+            "Loc Factor": 0.94,
+            "Momentum": 1.11
           },
           {
             "Player": "Bryce Harper",
@@ -14742,7 +14615,8 @@
             "AVG": 0.32,
             "OPS": 1.066,
             "PDF": 1.2,
-            "Loc Factor": 0.97
+            "Loc Factor": 0.97,
+            "Momentum": 1.06
           },
           {
             "Player": "Sam Antonacci",
@@ -14755,7 +14629,8 @@
             "AVG": 0.342,
             "OPS": 0.894,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "Momentum": 1.11
           },
           {
             "Player": "Seiya Suzuki",
@@ -14768,7 +14643,8 @@
             "AVG": 0.289,
             "OPS": 0.977,
             "PDF": 1.3,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "Momentum": 1.06
           },
           {
             "Player": "Cole Young",
@@ -14781,20 +14657,22 @@
             "AVG": 0.348,
             "OPS": 0.892,
             "PDF": 1.36,
-            "Loc Factor": 1.08
+            "Loc Factor": 1.08,
+            "Momentum": 1.02
           },
           {
-            "Player": "Brandon Marsh",
-            "Team": "PHI",
-            "Opp Team": "COL",
-            "Opp Pitcher": "Kyle Freeland",
+            "Player": "Xavier Edwards",
+            "Team": "MIA",
+            "Opp Team": "WSN",
+            "Opp Pitcher": "Zack Littell",
             "H/A": "\ud83c\udfe0",
             "Score": 90.9,
-            "Per Game": 2.62,
-            "AVG": 0.391,
-            "OPS": 0.931,
-            "PDF": 1.2,
-            "Loc Factor": 1.0
+            "Per Game": 2.0,
+            "AVG": 0.326,
+            "OPS": 0.936,
+            "PDF": 1.5,
+            "Loc Factor": 0.94,
+            "Momentum": 1.15
           }
         ],
         "model_C": [
@@ -14809,7 +14687,8 @@
             "AVG": 0.407,
             "OPS": 0.949,
             "PDF": 1.5,
-            "Loc Factor": 1.08
+            "Loc Factor": 1.08,
+            "Momentum": 1.15
           },
           {
             "Player": "Andy Pages",
@@ -14822,7 +14701,8 @@
             "AVG": 0.314,
             "OPS": 0.902,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "Momentum": 1.11
           },
           {
             "Player": "Brooks Lee",
@@ -14835,7 +14715,8 @@
             "AVG": 0.34,
             "OPS": 0.917,
             "PDF": 1.09,
-            "Loc Factor": 1.28
+            "Loc Factor": 1.28,
+            "Momentum": 1.11
           },
           {
             "Player": "Shea Langeliers",
@@ -14848,7 +14729,8 @@
             "AVG": 0.391,
             "OPS": 1.113,
             "PDF": 1.19,
-            "Loc Factor": 0.94
+            "Loc Factor": 0.94,
+            "Momentum": 1.15
           },
           {
             "Player": "Josh Naylor",
@@ -14861,7 +14743,8 @@
             "AVG": 0.347,
             "OPS": 0.936,
             "PDF": 1.36,
-            "Loc Factor": 0.98
+            "Loc Factor": 0.98,
+            "Momentum": 1.15
           },
           {
             "Player": "Cole Young",
@@ -14874,7 +14757,8 @@
             "AVG": 0.348,
             "OPS": 0.892,
             "PDF": 1.36,
-            "Loc Factor": 1.08
+            "Loc Factor": 1.08,
+            "Momentum": 1.02
           },
           {
             "Player": "Shohei Ohtani",
@@ -14887,7 +14771,8 @@
             "AVG": 0.256,
             "OPS": 0.841,
             "PDF": 1.5,
-            "Loc Factor": 1.11
+            "Loc Factor": 1.11,
+            "Momentum": 0.98
           },
           {
             "Player": "Julio Rodr\u00edguez",
@@ -14900,7 +14785,8 @@
             "AVG": 0.298,
             "OPS": 0.942,
             "PDF": 1.36,
-            "Loc Factor": 0.94
+            "Loc Factor": 0.94,
+            "Momentum": 1.11
           },
           {
             "Player": "Matt Olson",
@@ -14913,7 +14799,8 @@
             "AVG": 0.319,
             "OPS": 1.208,
             "PDF": 1.0,
-            "Loc Factor": 1.08
+            "Loc Factor": 1.08,
+            "Momentum": 1.06
           },
           {
             "Player": "Ryan Jeffers",
@@ -14926,11 +14813,154 @@
             "AVG": 0.35,
             "OPS": 0.988,
             "PDF": 1.09,
-            "Loc Factor": 1.12
+            "Loc Factor": 1.12,
+            "Momentum": 1.06
+          }
+        ],
+        "model_D": [
+          {
+            "Player": "Otto Lopez",
+            "Team": "MIA",
+            "Opp Team": "WSN",
+            "Opp Pitcher": "Zack Littell",
+            "H/A": "\ud83c\udfe0",
+            "Score": 142.2,
+            "Per Game": 2.57,
+            "AVG": 0.407,
+            "OPS": 0.949,
+            "PDF": 1.5,
+            "Loc Factor": 1.08,
+            "Momentum": 1.15
+          },
+          {
+            "Player": "Andy Pages",
+            "Team": "LAD",
+            "Opp Team": "ATL",
+            "Opp Pitcher": "Spencer Strider",
+            "H/A": "\ud83c\udfe0",
+            "Score": 124.3,
+            "Per Game": 2.85,
+            "AVG": 0.314,
+            "OPS": 0.902,
+            "PDF": 1.5,
+            "Loc Factor": 1.0,
+            "Momentum": 1.11
+          },
+          {
+            "Player": "Shea Langeliers",
+            "Team": "OAK",
+            "Opp Team": "BAL",
+            "Opp Pitcher": "Shane Baz",
+            "H/A": "\u2708\ufe0f",
+            "Score": 119.5,
+            "Per Game": 3.2,
+            "AVG": 0.391,
+            "OPS": 1.113,
+            "PDF": 1.19,
+            "Loc Factor": 0.94,
+            "Momentum": 1.15
+          },
+          {
+            "Player": "Josh Naylor",
+            "Team": "SEA",
+            "Opp Team": "CHW",
+            "Opp Pitcher": "Anthony Kay",
+            "H/A": "\u2708\ufe0f",
+            "Score": 118.5,
+            "Per Game": 2.83,
+            "AVG": 0.347,
+            "OPS": 0.936,
+            "PDF": 1.36,
+            "Loc Factor": 0.98,
+            "Momentum": 1.15
+          },
+          {
+            "Player": "Brooks Lee",
+            "Team": "MIN",
+            "Opp Team": "CLE",
+            "Opp Pitcher": "Tanner Bibee",
+            "H/A": "\u2708\ufe0f",
+            "Score": 116.4,
+            "Per Game": 2.77,
+            "AVG": 0.34,
+            "OPS": 0.917,
+            "PDF": 1.09,
+            "Loc Factor": 1.28,
+            "Momentum": 1.11
+          },
+          {
+            "Player": "Julio Rodr\u00edguez",
+            "Team": "SEA",
+            "Opp Team": "CHW",
+            "Opp Pitcher": "Anthony Kay",
+            "H/A": "\u2708\ufe0f",
+            "Score": 106.6,
+            "Per Game": 2.85,
+            "AVG": 0.298,
+            "OPS": 0.942,
+            "PDF": 1.36,
+            "Loc Factor": 0.94,
+            "Momentum": 1.11
+          },
+          {
+            "Player": "Brandon Marsh",
+            "Team": "PHI",
+            "Opp Team": "COL",
+            "Opp Pitcher": "Kyle Freeland",
+            "H/A": "\ud83c\udfe0",
+            "Score": 104.5,
+            "Per Game": 2.62,
+            "AVG": 0.391,
+            "OPS": 0.931,
+            "PDF": 1.2,
+            "Loc Factor": 1.0,
+            "Momentum": 1.15
+          },
+          {
+            "Player": "Sam Antonacci",
+            "Team": "CHW",
+            "Opp Team": "SEA",
+            "Opp Pitcher": "Luis Castillo",
+            "H/A": "\ud83c\udfe0",
+            "Score": 102.5,
+            "Per Game": 2.08,
+            "AVG": 0.342,
+            "OPS": 0.894,
+            "PDF": 1.5,
+            "Loc Factor": 1.0,
+            "Momentum": 1.11
+          },
+          {
+            "Player": "Pete Crow-Armstrong",
+            "Team": "CHC",
+            "Opp Team": "TEX",
+            "Opp Pitcher": "Jack Leiter",
+            "H/A": "\u2708\ufe0f",
+            "Score": 102.3,
+            "Per Game": 2.43,
+            "AVG": 0.28,
+            "OPS": 0.908,
+            "PDF": 1.3,
+            "Loc Factor": 1.09,
+            "Momentum": 1.11
+          },
+          {
+            "Player": "Matt Olson",
+            "Team": "ATL",
+            "Opp Team": "LAD",
+            "Opp Pitcher": "Blake Snell",
+            "H/A": "\u2708\ufe0f",
+            "Score": 101.1,
+            "Per Game": 3.0,
+            "AVG": 0.319,
+            "OPS": 1.208,
+            "PDF": 1.0,
+            "Loc Factor": 1.08,
+            "Momentum": 1.06
           }
         ]
       },
-      "saved_at": "2026-05-09T10:05:57.403472-04:00",
+      "saved_at": "2026-05-09T11:18:53.637232-04:00",
       "verified": false
     },
     "hr": {
