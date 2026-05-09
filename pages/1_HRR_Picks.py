@@ -1,8 +1,8 @@
 """
-MLB H+R+RBI Top Picks — 3 Models for A/B/C comparison
-- Model A: Form only (baseline)
+MLB H+R+RBI Top Picks — 3 Models for B/C/D comparison
 - Model B: Form + Pitcher difficulty
 - Model C: Form + Pitcher + Home/Away (full)
+- Model D: C + Momentum from last 7 games (NEW — replaces old Model A)
 """
 
 import streamlit as st
@@ -20,7 +20,7 @@ TORONTO_TZ = ZoneInfo("America/Toronto")
 
 st.set_page_config(page_title="H+R+RBI Picks", page_icon="🎯", layout="wide")
 st.title("🎯 MLB H+R+RBI Top Picks")
-st.caption(f"3-model A/B/C comparison • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}")
+st.caption(f"3-model B/C/D comparison • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}")
 
 TEAM_IDS = [108,109,110,111,112,113,114,115,116,117,118,119,120,121,133,
             134,135,136,137,138,139,140,141,142,143,144,145,146,147,158]
@@ -122,6 +122,7 @@ def get_pitcher_stats(pitcher_id):
     except Exception:
         pass
     return None
+
 @st.cache_data(ttl=3600)
 def get_player_gamelog(player_id):
     season = datetime.now(TORONTO_TZ).year
@@ -139,6 +140,7 @@ def get_player_gamelog(player_id):
         return games  # oldest → newest
     except Exception:
         return []
+
 @st.cache_data(ttl=3600)
 def fetch_all_batters(days_back=15):
     rows = []
@@ -174,7 +176,7 @@ def fetch_all_batters(days_back=15):
 days = st.sidebar.slider("Days back for form", 5, 20, 15)
 min_games = st.sidebar.slider("Minimum games played", 3, 10, 7)
 search = st.sidebar.text_input("Search player").lower()
-which_model = st.sidebar.radio("Display model", ["Model C (Full)","Model B","Model A"], index=0)
+which_model = st.sidebar.radio("Display model", ["Model D (B+C+Momentum)","Model C (Full)","Model B"], index=0)
 
 with st.spinner("Pulling batter form + splits..."):
     df = fetch_all_batters(days)
@@ -194,35 +196,55 @@ df["H/A"]         = df["is_home"].map({True:"🏠", False:"✈️"})
 # Pitcher fetch
 unique_pitchers = df["opp_pit_id"].dropna().unique()
 pitcher_cache = {}
-prog = st.progress(0, text="Fetching pitcher stats...")
-for i, pid in enumerate(unique_pitchers):
-    pitcher_cache[int(pid)] = get_pitcher_stats(int(pid))
-    prog.progress((i+1) / len(unique_pitchers))
-prog.empty()
-# Last 5 games streak
+if len(unique_pitchers) > 0:
+    prog = st.progress(0, text="Fetching pitcher stats...")
+    for i, pid in enumerate(unique_pitchers):
+        pitcher_cache[int(pid)] = get_pitcher_stats(int(pid))
+        prog.progress((i+1) / len(unique_pitchers))
+    prog.empty()
+
+# Last 7 streak fetch
 streak_ids = df["player_id"].dropna().unique()
-streak_prog = st.progress(0, text="Fetching last 5 game logs...")
-for i, pid in enumerate(streak_ids):
-    get_player_gamelog(int(pid))
-    streak_prog.progress((i + 1) / len(streak_ids))
-streak_prog.empty()
+if len(streak_ids) > 0:
+    streak_prog = st.progress(0, text="Fetching last 7 game logs...")
+    for i, pid in enumerate(streak_ids):
+        get_player_gamelog(int(pid))
+        streak_prog.progress((i + 1) / len(streak_ids))
+    streak_prog.empty()
 
 def make_last7(player_id, threshold=1):
-    games = get_player_gamelog(int(player_id))
+    if pd.isna(player_id):
+        return "—"
+    try:
+        games = get_player_gamelog(int(player_id))
+    except (ValueError, TypeError):
+        return "—"
     last7 = games[-7:]
     icons = []
     for g in last7:
-        result = "✅" if g["hrr"] >= threshold else "❌"
-        if g.get("is_home") is True:
-            loc = "H"
-        elif g.get("is_home") is False:
-            loc = "A"
-        else:
-            loc = ""
+        result = "✅" if g.get("hrr", 0) >= threshold else "❌"
+        if g.get("is_home") is True:    loc = "H"
+        elif g.get("is_home") is False: loc = "A"
+        else:                           loc = ""
         icons.append(result + loc)
     return " ".join(icons) if icons else "—"
 
+def calc_momentum(player_id, threshold=1):
+    """Last-7 streak rate → Momentum factor (range 0.85 to 1.15)."""
+    if pd.isna(player_id): return 1.0
+    try:
+        games = get_player_gamelog(int(player_id))
+    except (ValueError, TypeError):
+        return 1.0
+    last7 = games[-7:]
+    if len(last7) == 0: return 1.0
+    wins = sum(1 for g in last7 if g.get("hrr", 0) >= threshold)
+    rate = wins / len(last7)
+    return round(0.85 + rate * 0.30, 2)
+
 df["Last 7 (old→new)"] = df["player_id"].apply(make_last7)
+df["Momentum"]         = df["player_id"].apply(calc_momentum)
+
 def pitcher_difficulty_factor(pid):
     if pd.isna(pid): return 1.0
     stats = pitcher_cache.get(int(pid))
@@ -254,11 +276,15 @@ df["ops_norm"] = (df["OPS"] - df["OPS"].min()) / (df["OPS"].max() - df["OPS"].mi
 base = (df["pg_norm"]*0.5 + df["ops_norm"]*0.3 + df["avg_norm"]*0.2) * 100
 
 # Three model scores
-df["Score A"] = base.round(1)                                   # form only
-df["Score B"] = (base * df["PDF"]).round(1)                     # + pitcher
-df["Score C"] = (base * df["PDF"] * df["Loc Factor"]).round(1)  # + location
+df["Score B"] = (base * df["PDF"]).round(1)                                       # form + pitcher
+df["Score C"] = (base * df["PDF"] * df["Loc Factor"]).round(1)                    # + location
+df["Score D"] = (base * df["PDF"] * df["Loc Factor"] * df["Momentum"]).round(1)   # + momentum
 
-active_score = {"Model A":"Score A","Model B":"Score B","Model C (Full)":"Score C"}[which_model]
+active_score = {
+    "Model D (B+C+Momentum)": "Score D",
+    "Model C (Full)":         "Score C",
+    "Model B":                "Score B",
+}[which_model]
 df = df.sort_values(active_score, ascending=False).reset_index(drop=True)
 
 # Save button — saves all 3 models' top 10 in one shot
@@ -266,11 +292,11 @@ c1, c2, c3 = st.columns([2,1,2])
 with c2:
     if st.button("💾 Save All 3 Models", use_container_width=True):
         out = {}
-        for m, score_col in [("A","Score A"),("B","Score B"),("C","Score C")]:
+        for m, score_col in [("B","Score B"),("C","Score C"),("D","Score D")]:
             top10 = df.sort_values(score_col, ascending=False).head(10).copy()
             out[f"model_{m}"] = top10[[
                 "Player","Team","Opp Team","Opp Pitcher","H/A",
-                score_col,"Per Game","AVG","OPS","PDF","Loc Factor"
+                score_col,"Per Game","AVG","OPS","PDF","Loc Factor","Momentum"
             ]].rename(columns={score_col:"Score"}).to_dict(orient="records")
         if save_todays_picks("hrr", out):
             st.success("✅ All 3 model picks saved!")
@@ -284,7 +310,8 @@ c1.metric("Hitters playing", len(df))
 c2.metric("Avg form (H+R+RBI/G)", f"{df['Per Game'].mean():.2f}")
 c3.metric("Avg opp ERA", f"{df['Opp ERA'].mean():.2f}" if df['Opp ERA'].notna().any() else "—")
 
-display_cols = ["Player","Last 7 (old→new)","Team","H/A","Opp Team","Opp Pitcher","Score A","Score B","Score C"]
+display_cols = ["Player","Last 7 (old→new)","Team","H/A","Opp Team","Opp Pitcher",
+                "Momentum","Score B","Score C","Score D"]
 
 st.markdown(f"### Showing rankings by **{which_model}**")
 def show_picks(df_in, n, title, emoji):
@@ -302,9 +329,12 @@ with st.expander("ℹ️ Models explained"):
     st.markdown("""
     All three use the same **Base Score**: 50% form + 30% OPS + 20% AVG.
     
-    - **Model A** = Base only (no adjustments)
     - **Model B** = Base × Pitcher Difficulty Factor (PDF)
-    - **Model C** = Base × PDF × Location Factor (full model)
+    - **Model C** = Base × PDF × Location Factor
+    - **Model D** = Base × PDF × Loc × Momentum (NEW!)
+    
+    **Momentum** = `0.85 + (wins-in-last-7 / 7) × 0.30` → range 0.85 to 1.15.  
+    A 7/7 hot streak adds 15%, a 0/7 cold streak takes 15% off.
     
     💾 The "Save All 3 Models" button stores the top 10 from each model so we can compare 
     win rates on the **Results** page.
