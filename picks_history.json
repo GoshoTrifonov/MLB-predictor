@@ -13996,5 +13996,55 @@
       "saved_at": "2026-05-08T05:36:26.896175-04:00",
       "verified": false
     }
+  },
+  "2026-05-09": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Athletics @ Baltimore Orioles",
+          "home_l10": "4.7",
+          "away_l10": "5.0",
+          "exp_runs": "8.1",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Colorado Rockies @ Philadelphia Phillies",
+          "home_l10": "4.6",
+          "away_l10": "5.2",
+          "exp_runs": "8.2",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Chicago Cubs @ Texas Rangers",
+          "home_l10": "2.7",
+          "away_l10": "5.9",
+          "exp_runs": "7.2",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "New York Yankees @ Milwaukee Brewers",
+          "home_l10": "5.5",
+          "away_l10": "5.9",
+          "exp_runs": "9.5",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Pittsburgh Pirates @ San Francisco Giants",
+          "home_l10": "2.3",
+          "away_l10": "5.0",
+          "exp_runs": "6.1",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Atlanta Braves @ Los Angeles Dodgers",
+          "home_l10": "4.0",
+          "away_l10": "4.8",
+          "exp_runs": "7.3",
+          "bet": "\ud83d\udfe2 Away"
+        }
+      ],
+      "saved_at": "2026-05-09T10:04:19.038355-04:00",
+      "verified": false
+    }
   }
 }
