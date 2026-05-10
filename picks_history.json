@@ -15827,5 +15827,76 @@
       "saved_at": "2026-05-09T10:06:35.497492-04:00",
       "verified": false
     }
+  },
+  "2026-05-10": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Washington Nationals @ Miami Marlins",
+          "home_l10": "3.9",
+          "away_l10": "5.9",
+          "exp_runs": "8.2",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Colorado Rockies @ Philadelphia Phillies",
+          "home_l10": "5.2",
+          "away_l10": "4.2",
+          "exp_runs": "7.8",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Los Angeles Angels @ Toronto Blue Jays",
+          "home_l10": "5.0",
+          "away_l10": "2.5",
+          "exp_runs": "6.2",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Houston Astros @ Cincinnati Reds",
+          "home_l10": "3.2",
+          "away_l10": "4.2",
+          "exp_runs": "6.2",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "New York Yankees @ Milwaukee Brewers",
+          "home_l10": "4.6",
+          "away_l10": "5.9",
+          "exp_runs": "8.8",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Chicago Cubs @ Texas Rangers",
+          "home_l10": "3.1",
+          "away_l10": "5.1",
+          "exp_runs": "6.8",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Pittsburgh Pirates @ San Francisco Giants",
+          "home_l10": "2.6",
+          "away_l10": "5.6",
+          "exp_runs": "6.8",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Atlanta Braves @ Los Angeles Dodgers",
+          "home_l10": "3.7",
+          "away_l10": "5.0",
+          "exp_runs": "7.2",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "St. Louis Cardinals @ San Diego Padres",
+          "home_l10": "3.2",
+          "away_l10": "3.9",
+          "exp_runs": "5.9",
+          "bet": "\ud83d\udfe2 Home"
+        }
+      ],
+      "saved_at": "2026-05-10T08:18:42.655647-04:00",
+      "verified": false
+    }
   }
 }
