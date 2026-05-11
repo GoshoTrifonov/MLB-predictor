@@ -18971,6 +18971,40 @@
       },
       "saved_at": "2026-05-11T05:41:25.438310-04:00",
       "verified": false
+    },
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Los Angeles Angels @ Cleveland Guardians",
+          "home_l10": "5.0",
+          "away_l10": "2.9",
+          "exp_runs": "6.6",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "New York Yankees @ Baltimore Orioles",
+          "home_l10": "3.6",
+          "away_l10": "6.2",
+          "exp_runs": "8.2",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Seattle Mariners @ Houston Astros",
+          "home_l10": "3.9",
+          "away_l10": "3.8",
+          "exp_runs": "6.4",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "San Francisco Giants @ Los Angeles Dodgers",
+          "home_l10": "3.8",
+          "away_l10": "3.1",
+          "exp_runs": "5.8",
+          "bet": "\ud83d\udfe2 Home"
+        }
+      ],
+      "saved_at": "2026-05-11T05:41:50.147540-04:00",
+      "verified": false
     }
   }
 }
