@@ -19501,5 +19501,69 @@
       "saved_at": "2026-05-11T05:41:50.147540-04:00",
       "verified": false
     }
+  },
+  "2026-05-12": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "New York Yankees @ Baltimore Orioles",
+          "home_l10": "3.7",
+          "away_l10": "5.7",
+          "exp_runs": "7.8",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Colorado Rockies @ Pittsburgh Pirates",
+          "home_l10": "5.8",
+          "away_l10": "3.8",
+          "exp_runs": "8.0",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Philadelphia Phillies @ Boston Red Sox",
+          "home_l10": "3.3",
+          "away_l10": "5.2",
+          "exp_runs": "7.1",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Chicago Cubs @ Atlanta Braves",
+          "home_l10": "5.3",
+          "away_l10": "4.6",
+          "exp_runs": "8.2",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Miami Marlins @ Minnesota Twins",
+          "home_l10": "4.7",
+          "away_l10": "4.1",
+          "exp_runs": "7.3",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Seattle Mariners @ Houston Astros",
+          "home_l10": "2.9",
+          "away_l10": "3.6",
+          "exp_runs": "5.4",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "St. Louis Cardinals @ Athletics",
+          "home_l10": "5.1",
+          "away_l10": "3.1",
+          "exp_runs": "6.8",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "San Francisco Giants @ Los Angeles Dodgers",
+          "home_l10": "3.9",
+          "away_l10": "3.5",
+          "exp_runs": "6.2",
+          "bet": "\ud83d\udfe2 Home"
+        }
+      ],
+      "saved_at": "2026-05-12T05:38:57.084226-04:00",
+      "verified": false
+    }
   }
 }
