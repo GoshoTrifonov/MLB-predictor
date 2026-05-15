@@ -23668,49 +23668,84 @@
           "home_l10": "3.4",
           "away_l10": "5.9",
           "exp_runs": "7.8",
-          "bet": "\ud83d\udfe2 Away"
+          "bet": "\ud83d\udfe2 Away",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-05-14"
         },
         {
           "matchup": "Miami Marlins @ Minnesota Twins",
           "home_l10": "4.5",
           "away_l10": "4.1",
           "exp_runs": "7.2",
-          "bet": "\ud83d\udfe2 Home"
+          "bet": "\ud83d\udfe2 Home",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-05-14"
         },
         {
           "matchup": "St. Louis Cardinals @ Athletics",
           "home_l10": "5.0",
           "away_l10": "2.9",
           "exp_runs": "6.6",
-          "bet": "\ud83d\udfe2 Home"
+          "bet": "\ud83d\udfe2 Home",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-05-14"
         },
         {
           "matchup": "Philadelphia Phillies @ Boston Red Sox",
           "home_l10": "3.1",
           "away_l10": "4.9",
           "exp_runs": "6.7",
-          "bet": "\ud83d\udfe2 Away"
+          "bet": "\ud83d\udfe2 Away",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-05-14"
         },
         {
           "matchup": "Chicago Cubs @ Atlanta Braves",
           "home_l10": "5.2",
           "away_l10": "4.1",
           "exp_runs": "7.8",
-          "bet": "\ud83d\udfe2 Home"
+          "bet": "\ud83d\udfe2 Home",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-05-14"
         },
         {
           "matchup": "Kansas City Royals @ Chicago White Sox",
           "home_l10": "4.6",
           "away_l10": "4.3",
           "exp_runs": "7.4",
-          "bet": "\ud83d\udfe2 Away"
+          "bet": "\ud83d\udfe2 Away",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-05-14"
         },
         {
           "matchup": "San Francisco Giants @ Los Angeles Dodgers",
           "home_l10": "4.1",
           "away_l10": "4.0",
           "exp_runs": "6.8",
-          "bet": "\ud83d\udfe2 Home"
+          "bet": "\ud83d\udfe2 Home",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-05-14"
         }
       ],
       "saved_at": "2026-05-14T05:31:42.813665-04:00",
@@ -23731,7 +23766,12 @@
             "OPS": 0.998,
             "PDF": 1.5,
             "Loc Factor": 1.11,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 4,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jordan Walker",
@@ -23745,7 +23785,12 @@
             "OPS": 0.964,
             "PDF": 1.45,
             "Loc Factor": 0.89,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "William Contreras",
@@ -23759,7 +23804,12 @@
             "OPS": 0.815,
             "PDF": 1.5,
             "Loc Factor": 1.09,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Alec Burleson",
@@ -23773,7 +23823,12 @@
             "OPS": 0.864,
             "PDF": 1.45,
             "Loc Factor": 1.15,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Bobby Witt Jr.",
@@ -23787,7 +23842,12 @@
             "OPS": 1.056,
             "PDF": 1.16,
             "Loc Factor": 0.96,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Iv\u00e1n Herrera",
@@ -23801,7 +23861,12 @@
             "OPS": 0.788,
             "PDF": 1.45,
             "Loc Factor": 1.05,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Byron Buxton",
@@ -23815,7 +23880,12 @@
             "OPS": 1.167,
             "PDF": 1.0,
             "Loc Factor": 1.22,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Julio Rodr\u00edguez",
@@ -23829,7 +23899,12 @@
             "OPS": 0.963,
             "PDF": 1.2,
             "Loc Factor": 0.97,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Ceddanne Rafaela",
@@ -23843,7 +23918,12 @@
             "OPS": 0.84,
             "PDF": 1.37,
             "Loc Factor": 0.95,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Wilyer Abreu",
@@ -23857,7 +23937,12 @@
             "OPS": 0.899,
             "PDF": 1.37,
             "Loc Factor": 0.82,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           }
         ],
         "model_C": [
@@ -23873,7 +23958,12 @@
             "OPS": 0.998,
             "PDF": 1.5,
             "Loc Factor": 1.11,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 4,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Alec Burleson",
@@ -23887,7 +23977,12 @@
             "OPS": 0.864,
             "PDF": 1.45,
             "Loc Factor": 1.15,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Byron Buxton",
@@ -23901,7 +23996,12 @@
             "OPS": 1.167,
             "PDF": 1.0,
             "Loc Factor": 1.22,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "William Contreras",
@@ -23915,7 +24015,12 @@
             "OPS": 0.815,
             "PDF": 1.5,
             "Loc Factor": 1.09,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jordan Walker",
@@ -23929,7 +24034,12 @@
             "OPS": 0.964,
             "PDF": 1.45,
             "Loc Factor": 0.89,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Iv\u00e1n Herrera",
@@ -23943,7 +24053,12 @@
             "OPS": 0.788,
             "PDF": 1.45,
             "Loc Factor": 1.05,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Bobby Witt Jr.",
@@ -23957,7 +24072,12 @@
             "OPS": 1.056,
             "PDF": 1.16,
             "Loc Factor": 0.96,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Randy Arozarena",
@@ -23971,7 +24091,12 @@
             "OPS": 0.89,
             "PDF": 1.2,
             "Loc Factor": 1.15,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "JJ Wetherholt",
@@ -23985,7 +24110,12 @@
             "OPS": 0.765,
             "PDF": 1.45,
             "Loc Factor": 1.09,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Julio Rodr\u00edguez",
@@ -23999,7 +24129,12 @@
             "OPS": 0.963,
             "PDF": 1.2,
             "Loc Factor": 0.97,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           }
         ],
         "model_D": [
@@ -24015,7 +24150,12 @@
             "OPS": 0.998,
             "PDF": 1.5,
             "Loc Factor": 1.11,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 4,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Alec Burleson",
@@ -24029,7 +24169,12 @@
             "OPS": 0.864,
             "PDF": 1.45,
             "Loc Factor": 1.15,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Byron Buxton",
@@ -24043,7 +24188,12 @@
             "OPS": 1.167,
             "PDF": 1.0,
             "Loc Factor": 1.22,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "William Contreras",
@@ -24057,7 +24207,12 @@
             "OPS": 0.815,
             "PDF": 1.5,
             "Loc Factor": 1.09,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Bobby Witt Jr.",
@@ -24071,7 +24226,12 @@
             "OPS": 1.056,
             "PDF": 1.16,
             "Loc Factor": 0.96,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Randy Arozarena",
@@ -24085,7 +24245,12 @@
             "OPS": 0.89,
             "PDF": 1.2,
             "Loc Factor": 1.15,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Iv\u00e1n Herrera",
@@ -24099,7 +24264,12 @@
             "OPS": 0.788,
             "PDF": 1.45,
             "Loc Factor": 1.05,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jordan Walker",
@@ -24113,7 +24283,12 @@
             "OPS": 0.964,
             "PDF": 1.45,
             "Loc Factor": 0.89,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "JJ Wetherholt",
@@ -24127,7 +24302,12 @@
             "OPS": 0.765,
             "PDF": 1.45,
             "Loc Factor": 1.09,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Julio Rodr\u00edguez",
@@ -24141,7 +24321,12 @@
             "OPS": 0.963,
             "PDF": 1.2,
             "Loc Factor": 0.97,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           }
         ]
       },
@@ -24163,7 +24348,12 @@
             "HR": 17,
             "Park Factor": 1.15,
             "Pit Factor": 0.58,
-            "Loc Factor": 0.6
+            "Loc Factor": 0.6,
+            "actual_HRR": 4,
+            "actual_HR": 1,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Mickey Moniak",
@@ -24177,7 +24367,12 @@
             "HR": 12,
             "Park Factor": 0.95,
             "Pit Factor": 0.5,
-            "Loc Factor": 0.6
+            "Loc Factor": 0.6,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Munetaka Murakami",
@@ -24191,7 +24386,12 @@
             "HR": 15,
             "Park Factor": 0.96,
             "Pit Factor": 0.5,
-            "Loc Factor": 0.73
+            "Loc Factor": 0.73,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Byron Buxton",
@@ -24205,7 +24405,12 @@
             "HR": 15,
             "Park Factor": 1.1,
             "Pit Factor": 1.0,
-            "Loc Factor": 1.3
+            "Loc Factor": 1.3,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Matt Olson",
@@ -24219,7 +24424,12 @@
             "HR": 14,
             "Park Factor": 1.02,
             "Pit Factor": 0.5,
-            "Loc Factor": 0.67
+            "Loc Factor": 0.67,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Max Muncy",
@@ -24233,7 +24443,12 @@
             "HR": 11,
             "Park Factor": 0.98,
             "Pit Factor": 0.5,
-            "Loc Factor": 1.28
+            "Loc Factor": 1.28,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Shea Langeliers",
@@ -24247,7 +24462,12 @@
             "HR": 12,
             "Park Factor": 0.93,
             "Pit Factor": 0.83,
-            "Loc Factor": 0.75
+            "Loc Factor": 0.75,
+            "actual_HRR": 5,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Yordan Alvarez",
@@ -24261,7 +24481,12 @@
             "HR": 13,
             "Park Factor": 0.99,
             "Pit Factor": 1.18,
-            "Loc Factor": 1.1
+            "Loc Factor": 1.1,
+            "actual_HRR": 6,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Colson Montgomery",
@@ -24275,7 +24500,12 @@
             "HR": 11,
             "Park Factor": 0.96,
             "Pit Factor": 0.5,
-            "Loc Factor": 0.8
+            "Loc Factor": 0.8,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jordan Walker",
@@ -24289,7 +24519,12 @@
             "HR": 11,
             "Park Factor": 0.93,
             "Pit Factor": 1.71,
-            "Loc Factor": 1.01
+            "Loc Factor": 1.01,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           }
         ],
         "model_B": [
@@ -24305,7 +24540,12 @@
             "HR": 11,
             "Park Factor": 0.93,
             "Pit Factor": 1.71,
-            "Loc Factor": 1.01
+            "Loc Factor": 1.01,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Byron Buxton",
@@ -24319,7 +24559,12 @@
             "HR": 15,
             "Park Factor": 1.1,
             "Pit Factor": 1.0,
-            "Loc Factor": 1.3
+            "Loc Factor": 1.3,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Yordan Alvarez",
@@ -24333,7 +24578,12 @@
             "HR": 13,
             "Park Factor": 0.99,
             "Pit Factor": 1.18,
-            "Loc Factor": 1.1
+            "Loc Factor": 1.1,
+            "actual_HRR": 6,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "JJ Wetherholt",
@@ -24347,7 +24597,12 @@
             "HR": 8,
             "Park Factor": 0.93,
             "Pit Factor": 1.71,
-            "Loc Factor": 0.7
+            "Loc Factor": 0.7,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Christian Walker",
@@ -24361,7 +24616,12 @@
             "HR": 10,
             "Park Factor": 0.99,
             "Pit Factor": 1.18,
-            "Loc Factor": 1.02
+            "Loc Factor": 1.02,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Nathan Church",
@@ -24375,7 +24635,12 @@
             "HR": 5,
             "Park Factor": 0.93,
             "Pit Factor": 1.71,
-            "Loc Factor": 0.67
+            "Loc Factor": 0.67,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Liam Hicks",
@@ -24389,7 +24654,12 @@
             "HR": 9,
             "Park Factor": 1.1,
             "Pit Factor": 1.0,
-            "Loc Factor": 1.12
+            "Loc Factor": 1.12,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Shea Langeliers",
@@ -24403,7 +24673,12 @@
             "HR": 12,
             "Park Factor": 0.93,
             "Pit Factor": 0.83,
-            "Loc Factor": 0.75
+            "Loc Factor": 0.75,
+            "actual_HRR": 5,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "James Wood",
@@ -24417,7 +24692,12 @@
             "HR": 12,
             "Park Factor": 1.18,
             "Pit Factor": 0.96,
-            "Loc Factor": 0.6
+            "Loc Factor": 0.6,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Alec Burleson",
@@ -24431,7 +24711,12 @@
             "HR": 6,
             "Park Factor": 0.93,
             "Pit Factor": 1.71,
-            "Loc Factor": 0.94
+            "Loc Factor": 0.94,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           }
         ],
         "model_C": [
@@ -24447,7 +24732,12 @@
             "HR": 15,
             "Park Factor": 1.1,
             "Pit Factor": 1.0,
-            "Loc Factor": 1.3
+            "Loc Factor": 1.3,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jordan Walker",
@@ -24461,7 +24751,12 @@
             "HR": 11,
             "Park Factor": 0.93,
             "Pit Factor": 1.71,
-            "Loc Factor": 1.01
+            "Loc Factor": 1.01,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Yordan Alvarez",
@@ -24475,7 +24770,12 @@
             "HR": 13,
             "Park Factor": 0.99,
             "Pit Factor": 1.18,
-            "Loc Factor": 1.1
+            "Loc Factor": 1.1,
+            "actual_HRR": 6,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Elly De La Cruz",
@@ -24489,7 +24789,12 @@
             "HR": 10,
             "Park Factor": 1.18,
             "Pit Factor": 0.97,
-            "Loc Factor": 1.35
+            "Loc Factor": 1.35,
+            "actual_HRR": 4,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Liam Hicks",
@@ -24503,7 +24808,12 @@
             "HR": 9,
             "Park Factor": 1.1,
             "Pit Factor": 1.0,
-            "Loc Factor": 1.12
+            "Loc Factor": 1.12,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Carter Jensen",
@@ -24517,7 +24827,12 @@
             "HR": 6,
             "Park Factor": 0.96,
             "Pit Factor": 1.29,
-            "Loc Factor": 1.37
+            "Loc Factor": 1.37,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Sal Stewart",
@@ -24531,7 +24846,12 @@
             "HR": 10,
             "Park Factor": 1.18,
             "Pit Factor": 0.97,
-            "Loc Factor": 1.14
+            "Loc Factor": 1.14,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Christian Walker",
@@ -24545,7 +24865,12 @@
             "HR": 10,
             "Park Factor": 0.99,
             "Pit Factor": 1.18,
-            "Loc Factor": 1.02
+            "Loc Factor": 1.02,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Salvador Perez",
@@ -24559,7 +24884,12 @@
             "HR": 6,
             "Park Factor": 0.96,
             "Pit Factor": 1.29,
-            "Loc Factor": 1.39
+            "Loc Factor": 1.39,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jake Bauers",
@@ -24573,7 +24903,12 @@
             "HR": 6,
             "Park Factor": 1.08,
             "Pit Factor": 0.82,
-            "Loc Factor": 1.4
+            "Loc Factor": 1.4,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           }
         ]
       },
@@ -24595,7 +24930,12 @@
             "AVG": 0.149,
             "OPS": 0.496,
             "PDF": 1.3,
-            "Loc Factor": 1.05
+            "Loc Factor": 1.05,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Carter Jensen",
@@ -24609,7 +24949,12 @@
             "AVG": 0.171,
             "OPS": 0.506,
             "PDF": 0.74,
-            "Loc Factor": 1.01
+            "Loc Factor": 1.01,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Josh Bell",
@@ -24623,7 +24968,12 @@
             "AVG": 0.167,
             "OPS": 0.375,
             "PDF": 1.0,
-            "Loc Factor": 0.98
+            "Loc Factor": 0.98,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Manny Machado",
@@ -24637,7 +24987,12 @@
             "AVG": 0.102,
             "OPS": 0.391,
             "PDF": 1.26,
-            "Loc Factor": 1.14
+            "Loc Factor": 1.14,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Matt Chapman",
@@ -24651,7 +25006,12 @@
             "AVG": 0.125,
             "OPS": 0.41,
             "PDF": 1.25,
-            "Loc Factor": 1.18
+            "Loc Factor": 1.18,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Cam Smith",
@@ -24665,7 +25025,12 @@
             "AVG": 0.186,
             "OPS": 0.55,
             "PDF": 1.0,
-            "Loc Factor": 1.26
+            "Loc Factor": 1.26,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jakob Marsee",
@@ -24679,7 +25044,12 @@
             "AVG": 0.171,
             "OPS": 0.574,
             "PDF": 1.0,
-            "Loc Factor": 1.16
+            "Loc Factor": 1.16,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Munetaka Murakami",
@@ -24693,7 +25063,12 @@
             "AVG": 0.195,
             "OPS": 0.792,
             "PDF": 1.05,
-            "Loc Factor": 1.22
+            "Loc Factor": 1.22,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Ian Happ",
@@ -24707,7 +25082,12 @@
             "AVG": 0.214,
             "OPS": 0.863,
             "PDF": 1.18,
-            "Loc Factor": 1.3
+            "Loc Factor": 1.3,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Austin Riley",
@@ -24721,7 +25101,12 @@
             "AVG": 0.25,
             "OPS": 0.733,
             "PDF": 0.94,
-            "Loc Factor": 1.12
+            "Loc Factor": 1.12,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           }
         ],
         "model_B": [
@@ -24737,7 +25122,12 @@
             "AVG": 0.149,
             "OPS": 0.496,
             "PDF": 1.3,
-            "Loc Factor": 1.05
+            "Loc Factor": 1.05,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Manny Machado",
@@ -24751,7 +25141,12 @@
             "AVG": 0.102,
             "OPS": 0.391,
             "PDF": 1.26,
-            "Loc Factor": 1.14
+            "Loc Factor": 1.14,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Matt Chapman",
@@ -24765,7 +25160,12 @@
             "AVG": 0.125,
             "OPS": 0.41,
             "PDF": 1.25,
-            "Loc Factor": 1.18
+            "Loc Factor": 1.18,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Hunter Goodman",
@@ -24779,7 +25179,12 @@
             "AVG": 0.239,
             "OPS": 0.764,
             "PDF": 1.5,
-            "Loc Factor": 0.85
+            "Loc Factor": 0.85,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Willi Castro",
@@ -24793,7 +25198,12 @@
             "AVG": 0.222,
             "OPS": 0.582,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jarren Duran",
@@ -24807,7 +25217,12 @@
             "AVG": 0.208,
             "OPS": 0.672,
             "PDF": 1.35,
-            "Loc Factor": 0.85
+            "Loc Factor": 0.85,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Ian Happ",
@@ -24821,7 +25236,12 @@
             "AVG": 0.214,
             "OPS": 0.863,
             "PDF": 1.18,
-            "Loc Factor": 1.3
+            "Loc Factor": 1.3,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Josh Bell",
@@ -24835,7 +25255,12 @@
             "AVG": 0.167,
             "OPS": 0.375,
             "PDF": 1.0,
-            "Loc Factor": 0.98
+            "Loc Factor": 0.98,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Shohei Ohtani",
@@ -24849,7 +25274,12 @@
             "AVG": 0.143,
             "OPS": 0.532,
             "PDF": 1.21,
-            "Loc Factor": 0.93
+            "Loc Factor": 0.93,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Dillon Dingler",
@@ -24863,7 +25293,12 @@
             "AVG": 0.217,
             "OPS": 0.685,
             "PDF": 1.3,
-            "Loc Factor": 0.98
+            "Loc Factor": 0.98,
+            "actual_HRR": 3,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           }
         ],
         "model_C": [
@@ -24879,7 +25314,12 @@
             "AVG": 0.149,
             "OPS": 0.496,
             "PDF": 1.3,
-            "Loc Factor": 1.05
+            "Loc Factor": 1.05,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Matt Chapman",
@@ -24893,7 +25333,12 @@
             "AVG": 0.125,
             "OPS": 0.41,
             "PDF": 1.25,
-            "Loc Factor": 1.18
+            "Loc Factor": 1.18,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Manny Machado",
@@ -24907,7 +25352,12 @@
             "AVG": 0.102,
             "OPS": 0.391,
             "PDF": 1.26,
-            "Loc Factor": 1.14
+            "Loc Factor": 1.14,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Ian Happ",
@@ -24921,7 +25371,12 @@
             "AVG": 0.214,
             "OPS": 0.863,
             "PDF": 1.18,
-            "Loc Factor": 1.3
+            "Loc Factor": 1.3,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Willi Castro",
@@ -24935,7 +25390,12 @@
             "AVG": 0.222,
             "OPS": 0.582,
             "PDF": 1.5,
-            "Loc Factor": 1.0
+            "Loc Factor": 1.0,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Munetaka Murakami",
@@ -24949,7 +25409,12 @@
             "AVG": 0.195,
             "OPS": 0.792,
             "PDF": 1.05,
-            "Loc Factor": 1.22
+            "Loc Factor": 1.22,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Mickey Moniak",
@@ -24963,7 +25428,12 @@
             "AVG": 0.326,
             "OPS": 1.15,
             "PDF": 1.5,
-            "Loc Factor": 1.26
+            "Loc Factor": 1.26,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Cam Smith",
@@ -24977,7 +25447,12 @@
             "AVG": 0.186,
             "OPS": 0.55,
             "PDF": 1.0,
-            "Loc Factor": 1.26
+            "Loc Factor": 1.26,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jackson Merrill",
@@ -24991,7 +25466,12 @@
             "AVG": 0.239,
             "OPS": 0.675,
             "PDF": 1.26,
-            "Loc Factor": 1.16
+            "Loc Factor": 1.16,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-05-14"
           },
           {
             "Player": "Jakob Marsee",
@@ -25005,7 +25485,12 @@
             "AVG": 0.171,
             "OPS": 0.574,
             "PDF": 1.0,
-            "Loc Factor": 1.16
+            "Loc Factor": 1.16,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-05-14"
           }
         ]
       },
