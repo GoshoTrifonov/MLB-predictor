@@ -28695,5 +28695,83 @@
       "saved_at": "2026-05-16T10:01:47.053057-04:00",
       "verified": false
     }
+  },
+  "2026-05-17": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Miami Marlins @ Tampa Bay Rays",
+          "home_l10": "4.5",
+          "away_l10": "4.5",
+          "exp_runs": "7.5",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Boston Red Sox @ Atlanta Braves",
+          "home_l10": "3.3",
+          "away_l10": "2.1",
+          "exp_runs": "4.5",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Baltimore Orioles @ Washington Nationals",
+          "home_l10": "6.9",
+          "away_l10": "3.4",
+          "exp_runs": "8.6",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Cincinnati Reds @ Cleveland Guardians",
+          "home_l10": "4.9",
+          "away_l10": "5.4",
+          "exp_runs": "8.6",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Toronto Blue Jays @ Detroit Tigers",
+          "home_l10": "2.5",
+          "away_l10": "4.0",
+          "exp_runs": "5.4",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "New York Yankees @ New York Mets",
+          "home_l10": "4.7",
+          "away_l10": "3.2",
+          "exp_runs": "6.6",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Chicago Cubs @ Chicago White Sox",
+          "home_l10": "5.2",
+          "away_l10": "4.0",
+          "exp_runs": "7.7",
+          "bet": "\ud83d\udfe2 Away"
+        },
+        {
+          "matchup": "Kansas City Royals @ St. Louis Cardinals",
+          "home_l10": "3.6",
+          "away_l10": "3.6",
+          "exp_runs": "6.0",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "Arizona Diamondbacks @ Colorado Rockies",
+          "home_l10": "4.1",
+          "away_l10": "3.1",
+          "exp_runs": "6.0",
+          "bet": "\ud83d\udfe2 Home"
+        },
+        {
+          "matchup": "San Diego Padres @ Seattle Mariners",
+          "home_l10": "4.5",
+          "away_l10": "3.0",
+          "exp_runs": "6.2",
+          "bet": "\ud83d\udfe2 Home"
+        }
+      ],
+      "saved_at": "2026-05-17T09:29:35.511419-04:00",
+      "verified": false
+    }
   }
 }
