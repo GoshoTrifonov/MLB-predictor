@@ -32104,6 +32104,56 @@
       },
       "saved_at": "2026-05-18T13:09:44.337074-04:00",
       "verified": false
+    },
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Atlanta Braves @ Miami Marlins",
+          "side": "Away",
+          "pitchers": "Ritchie 3.32 @ Meyer 2.57",
+          "home_l10": "4.4",
+          "away_l10": "3.8",
+          "exp_runs": "6.8",
+          "model_home_prob": 0.445,
+          "book_home_prob": 0.529,
+          "bet": "\ud83d\udfe2 Away +10%"
+        },
+        {
+          "matchup": "Cleveland Guardians @ Detroit Tigers",
+          "side": "Away",
+          "pitchers": "Cecconi 6.04 @ Valdez 4.85",
+          "home_l10": "2.3",
+          "away_l10": "5.6",
+          "exp_runs": "6.6",
+          "model_home_prob": 0.39,
+          "book_home_prob": 0.598,
+          "bet": "\ud83d\udfe2 Away +17%"
+        },
+        {
+          "matchup": "Milwaukee Brewers @ Chicago Cubs",
+          "side": "Away",
+          "pitchers": "Sproat 3.86 @ Imanaga 2.23",
+          "home_l10": "4.1",
+          "away_l10": "4.3",
+          "exp_runs": "7.0",
+          "model_home_prob": 0.41,
+          "book_home_prob": 0.619,
+          "bet": "\ud83d\udfe2 Away +17%"
+        },
+        {
+          "matchup": "Houston Astros @ Minnesota Twins",
+          "side": "Away",
+          "pitchers": "Imai 9.24 @ Rojas \u2014",
+          "home_l10": "4.1",
+          "away_l10": "2.7",
+          "exp_runs": "5.7",
+          "model_home_prob": 0.63,
+          "book_home_prob": 0.537,
+          "bet": "\ud83d\udfe2 Away +12%"
+        }
+      ],
+      "saved_at": "2026-05-18T13:10:04.055960-04:00",
+      "verified": false
     }
   }
 }
