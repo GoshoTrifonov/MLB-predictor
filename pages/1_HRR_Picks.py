@@ -1,8 +1,11 @@
 """
-MLB H+R+RBI Top Picks — 3 Models for B/C/D comparison
+MLB H+R+RBI Top Picks — 3 Models (B/C/D) with 1+ / 2+ threshold toggle
+- Threshold toggle: predict Over 0.5 (>=1 HRR) or Over 1.5 (>=2 HRR)
 - Model B: Form + Pitcher difficulty
 - Model C: Form + Pitcher + Home/Away (full)
-- Model D: C + Momentum from last 7 games (NEW — replaces old Model A)
+- Model D: C + Momentum from last 7 games
+- For the 2+ line the Base Score is recalibrated to weight the empirical
+  season 2+ HRR rate (tail-aware) instead of the per-game average alone.
 """
 
 import streamlit as st
@@ -20,7 +23,6 @@ TORONTO_TZ = ZoneInfo("America/Toronto")
 
 st.set_page_config(page_title="H+R+RBI Picks", page_icon="🎯", layout="wide")
 st.title("🎯 MLB H+R+RBI Top Picks")
-st.caption(f"3-model B/C/D comparison • {datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}")
 
 TEAM_IDS = [108,109,110,111,112,113,114,115,116,117,118,119,120,121,133,
             134,135,136,137,138,139,140,141,142,143,144,145,146,147,158]
@@ -172,12 +174,97 @@ def fetch_all_batters(days_back=15):
         time.sleep(0.1)
     return pd.DataFrame(rows)
 
-# Sidebar
-days = st.sidebar.slider("Days back for form", 5, 20, 15)
-min_games = st.sidebar.slider("Minimum games played", 3, 10, 7)
-search = st.sidebar.text_input("Search player").lower()
-which_model = st.sidebar.radio("Display model", ["Model D (B+C+Momentum)","Model C (Full)","Model B"], index=0)
+# ---------- Helpers ----------
 
+def norm(s):
+    """Min-max normalize a Series to 0..1. Returns neutral 0.5 if degenerate
+    (all equal / all NaN) so the Base Score never crashes or goes NaN."""
+    lo, hi = s.min(), s.max()
+    if pd.isna(lo) or pd.isna(hi) or hi == lo:
+        return pd.Series(0.5, index=s.index)
+    return (s - lo) / (hi - lo)
+
+def make_last7(player_id, threshold=1):
+    if pd.isna(player_id):
+        return "—"
+    try:
+        games = get_player_gamelog(int(player_id))
+    except (ValueError, TypeError):
+        return "—"
+    last7 = games[-7:]
+    icons = []
+    for g in last7:
+        result = "✅" if g.get("hrr", 0) >= threshold else "❌"
+        if g.get("is_home") is True:    loc = "H"
+        elif g.get("is_home") is False: loc = "A"
+        else:                           loc = ""
+        icons.append(result + loc)
+    return " ".join(icons) if icons else "—"
+
+def calc_momentum(player_id, threshold=1):
+    """Last-7 streak rate at the given threshold → Momentum factor (0.85..1.15)."""
+    if pd.isna(player_id): return 1.0
+    try:
+        games = get_player_gamelog(int(player_id))
+    except (ValueError, TypeError):
+        return 1.0
+    last7 = games[-7:]
+    if len(last7) == 0: return 1.0
+    wins = sum(1 for g in last7 if g.get("hrr", 0) >= threshold)
+    rate = wins / len(last7)
+    return round(0.85 + rate * 0.30, 2)
+
+def season_rate(player_id, threshold):
+    """Empirical % of this season's games where the player cleared `threshold`
+    HRR. Computed from the full game log — a tail-aware probability signal.
+    Uses the same cached game log as Momentum, so no extra API calls."""
+    if pd.isna(player_id): return None
+    try:
+        games = get_player_gamelog(int(player_id))
+    except (ValueError, TypeError):
+        return None
+    if not games: return None
+    hits = sum(1 for g in games if g.get("hrr", 0) >= threshold)
+    return round(hits / len(games) * 100, 1)
+
+def pitcher_difficulty_factor(pid):
+    if pd.isna(pid): return 1.0
+    stats = pitcher_cache.get(int(pid))
+    if not stats or pd.isna(stats.get("era")): return 1.0
+    return max(0.5, min(1.5, stats["era"] / LEAGUE_AVG_ERA))
+
+def location_factor(row):
+    h = row.get("home_ops"); a = row.get("away_ops")
+    if pd.isna(h) or pd.isna(a) or a == 0: return 1.0
+    relevant = h if row["is_home"] else a
+    avg = (h + a) / 2
+    if avg == 0: return 1.0
+    return max(0.7, min(1.3, relevant / avg))
+
+# ---------- Sidebar ----------
+threshold_label = st.sidebar.radio(
+    "HRR line",
+    ["Over 0.5  (≥1 HRR)", "Over 1.5  (≥2 HRR)"],
+    index=0,
+)
+hrr_threshold = 1 if threshold_label.startswith("Over 0.5") else 2
+
+days       = st.sidebar.slider("Days back for form", 5, 20, 15)
+min_games  = st.sidebar.slider("Minimum games played", 3, 10, 7)
+search     = st.sidebar.text_input("Search player").lower()
+which_model = st.sidebar.radio(
+    "Display model",
+    ["Model D (B+C+Momentum)", "Model C (Full)", "Model B"],
+    index=0,
+)
+
+line_name = "Over 0.5 (≥1 HRR)" if hrr_threshold == 1 else "Over 1.5 (≥2 HRR)"
+st.caption(
+    f"3-model B/C/D comparison • Predicting **{line_name}** • "
+    f"{datetime.now(TORONTO_TZ).strftime('%A, %B %d, %Y')}"
+)
+
+# ---------- Data ----------
 with st.spinner("Pulling batter form + splits..."):
     df = fetch_all_batters(days)
 
@@ -203,62 +290,27 @@ if len(unique_pitchers) > 0:
         prog.progress((i+1) / len(unique_pitchers))
     prog.empty()
 
-# Last 7 streak fetch
+# Game-log fetch (pre-warms cache for Momentum, Last 7 and 2+ Rate)
 streak_ids = df["player_id"].dropna().unique()
 if len(streak_ids) > 0:
-    streak_prog = st.progress(0, text="Fetching last 7 game logs...")
+    streak_prog = st.progress(0, text="Fetching season game logs...")
     for i, pid in enumerate(streak_ids):
         get_player_gamelog(int(pid))
         streak_prog.progress((i + 1) / len(streak_ids))
     streak_prog.empty()
 
-def make_last7(player_id, threshold=1):
-    if pd.isna(player_id):
-        return "—"
-    try:
-        games = get_player_gamelog(int(player_id))
-    except (ValueError, TypeError):
-        return "—"
-    last7 = games[-7:]
-    icons = []
-    for g in last7:
-        result = "✅" if g.get("hrr", 0) >= threshold else "❌"
-        if g.get("is_home") is True:    loc = "H"
-        elif g.get("is_home") is False: loc = "A"
-        else:                           loc = ""
-        icons.append(result + loc)
-    return " ".join(icons) if icons else "—"
+# Game-log-derived columns (all use the active threshold)
+df["Last 7 (old→new)"] = df["player_id"].apply(lambda p: make_last7(p, hrr_threshold))
+df["Momentum"]         = df["player_id"].apply(lambda p: calc_momentum(p, hrr_threshold))
+df["2+ Rate"]          = df["player_id"].apply(lambda p: season_rate(p, 2))
 
-def calc_momentum(player_id, threshold=1):
-    """Last-7 streak rate → Momentum factor (range 0.85 to 1.15)."""
-    if pd.isna(player_id): return 1.0
-    try:
-        games = get_player_gamelog(int(player_id))
-    except (ValueError, TypeError):
-        return 1.0
-    last7 = games[-7:]
-    if len(last7) == 0: return 1.0
-    wins = sum(1 for g in last7 if g.get("hrr", 0) >= threshold)
-    rate = wins / len(last7)
-    return round(0.85 + rate * 0.30, 2)
+# Fill missing 2+ rate with the median so a transient fetch failure stays
+# neutral rather than dropping a good hitter off the board.
+df["2+ Rate"] = pd.to_numeric(df["2+ Rate"], errors="coerce")
+_med = df["2+ Rate"].median()
+df["2+ Rate"] = df["2+ Rate"].fillna(_med if pd.notna(_med) else 0.0)
 
-df["Last 7 (old→new)"] = df["player_id"].apply(make_last7)
-df["Momentum"]         = df["player_id"].apply(calc_momentum)
-
-def pitcher_difficulty_factor(pid):
-    if pd.isna(pid): return 1.0
-    stats = pitcher_cache.get(int(pid))
-    if not stats or pd.isna(stats.get("era")): return 1.0
-    return max(0.5, min(1.5, stats["era"] / LEAGUE_AVG_ERA))
-
-def location_factor(row):
-    h = row.get("home_ops"); a = row.get("away_ops")
-    if pd.isna(h) or pd.isna(a) or a == 0: return 1.0
-    relevant = h if row["is_home"] else a
-    avg = (h + a) / 2
-    if avg == 0: return 1.0
-    return max(0.7, min(1.3, relevant / avg))
-
+# Matchup factors
 df["PDF"]        = df["opp_pit_id"].apply(pitcher_difficulty_factor).round(2)
 df["Loc Factor"] = df.apply(location_factor, axis=1).round(2)
 df["Opp ERA"]    = df["opp_pit_id"].apply(
@@ -269,11 +321,18 @@ df["Opp ERA"]    = df["opp_pit_id"].apply(
 if search:
     df = df[df["Player"].str.lower().str.contains(search)]
 
-# Build base score
-df["pg_norm"]  = (df["Per Game"] - df["Per Game"].min()) / (df["Per Game"].max() - df["Per Game"].min())
-df["avg_norm"] = (df["AVG"] - df["AVG"].min()) / (df["AVG"].max() - df["AVG"].min())
-df["ops_norm"] = (df["OPS"] - df["OPS"].min()) / (df["OPS"].max() - df["OPS"].min())
-base = (df["pg_norm"]*0.5 + df["ops_norm"]*0.3 + df["avg_norm"]*0.2) * 100
+# ---------- Base Score (threshold-dependent) ----------
+df["pg_norm"]    = norm(df["Per Game"])
+df["avg_norm"]   = norm(df["AVG"])
+df["ops_norm"]   = norm(df["OPS"])
+df["rate2_norm"] = norm(df["2+ Rate"])
+
+if hrr_threshold == 1:
+    # 1+ line: per-game average is a fine signal for "at least one"
+    base = (df["pg_norm"]*0.5 + df["ops_norm"]*0.3 + df["avg_norm"]*0.2) * 100
+else:
+    # 2+ line: lean on the empirical 2+ rate (tail-aware); OPS over AVG
+    base = (df["rate2_norm"]*0.45 + df["pg_norm"]*0.30 + df["ops_norm"]*0.25) * 100
 
 # Three model scores
 df["Score B"] = (base * df["PDF"]).round(1)                                       # form + pitcher
@@ -287,19 +346,28 @@ active_score = {
 }[which_model]
 df = df.sort_values(active_score, ascending=False).reset_index(drop=True)
 
-# Save button — saves all 3 models' top 10 in one shot
+# ---------- Save button — saves all 3 models' top 10 in one shot ----------
+prop_key = "hrr" if hrr_threshold == 1 else "hrr_2plus"
+
 c1, c2, c3 = st.columns([2,1,2])
 with c2:
-    if st.button("💾 Save All 3 Models", use_container_width=True):
+    save_label = "💾 Save All 3 Models" + ("" if hrr_threshold == 1 else "  (2+)")
+    if st.button(save_label, use_container_width=True):
+        save_cols = ["Player","Team","Opp Team","Opp Pitcher","H/A",
+                     "Per Game","AVG","OPS","PDF","Loc Factor","Momentum"]
+        if hrr_threshold == 2:
+            save_cols.append("2+ Rate")
         out = {}
         for m, score_col in [("B","Score B"),("C","Score C"),("D","Score D")]:
             top10 = df.sort_values(score_col, ascending=False).head(10).copy()
-            out[f"model_{m}"] = top10[[
-                "Player","Team","Opp Team","Opp Pitcher","H/A",
-                score_col,"Per Game","AVG","OPS","PDF","Loc Factor","Momentum"
-            ]].rename(columns={score_col:"Score"}).to_dict(orient="records")
-        if save_todays_picks("hrr", out):
-            st.success("✅ All 3 model picks saved!")
+            cols = [score_col] + save_cols
+            out[f"model_{m}"] = (
+                top10[cols]
+                .rename(columns={score_col:"Score"})
+                .to_dict(orient="records")
+            )
+        if save_todays_picks(prop_key, out):
+            st.success(f"✅ Saved under '{prop_key}'!")
         else:
             st.error("Save failed — check GITHUB_TOKEN.")
 
@@ -307,13 +375,19 @@ st.markdown("---")
 
 c1, c2, c3 = st.columns(3)
 c1.metric("Hitters playing", len(df))
-c2.metric("Avg form (H+R+RBI/G)", f"{df['Per Game'].mean():.2f}")
+if hrr_threshold == 1:
+    c2.metric("Avg form (H+R+RBI/G)", f"{df['Per Game'].mean():.2f}")
+else:
+    c2.metric("Avg 2+ HRR rate", f"{df['2+ Rate'].mean():.0f}%")
 c3.metric("Avg opp ERA", f"{df['Opp ERA'].mean():.2f}" if df['Opp ERA'].notna().any() else "—")
 
 display_cols = ["Player","Last 7 (old→new)","Team","H/A","Opp Team","Opp Pitcher",
                 "Momentum","Score B","Score C","Score D"]
+if hrr_threshold == 2:
+    display_cols.insert(7, "2+ Rate")   # show the 2+ rate right before the scores
 
-st.markdown(f"### Showing rankings by **{which_model}**")
+st.markdown(f"### Showing rankings by **{which_model}** — line: **{line_name}**")
+
 def show_picks(df_in, n, title, emoji):
     st.markdown(f"#### {emoji} {title}")
     st.dataframe(df_in.head(n)[display_cols], hide_index=True, use_container_width=True)
@@ -327,15 +401,26 @@ with st.expander("📊 Full ranked list"):
 
 with st.expander("ℹ️ Models explained"):
     st.markdown("""
-    All three use the same **Base Score**: 50% form + 30% OPS + 20% AVG.
-    
-    - **Model B** = Base × Pitcher Difficulty Factor (PDF)
-    - **Model C** = Base × PDF × Location Factor
-    - **Model D** = Base × PDF × Loc × Momentum (NEW!)
-    
-    **Momentum** = `0.85 + (wins-in-last-7 / 7) × 0.30` → range 0.85 to 1.15.  
-    A 7/7 hot streak adds 15%, a 0/7 cold streak takes 15% off.
-    
-    💾 The "Save All 3 Models" button stores the top 10 from each model so we can compare 
-    win rates on the **Results** page.
+**Threshold toggle (sidebar):**
+- **Over 0.5 (≥1 HRR)** — Base Score = 50% per-game form + 30% OPS + 20% AVG.
+- **Over 1.5 (≥2 HRR)** — Base Score recalibrated to **45% season 2+ rate
+  + 30% per-game form + 25% OPS**. The 2+ rate is the empirical % of this
+  season's games where the player actually cleared 2+ HRR — a tail-aware
+  signal that a season *average* can't capture.
+
+All three models then apply matchup multipliers to the Base Score:
+
+- **Model B** = Base × Pitcher Difficulty Factor (PDF)
+- **Model C** = Base × PDF × Location Factor
+- **Model D** = Base × PDF × Loc × Momentum
+
+**Momentum** = `0.85 + (wins-in-last-7 / 7) × 0.30` → range 0.85 to 1.15,
+where a "win" is a game clearing the **currently selected** threshold.
+
+💾 **Save** stores the top 10 from each model. The 1+ line saves under
+`hrr`; the 2+ line saves under `hrr_2plus` so the Results page can track
+the two lines separately.
+
+*Note: the 2+ Base Score weights are starting values — tune them once
+you have 7–14 days of tracked 2+ results.*
     """)
