@@ -33452,6 +33452,89 @@
       },
       "saved_at": "2026-05-19T05:31:14.945476-04:00",
       "verified": false
+    },
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Cleveland Guardians @ Detroit Tigers",
+          "side": "Home",
+          "pitchers": "Messick 3.54 @ Montero 3.86",
+          "home_l10": "2.5",
+          "away_l10": "5.6",
+          "exp_runs": "6.8",
+          "model_home_prob": 0.55,
+          "book_home_prob": 0.487,
+          "bet": "\ud83d\udfe2 Home +6%"
+        },
+        {
+          "matchup": "New York Mets @ Washington Nationals",
+          "side": "Home",
+          "pitchers": "McLean 3.45 @ Griffin 3.86",
+          "home_l10": "5.7",
+          "away_l10": "5.8",
+          "exp_runs": "9.6",
+          "model_home_prob": 0.5,
+          "book_home_prob": 0.436,
+          "bet": "\ud83d\udfe2 Home +6%"
+        },
+        {
+          "matchup": "Toronto Blue Jays @ New York Yankees",
+          "side": "Away",
+          "pitchers": "Cease 2.84 @ Warren 4.03",
+          "home_l10": "3.5",
+          "away_l10": "4.7",
+          "exp_runs": "6.8",
+          "model_home_prob": 0.46,
+          "book_home_prob": 0.577,
+          "bet": "\ud83d\udfe2 Away +8%"
+        },
+        {
+          "matchup": "Milwaukee Brewers @ Chicago Cubs",
+          "side": "Home",
+          "pitchers": "Misiorowski 1.23 @ Brown 0.00",
+          "home_l10": "3.6",
+          "away_l10": "4.6",
+          "exp_runs": "6.8",
+          "model_home_prob": 0.285,
+          "book_home_prob": 0.104,
+          "bet": "\ud83d\udfe2 Home +18%"
+        },
+        {
+          "matchup": "Texas Rangers @ Colorado Rockies",
+          "side": "Away",
+          "pitchers": "Rocker 4.37 @ Peralta \u2014",
+          "home_l10": "4.3",
+          "away_l10": "3.8",
+          "exp_runs": "6.8",
+          "model_home_prob": 0.355,
+          "book_home_prob": 0.476,
+          "bet": "\ud83d\udfe2 Away +8%"
+        },
+        {
+          "matchup": "Athletics @ Los Angeles Angels",
+          "side": "Away",
+          "pitchers": "Lopez 4.85 @ Detmers 4.72",
+          "home_l10": "1.8",
+          "away_l10": "3.6",
+          "exp_runs": "4.5",
+          "model_home_prob": 0.465,
+          "book_home_prob": 0.561,
+          "bet": "\ud83d\udfe2 Away +6%"
+        },
+        {
+          "matchup": "Los Angeles Dodgers @ San Diego Padres",
+          "side": "Home",
+          "pitchers": "Sheehan 3.38 @ Canning 10.64",
+          "home_l10": "3.3",
+          "away_l10": "4.9",
+          "exp_runs": "6.8",
+          "model_home_prob": 0.575,
+          "book_home_prob": 0.425,
+          "bet": "\ud83d\udfe2 Home +15%"
+        }
+      ],
+      "saved_at": "2026-05-19T05:31:28.404302-04:00",
+      "verified": false
     }
   }
 }
