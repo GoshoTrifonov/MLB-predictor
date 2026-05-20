@@ -89,6 +89,14 @@ def parse_ip(ip):
     except (ValueError, TypeError):
         return 0.0
 
+def k_per_era(k9, era):
+    """K/ERA dominance ratio. Higher = more strikeouts per earned run allowed,
+    i.e. a pitcher who misses bats AND limits damage. ERA is floored at 0.5
+    so a tiny-sample 0.00 ERA doesn't blow up to infinity."""
+    if k9 is None or era is None:
+        return None
+    return round(k9 / max(era, 0.5), 2)
+
 @st.cache_data(ttl=3600)
 def get_team_recent_stats(team_id, n_games=20):
     """Fetch last N games for a team and compute rolling stats."""
@@ -352,6 +360,9 @@ for i, game in enumerate(games):
     home_k9  = home_form["k9_recent"]  if home_form else None
     away_k9  = away_form["k9_recent"]  if away_form else None
 
+    home_k_era = k_per_era(home_k9, home_era)
+    away_k_era = k_per_era(away_k9, away_era)
+
     home_era_feat = home_era if home_era is not None else LEAGUE_AVG_ERA
     away_era_feat = away_era if away_era is not None else LEAGUE_AVG_ERA
 
@@ -413,12 +424,14 @@ for i, game in enumerate(games):
         f"{home_pit_name.split()[-1]} ({fmt(home_era)}/{fmt(home_k9, 1)})"
     )
     k_gap_str = f"{k_gap:+.1f}" if k_gap is not None else "—"
+    k_era_str = f"{fmt(away_k_era, 1)} / {fmt(home_k_era, 1)}"
 
     results.append({
         "Time (TO)":      utc_to_toronto(game["commence_time"]),
         "Matchup":        f"{away} @ {home}",
         "SP (ERA/K9)":    pitchers_str,
         "K Gap (H−A)":    k_gap_str,
+        "K/ERA (A/H)":    k_era_str,
         "Exp Runs":       f"{expected_runs:.1f}",
         "Base Home %":    f"{base_home_prob*100:.0f}%",
         "Model Home %":   f"{model_home_prob*100:.0f}%",
@@ -433,11 +446,13 @@ for i, game in enumerate(games):
         "_book_home_prob":   round(book_home_prob, 3),
         "_k_gap":            None if k_gap is None else round(k_gap, 2),
         "_k_adj":            round(k_adj, 3),
+        "_home_k_era":       home_k_era,
+        "_away_k_era":       away_k_era,
     })
 
 progress_text.empty()
 
-table_cols = ["Time (TO)","Matchup","SP (ERA/K9)","K Gap (H−A)","Exp Runs",
+table_cols = ["Time (TO)","Matchup","SP (ERA/K9)","K Gap (H−A)","K/ERA (A/H)","Exp Runs",
               "Base Home %","Model Home %","Book Home %","Bet?"]
 results_df = pd.DataFrame(results)
 
@@ -468,6 +483,8 @@ if len(results_df) > 0:
                     "book_home_prob":  r["_book_home_prob"],
                     "k_gap":           r["_k_gap"],
                     "k_adj":           r["_k_adj"],
+                    "home_k_era":      r["_home_k_era"],
+                    "away_k_era":      r["_away_k_era"],
                     "bet":             r["Bet?"],
                 })
             if save_todays_picks("moneyline", picks_to_save):
@@ -494,6 +511,9 @@ with st.expander("ℹ️ How this works"):
   to league averages (ERA {LEAGUE_AVG_ERA}, K/9 {LEAGUE_AVG_K9}).
 - **K Gap (H−A)** = home K/9 minus away K/9 (60% season + 40% recent blend).
   Positive = home pitcher misses more bats.
+- **K/ERA (A/H)** = strikeouts per earned run, per pitcher. Higher = more
+  dominant (lots of Ks, few earned runs). A K/ERA of 4+ is elite; under 2 is
+  struggling. Lets you spot a true mismatch at a glance.
 
 **How the K-rate adjustment works**
 - The trained model has no strikeout feature, so K rate is applied **after**
