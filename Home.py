@@ -1,9 +1,11 @@
 """
-MLB Betting Prediction Dashboard — LIVE w/ Real Team Form + Real Pitchers
+MLB Betting Prediction Dashboard — LIVE w/ Real Team Form + Real Pitchers + K-rate
 - Pulls each team's last 10 + 20 game stats from MLB Stats API.
-- Pulls each game's probable starting pitcher and his last-5-start ERA.
-- Computes real rest days from the schedule.
-- Shows Model Home % vs Book Home % so every pick is auditable.
+- Pulls each game's probable starter and his last-7-start ERA + K/9.
+- Applies a POST-MODEL K-rate adjustment: a pitcher with higher K/9 nudges
+  his team's win probability up. The trained model doesn't have a K feature
+  so this is the only way to use Ks without retraining.
+- Shows Base Home %, K-adjusted Model Home %, and Book Home % side by side.
 """
 
 import streamlit as st
@@ -19,6 +21,8 @@ from picks_storage import save_todays_picks
 
 TORONTO_TZ = ZoneInfo("America/Toronto")
 LEAGUE_AVG_ERA = 4.20
+LEAGUE_AVG_K9  = 8.50      # MLB starters ~8.4-8.6 K/9 in recent seasons
+RECENT_STARTS  = 7         # window for "recent form" stats
 
 st.set_page_config(page_title="MLB Predictor", page_icon="⚾", layout="wide")
 st.title("⚾ MLB Game Predictor — Live")
@@ -35,6 +39,14 @@ except (FileNotFoundError, KeyError):
 
 # ── sidebar controls ──
 edge_threshold = st.sidebar.slider("Min edge to bet (%)", 1, 15, 5) / 100.0
+
+st.sidebar.markdown("**Pitcher K-rate adjustment**")
+apply_k_adj = st.sidebar.checkbox("Apply K-rate adjustment", value=True)
+k_adj_pct   = st.sidebar.slider(
+    "Win % shift per K/9 gap",
+    0.5, 3.0, 1.5, 0.1,
+    help="1.5% means a 3-K/9 advantage shifts the home prob by ~4.5%. Cap is ±10%."
+)
 
 # ── load model ──
 @st.cache_resource
@@ -71,25 +83,23 @@ def parse_ip(ip):
         s = str(ip)
         if "." in s:
             whole, frac = s.split(".")
-            frac = frac[:1]  # only the first digit counts the thirds
+            frac = frac[:1]
             return int(whole) + int(frac) / 3.0
         return float(s)
     except (ValueError, TypeError):
         return 0.0
 
-@st.cache_data(ttl=3600)  # cache for 1 hour
+@st.cache_data(ttl=3600)
 def get_team_recent_stats(team_id, n_games=20):
     """Fetch last N games for a team and compute rolling stats."""
     end_date = datetime.now(TORONTO_TZ).date()
-    start_date = end_date - timedelta(days=45)  # look back ~6 weeks for safety
-
+    start_date = end_date - timedelta(days=45)
     url = "https://statsapi.mlb.com/api/v1/schedule"
     params = {
-        "teamId": team_id,
-        "sportId": 1,
+        "teamId": team_id, "sportId": 1,
         "startDate": start_date.strftime("%Y-%m-%d"),
-        "endDate": end_date.strftime("%Y-%m-%d"),
-        "hydrate": "linescore"
+        "endDate":   end_date.strftime("%Y-%m-%d"),
+        "hydrate":   "linescore",
     }
     try:
         r = requests.get(url, params=params, timeout=15)
@@ -106,22 +116,14 @@ def get_team_recent_stats(team_id, n_games=20):
                 continue
             home = game["teams"]["home"]
             away = game["teams"]["away"]
-            home_id = home["team"]["id"]
-            away_id = away["team"]["id"]
-            home_score = home.get("score", 0)
-            away_score = away.get("score", 0)
-
+            home_id, away_id = home["team"]["id"], away["team"]["id"]
+            home_score, away_score = home.get("score", 0), away.get("score", 0)
             if team_id == home_id:
-                runs_scored  = home_score
-                runs_allowed = away_score
-                won          = home_score > away_score
-                is_home      = True
+                runs_scored, runs_allowed = home_score, away_score
+                won, is_home = home_score > away_score, True
             else:
-                runs_scored  = away_score
-                runs_allowed = home_score
-                won          = away_score > home_score
-                is_home      = False
-
+                runs_scored, runs_allowed = away_score, home_score
+                won, is_home = away_score > home_score, False
             games.append({
                 "date":         game["gameDate"],
                 "runs_scored":  runs_scored,
@@ -129,15 +131,11 @@ def get_team_recent_stats(team_id, n_games=20):
                 "won":          int(won),
                 "is_home":      is_home,
             })
-
     if not games:
         return None
-
-    df = pd.DataFrame(games).sort_values("date").tail(n_games)
-    return df
+    return pd.DataFrame(games).sort_values("date").tail(n_games)
 
 def compute_team_features(team_name):
-    """Build last-5/10/20 stats for one team."""
     team_id = TEAM_IDS.get(team_name)
     if team_id is None:
         return None
@@ -157,17 +155,17 @@ def compute_team_features(team_name):
         "allowed_10":     df10["runs_allowed"].mean(),
         "allowed_20":     df20["runs_allowed"].mean(),
         "win_rate_10":    df10["won"].mean(),
-        "home_wr_10":     df10[df10["is_home"]]["won"].mean() if df10["is_home"].any() else 0.54,
-        "away_wr_10":     df10[~df10["is_home"]]["won"].mean() if (~df10["is_home"]).any() else 0.46,
+        "home_wr_10":     df10[df10["is_home"]]["won"].mean()   if df10["is_home"].any()    else 0.54,
+        "away_wr_10":     df10[~df10["is_home"]]["won"].mean()  if (~df10["is_home"]).any() else 0.46,
         "last_game_date": last_game_date,
     }
 
 # ─────────────────────────────────────────────
-# Probable pitchers + last-5-start ERA
+# Probable pitchers + pitcher form (ERA + K/9)
 # ─────────────────────────────────────────────
 @st.cache_data(ttl=3600)
 def get_probable_pitchers():
-    """One schedule call covering yesterday→+2 days, returns a lookup keyed by
+    """One schedule call covering yesterday→+2 days; lookup keyed by
     (game_date, home_id, away_id) → probable pitcher ids/names."""
     start = datetime.now(TORONTO_TZ).date() - timedelta(days=1)
     end   = datetime.now(TORONTO_TZ).date() + timedelta(days=2)
@@ -175,8 +173,8 @@ def get_probable_pitchers():
     params = {
         "sportId": 1,
         "startDate": start.strftime("%Y-%m-%d"),
-        "endDate": end.strftime("%Y-%m-%d"),
-        "hydrate": "probablePitcher",
+        "endDate":   end.strftime("%Y-%m-%d"),
+        "hydrate":   "probablePitcher",
     }
     try:
         data = requests.get(url, params=params, timeout=15).json()
@@ -186,11 +184,9 @@ def get_probable_pitchers():
     for date_entry in data.get("dates", []):
         gdate = date_entry.get("date")
         for g in date_entry.get("games", []):
-            home = g["teams"]["home"]
-            away = g["teams"]["away"]
+            home, away = g["teams"]["home"], g["teams"]["away"]
             home_pit = home.get("probablePitcher", {})
             away_pit = away.get("probablePitcher", {})
-            # note: a doubleheader will collide on this key — last one wins
             lookup[(gdate, home["team"]["id"], away["team"]["id"])] = {
                 "home_pit_id":   home_pit.get("id"),
                 "away_pit_id":   away_pit.get("id"),
@@ -200,9 +196,9 @@ def get_probable_pitchers():
     return lookup
 
 @st.cache_data(ttl=3600)
-def get_pitcher_era_roll5(pitcher_id, n_starts=5):
-    """ERA over the pitcher's last N starts: 9 * total ER / total IP.
-    Returns None if the pitcher is unknown or has too little data."""
+def get_pitcher_form(pitcher_id, recent_n=RECENT_STARTS):
+    """One game-log call → ERA + K/9 for both the last-N-start window and
+    the whole season. Returns None if the pitcher is unknown or has < 3 IP."""
     if pitcher_id is None:
         return None
     season = datetime.now(TORONTO_TZ).year
@@ -212,23 +208,45 @@ def get_pitcher_era_roll5(pitcher_id, n_starts=5):
         data = requests.get(url, params=params, timeout=10).json()
     except Exception:
         return None
-    starts = []
+
+    starts = []  # (er, ip, so) per start, oldest → newest
     for split_group in data.get("stats", []):
         for s in split_group.get("splits", []):
             stat = s.get("stat", {})
             if stat.get("gamesStarted", 0) and stat["gamesStarted"] >= 1:
-                er = stat.get("earnedRuns", 0) or 0
+                er = stat.get("earnedRuns", 0)  or 0
                 ip = parse_ip(stat.get("inningsPitched", 0))
-                starts.append((er, ip))
-    starts = starts[-n_starts:]  # game log is oldest → newest
-    total_er = sum(er for er, ip in starts)
-    total_ip = sum(ip for er, ip in starts)
-    if total_ip < 3.0:          # not enough innings to trust — fall back
+                so = stat.get("strikeOuts", 0)  or 0
+                starts.append((er, ip, so))
+    if not starts:
         return None
-    return round(9.0 * total_er / total_ip, 2)
+
+    def agg(window):
+        tot_er = sum(er for er, ip, so in window)
+        tot_ip = sum(ip for er, ip, so in window)
+        tot_so = sum(so for er, ip, so in window)
+        if tot_ip < 3.0:
+            return None, None
+        return round(9.0 * tot_er / tot_ip, 2), round(9.0 * tot_so / tot_ip, 2)
+
+    era_recent, k9_recent = agg(starts[-recent_n:])
+    era_season, k9_season = agg(starts)
+
+    # Blend for the K-rate adjustment: 60% season (stable) + 40% recent (form)
+    if k9_season is not None and k9_recent is not None:
+        k9_blend = round(0.6 * k9_season + 0.4 * k9_recent, 2)
+    else:
+        k9_blend = k9_season if k9_season is not None else k9_recent
+
+    return {
+        "era_recent": era_recent,  # used as the model's ERA feature
+        "k9_recent":  k9_recent,   # shown in the table
+        "era_season": era_season,
+        "k9_season":  k9_season,
+        "k9_blend":   k9_blend,    # used for the K-rate adjustment
+    }
 
 def calc_rest_days(last_game_date, game_date):
-    """Days between a team's last completed game and the game being predicted."""
     if last_game_date is None or game_date is None:
         return 1
     try:
@@ -282,6 +300,9 @@ def utc_to_toronto(utc_str):
 def utc_to_toronto_date(utc_str):
     return datetime.fromisoformat(utc_str.replace("Z","+00:00")).astimezone(TORONTO_TZ).date()
 
+def fmt(v, digits=2):
+    return f"{v:.{digits}f}" if v is not None else "—"
+
 # ── per-game predictions ──
 today_local = datetime.now(TORONTO_TZ).date()
 date_choice = st.radio("Show games for:", ["Today","Tomorrow","All available"], horizontal=True)
@@ -311,28 +332,34 @@ for i, game in enumerate(games):
     away_stats = compute_team_features(away)
 
     if home_stats is None or away_stats is None:
-        # fallback to defaults if stats fetch fails
-        home_stats = {"runs_5": 4.5, "runs_10": 4.5, "runs_20": 4.5,
-                      "allowed_10": 4.5, "allowed_20": 4.5,
-                      "win_rate_10": 0.5, "home_wr_10": 0.54, "away_wr_10": 0.46,
-                      "last_game_date": None}
-        away_stats = home_stats.copy()
+        fallback = {"runs_5": 4.5, "runs_10": 4.5, "runs_20": 4.5,
+                    "allowed_10": 4.5, "allowed_20": 4.5,
+                    "win_rate_10": 0.5, "home_wr_10": 0.54, "away_wr_10": 0.46,
+                    "last_game_date": None}
+        home_stats = home_stats or fallback
+        away_stats = away_stats or dict(fallback)
 
-    # ── Probable pitchers → real last-5-start ERA ──
+    # ── Probable pitchers → real last-7-start ERA + K/9 ──
     pit = pp_lookup.get((game_date.strftime("%Y-%m-%d"),
                          TEAM_IDS.get(home), TEAM_IDS.get(away)), {})
     home_pit_name = pit.get("home_pit_name", "TBD")
     away_pit_name = pit.get("away_pit_name", "TBD")
-    home_era = get_pitcher_era_roll5(pit.get("home_pit_id"))   # None if unavailable
-    away_era = get_pitcher_era_roll5(pit.get("away_pit_id"))
+    home_form = get_pitcher_form(pit.get("home_pit_id"))
+    away_form = get_pitcher_form(pit.get("away_pit_id"))
+
+    home_era = home_form["era_recent"] if home_form else None
+    away_era = away_form["era_recent"] if away_form else None
+    home_k9  = home_form["k9_recent"]  if home_form else None
+    away_k9  = away_form["k9_recent"]  if away_form else None
+
     home_era_feat = home_era if home_era is not None else LEAGUE_AVG_ERA
     away_era_feat = away_era if away_era is not None else LEAGUE_AVG_ERA
 
-    # ── Real rest days ──
+    # Rest days
     home_rest = calc_rest_days(home_stats.get("last_game_date"), game_date)
     away_rest = calc_rest_days(away_stats.get("last_game_date"), game_date)
 
-    # Build the feature vector (using existing model FEATURES list)
+    # Feature vector — same 13 keys the trained model expects
     feat_dict = {
         "home_runs_roll10":         home_stats["runs_10"],
         "visitor_runs_roll10":      away_stats["runs_10"],
@@ -342,56 +369,76 @@ for i, game in enumerate(games):
         "visitor_away_win_roll10":  away_stats["away_wr_10"],
         "home_allowed_roll10":      home_stats["allowed_10"],
         "visitor_allowed_roll10":   away_stats["allowed_10"],
-        "home_rest_days":           home_rest,         # was hardcoded 1
-        "visitor_rest_days":        away_rest,         # was hardcoded 1
-        "h2h_home_win_roll":        0.5,               # still a default — low signal
-        "home_sp_era_roll5":        home_era_feat,     # was hardcoded 4.0
-        "visitor_sp_era_roll5":     away_era_feat,     # was hardcoded 4.0
+        "home_rest_days":           home_rest,
+        "visitor_rest_days":        away_rest,
+        "h2h_home_win_roll":        0.5,
+        "home_sp_era_roll5":        home_era_feat,
+        "visitor_sp_era_roll5":     away_era_feat,
     }
     feat = pd.DataFrame([feat_dict])[FEATURES]
     prob = model.predict_proba(feat)[0]
-    model_home_prob, model_away_prob = prob[1], prob[0]
+    base_home_prob = prob[1]                # model's raw output
+    base_away_prob = prob[0]
+
+    # ── K-rate adjustment (post-model) ──
+    # The trained model has no K feature. We nudge its output based on the
+    # K/9 gap between the two starters: higher-K pitcher → his team gains
+    # win prob. Capped at ±10% so one signal can't dominate.
+    home_k9_blend = home_form["k9_blend"] if home_form else None
+    away_k9_blend = away_form["k9_blend"] if away_form else None
+    k_gap = None
+    k_adj = 0.0
+    if apply_k_adj and home_k9_blend is not None and away_k9_blend is not None:
+        k_gap = home_k9_blend - away_k9_blend
+        k_adj = max(-0.10, min(0.10, k_gap * (k_adj_pct / 100.0)))
+
+    model_home_prob = max(0.02, min(0.98, base_home_prob + k_adj))
+    model_away_prob = 1.0 - model_home_prob
 
     edge_home = model_home_prob - book_home_prob
     edge_away = model_away_prob - book_away_prob
 
-    # ── Bet recommendation (FIXED: positive home edge → bet HOME) ──
     if edge_home >= edge_threshold and edge_home >= edge_away:
-        bet  = f"🟢 Home +{edge_home*100:.0f}%"
-        side = "Home"
+        bet, side = f"🟢 Home +{edge_home*100:.0f}%", "Home"
     elif edge_away >= edge_threshold:
-        bet  = f"🟢 Away +{edge_away*100:.0f}%"
-        side = "Away"
+        bet, side = f"🟢 Away +{edge_away*100:.0f}%", "Away"
     else:
-        bet  = "⚪ Pass"
-        side = "Pass"
+        bet, side = "⚪ Pass", "Pass"
 
     expected_runs = (home_stats["runs_10"] + away_stats["runs_10"]) / 1.2
 
-    def era_str(e):
-        return f"{e:.2f}" if e is not None else "—"
+    pitchers_str = (
+        f"{away_pit_name.split()[-1]} ({fmt(away_era)}/{fmt(away_k9, 1)})"
+        f" @ "
+        f"{home_pit_name.split()[-1]} ({fmt(home_era)}/{fmt(home_k9, 1)})"
+    )
+    k_gap_str = f"{k_gap:+.1f}" if k_gap is not None else "—"
 
     results.append({
-        "Time (TO)":     utc_to_toronto(game["commence_time"]),
-        "Matchup":       f"{away} @ {home}",
-        "Pitchers (A@H)": f"{away_pit_name.split()[-1]} {era_str(away_era)} @ "
-                          f"{home_pit_name.split()[-1]} {era_str(home_era)}",
-        "Home L10 R":    f"{home_stats['runs_10']:.1f}",
-        "Away L10 R":    f"{away_stats['runs_10']:.1f}",
-        "Exp Runs":      f"{expected_runs:.1f}",
-        "Model Home %":  f"{model_home_prob*100:.0f}%",
-        "Book Home %":   f"{book_home_prob*100:.0f}%",
-        "Bet?":          bet,
-        # extra fields kept for the Results page (not all shown in the table)
+        "Time (TO)":      utc_to_toronto(game["commence_time"]),
+        "Matchup":        f"{away} @ {home}",
+        "SP (ERA/K9)":    pitchers_str,
+        "K Gap (H−A)":    k_gap_str,
+        "Exp Runs":       f"{expected_runs:.1f}",
+        "Base Home %":    f"{base_home_prob*100:.0f}%",
+        "Model Home %":   f"{model_home_prob*100:.0f}%",
+        "Book Home %":    f"{book_home_prob*100:.0f}%",
+        "Bet?":           bet,
+        # extra fields for the Results page
         "_side":             side,
+        "_home_l10":         f"{home_stats['runs_10']:.1f}",
+        "_away_l10":         f"{away_stats['runs_10']:.1f}",
+        "_base_home_prob":   round(base_home_prob, 3),
         "_model_home_prob":  round(model_home_prob, 3),
         "_book_home_prob":   round(book_home_prob, 3),
+        "_k_gap":            None if k_gap is None else round(k_gap, 2),
+        "_k_adj":            round(k_adj, 3),
     })
 
 progress_text.empty()
 
-table_cols = ["Time (TO)","Matchup","Pitchers (A@H)","Home L10 R","Away L10 R",
-              "Exp Runs","Model Home %","Book Home %","Bet?"]
+table_cols = ["Time (TO)","Matchup","SP (ERA/K9)","K Gap (H−A)","Exp Runs",
+              "Base Home %","Model Home %","Book Home %","Bet?"]
 results_df = pd.DataFrame(results)
 
 st.markdown("### Today's Games & Model Edge")
@@ -400,7 +447,7 @@ if len(results_df) > 0:
 else:
     st.info("No games for the selected day.")
 
-# Save button — saves moneyline + exp runs picks
+# Save button — saves moneyline picks with K-rate context
 if len(results_df) > 0:
     c1, c2, c3 = st.columns([2, 1, 2])
     with c2:
@@ -408,16 +455,19 @@ if len(results_df) > 0:
             picks_to_save = []
             for r in results:
                 if r["_side"] == "Pass":
-                    continue  # Skip non-value bets
+                    continue
                 picks_to_save.append({
                     "matchup":         r["Matchup"],
-                    "side":            r["_side"],          # "Home" / "Away" — use this to settle
-                    "pitchers":        r["Pitchers (A@H)"],
-                    "home_l10":        r["Home L10 R"],
-                    "away_l10":        r["Away L10 R"],
+                    "side":            r["_side"],
+                    "pitchers":        r["SP (ERA/K9)"],
+                    "home_l10":        r["_home_l10"],
+                    "away_l10":        r["_away_l10"],
                     "exp_runs":        r["Exp Runs"],
+                    "base_home_prob":  r["_base_home_prob"],
                     "model_home_prob": r["_model_home_prob"],
                     "book_home_prob":  r["_book_home_prob"],
+                    "k_gap":           r["_k_gap"],
+                    "k_adj":           r["_k_adj"],
                     "bet":             r["Bet?"],
                 })
             if save_todays_picks("moneyline", picks_to_save):
@@ -438,20 +488,36 @@ if len(value_bets) > 0:
 
 with st.expander("ℹ️ How this works"):
     st.markdown(f"""
-    - **Pitchers (A@H)** = probable starters with their **last-5-start ERA**
-      (live from MLB Stats API). Shows "—" when a starter is TBD or has too
-      few innings, in which case the model uses league average ({LEAGUE_AVG_ERA}).
-    - **L10 R** = average runs scored over the last 10 games (live data).
-    - **Model Home %** = the model's predicted probability the **home** team wins.
-    - **Book Home %** = sportsbook implied probability for the home team (avg of books).
-    - **Edge** = Model − Book. **Bet trigger** = edge ≥ {edge_threshold*100:.0f}%
-      (adjustable in the sidebar). A positive *home* edge means bet **Home**.
-    - **Rest days** are now computed from the schedule (was hardcoded).
-    - **Head-to-head** still uses a 0.5 default — small samples make it low-signal.
+**Pitcher columns**
+- **SP (ERA/K9)** = each probable starter's last **{RECENT_STARTS}**-start
+  ERA and K/9. "—" means TBD or too few innings (<3) — model then falls back
+  to league averages (ERA {LEAGUE_AVG_ERA}, K/9 {LEAGUE_AVG_K9}).
+- **K Gap (H−A)** = home K/9 minus away K/9 (60% season + 40% recent blend).
+  Positive = home pitcher misses more bats.
 
-    **⚠️ Verify the model's class encoding:** for an obvious home favorite,
-    *Model Home %* should be well above 50%. If favorites consistently show
-    *below* 50%, the model's classes are reversed — swap `prob[1]` / `prob[0]`.
+**How the K-rate adjustment works**
+- The trained model has no strikeout feature, so K rate is applied **after**
+  the model runs:
+  `adj = K_gap × {k_adj_pct:.1f}%/K9`, capped at ±10%.
+  Example: a +3 K/9 gap → +{3 * k_adj_pct:.1f}% on the home team's win prob.
+- **Base Home %** = model output before adjustment.
+  **Model Home %** = after — this is what the bet recommendation uses.
+- Toggle/tune both in the sidebar to A/B test against tracked results.
 
-    Stats are cached for 1 hour to save API calls.
+**Other features**
+- L10 R = runs scored over the last 10 games (live).
+- Rest days computed from the schedule (no longer hardcoded).
+- H2H still defaults to 0.5 (small samples, low signal).
+- **Edge** = Model − Book. **Bet trigger** = edge ≥ {edge_threshold*100:.0f}% (sidebar).
+
+**⚠️ Sanity check the model's class encoding:** for an obvious home favorite,
+*Base Home %* should be well above 50%. If favorites consistently show *below*
+50%, the model's classes are reversed — swap `prob[1]` / `prob[0]`.
+
+**⚠️ This is a post-model band-aid.** If the K signal helps in tracked results,
+retrain `model_final.pkl` in Colab with K/9 as a proper feature — it'll work
+better inside the model than bolted onto it. If it doesn't help, disable the
+toggle and you've saved yourself a retrain.
+
+Stats cached 1 hour to save API calls.
     """)
