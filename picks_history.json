@@ -1382,5 +1382,77 @@
       "saved_at": "2026-05-20T17:35:54.996842-04:00",
       "verified": false
     }
+  },
+  "2026-05-21": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Cleveland Guardians @ Detroit Tigers",
+          "side": "Away",
+          "pitchers": "Cantillo (3.79/6.3) @ Mize (2.43/9.5)",
+          "home_l10": "2.6",
+          "away_l10": "5.6",
+          "exp_runs": "6.8",
+          "base_home_prob": 0.5,
+          "model_home_prob": 0.532,
+          "book_home_prob": 0.538,
+          "k_gap": 2.14,
+          "k_adj": 0.032,
+          "home_k_era": 3.91,
+          "away_k_era": 1.66,
+          "bet": "\ud83d\udfe2 Away +22%"
+        },
+        {
+          "matchup": "Pittsburgh Pirates @ St. Louis Cardinals",
+          "side": "Home",
+          "pitchers": "Ashcraft (3.32/9.3) @ May (2.83/6.1)",
+          "home_l10": "3.5",
+          "away_l10": "5.5",
+          "exp_runs": "7.5",
+          "base_home_prob": 0.655,
+          "model_home_prob": 0.612,
+          "book_home_prob": 0.48,
+          "k_gap": -2.89,
+          "k_adj": -0.043,
+          "home_k_era": 2.16,
+          "away_k_era": 2.82,
+          "bet": "\ud83d\udfe2 Home +13%"
+        },
+        {
+          "matchup": "Atlanta Braves @ Miami Marlins",
+          "side": "Away",
+          "pitchers": "Strider (2.45/11.1) @ Alcantara (5.26/6.2)",
+          "home_l10": "4.7",
+          "away_l10": "4.6",
+          "exp_runs": "7.8",
+          "base_home_prob": 0.3,
+          "model_home_prob": 0.229,
+          "book_home_prob": 0.454,
+          "k_gap": -4.76,
+          "k_adj": -0.071,
+          "home_k_era": 1.17,
+          "away_k_era": 4.51,
+          "bet": "\ud83d\udfe2 Away +19%"
+        },
+        {
+          "matchup": "Colorado Rockies @ Arizona Diamondbacks",
+          "side": "Away",
+          "pitchers": "Agnos (\u2014/\u2014) @ Rodriguez (3.27/6.8)",
+          "home_l10": "5.7",
+          "away_l10": "3.5",
+          "exp_runs": "7.7",
+          "base_home_prob": 0.565,
+          "model_home_prob": 0.565,
+          "book_home_prob": 0.665,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 2.06,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Away +6%"
+        }
+      ],
+      "saved_at": "2026-05-21T05:28:17.615640-04:00",
+      "verified": false
+    }
   }
 }
