@@ -9013,5 +9013,93 @@
       "saved_at": "2026-05-24T09:50:22.466824-04:00",
       "verified": false
     }
+  },
+  "2026-05-25": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Tampa Bay Rays @ Baltimore Orioles",
+          "side": "Home",
+          "pitchers": "McClanahan (2.50/9.5) @ Bradish (3.72/9.5)",
+          "home_l10": "3.5",
+          "away_l10": "5.0",
+          "exp_runs": "7.1",
+          "base_home_prob": 0.54,
+          "model_home_prob": 0.545,
+          "book_home_prob": 0.467,
+          "k_gap": 0.32,
+          "k_adj": 0.005,
+          "home_k_era": 2.56,
+          "away_k_era": 3.8,
+          "bet": "\ud83d\udfe2 Home +8%"
+        },
+        {
+          "matchup": "Minnesota Twins @ Chicago White Sox",
+          "side": "Home",
+          "pitchers": "Matthews (1.38/7.6) @ Kay (4.41/7.3)",
+          "home_l10": "5.2",
+          "away_l10": "4.6",
+          "exp_runs": "8.2",
+          "base_home_prob": 0.345,
+          "model_home_prob": 0.342,
+          "book_home_prob": 0.124,
+          "k_gap": -0.18,
+          "k_adj": -0.003,
+          "home_k_era": 1.65,
+          "away_k_era": 5.52,
+          "bet": "\ud83d\udfe2 Home +22%"
+        },
+        {
+          "matchup": "Cincinnati Reds @ New York Mets",
+          "side": "Home",
+          "pitchers": "Lodolo (7.20/6.6) @ McLean (3.92/10.7)",
+          "home_l10": "4.5",
+          "away_l10": "3.9",
+          "exp_runs": "7.0",
+          "base_home_prob": 0.705,
+          "model_home_prob": 0.766,
+          "book_home_prob": 0.613,
+          "k_gap": 4.09,
+          "k_adj": 0.061,
+          "home_k_era": 2.72,
+          "away_k_era": 0.92,
+          "bet": "\ud83d\udfe2 Home +15%"
+        },
+        {
+          "matchup": "Colorado Rockies @ Los Angeles Dodgers",
+          "side": "Away",
+          "pitchers": "Gordon (\u2014/\u2014) @ Sheehan (4.17/10.6)",
+          "home_l10": "6.2",
+          "away_l10": "3.1",
+          "exp_runs": "7.8",
+          "base_home_prob": 0.55,
+          "model_home_prob": 0.55,
+          "book_home_prob": 0.759,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 2.53,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Away +17%"
+        },
+        {
+          "matchup": "Seattle Mariners @ Athletics",
+          "side": "Home",
+          "pitchers": "Castillo (7.34/8.4) @ Civale (4.00/6.2)",
+          "home_l10": "4.2",
+          "away_l10": "3.5",
+          "exp_runs": "6.4",
+          "base_home_prob": 0.54,
+          "model_home_prob": 0.506,
+          "book_home_prob": 0.105,
+          "k_gap": -2.27,
+          "k_adj": -0.034,
+          "home_k_era": 1.56,
+          "away_k_era": 1.14,
+          "bet": "\ud83d\udfe2 Home +40%"
+        }
+      ],
+      "saved_at": "2026-05-25T05:29:18.961022-04:00",
+      "verified": false
+    }
   }
 }
