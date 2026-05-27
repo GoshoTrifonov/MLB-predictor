@@ -13256,5 +13256,93 @@
       "saved_at": "2026-05-26T05:53:51.462859-04:00",
       "verified": false
     }
+  },
+  "2026-05-27": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Washington Nationals @ Cleveland Guardians",
+          "side": "Home",
+          "pitchers": "Mikolas (8.28/6.8) @ Williams (3.66/10.6)",
+          "home_l10": "3.7",
+          "away_l10": "5.2",
+          "exp_runs": "7.4",
+          "base_home_prob": 0.655,
+          "model_home_prob": 0.714,
+          "book_home_prob": 0.651,
+          "k_gap": 3.94,
+          "k_adj": 0.059,
+          "home_k_era": 2.9,
+          "away_k_era": 0.83,
+          "bet": "\ud83d\udfe2 Home +6%"
+        },
+        {
+          "matchup": "St. Louis Cardinals @ Milwaukee Brewers",
+          "side": "Home",
+          "pitchers": "May (3.54/6.9) @ TBD (\u2014/\u2014)",
+          "home_l10": "4.5",
+          "away_l10": "2.6",
+          "exp_runs": "5.9",
+          "base_home_prob": 0.685,
+          "model_home_prob": 0.685,
+          "book_home_prob": 0.602,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": null,
+          "away_k_era": 1.94,
+          "bet": "\ud83d\udfe2 Home +8%"
+        },
+        {
+          "matchup": "Tampa Bay Rays @ Baltimore Orioles",
+          "side": "Home",
+          "pitchers": "Matz (3.22/7.7) @ TBD (\u2014/\u2014)",
+          "home_l10": "4.5",
+          "away_l10": "4.8",
+          "exp_runs": "7.8",
+          "base_home_prob": 0.565,
+          "model_home_prob": 0.565,
+          "book_home_prob": 0.515,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": null,
+          "away_k_era": 2.39,
+          "bet": "\ud83d\udfe2 Home +5%"
+        },
+        {
+          "matchup": "Chicago Cubs @ Pittsburgh Pirates",
+          "side": "Away",
+          "pitchers": "Taillon (5.35/7.0) @ Chandler (4.91/9.0)",
+          "home_l10": "4.1",
+          "away_l10": "2.5",
+          "exp_runs": "5.5",
+          "base_home_prob": 0.56,
+          "model_home_prob": 0.584,
+          "book_home_prob": 0.53,
+          "k_gap": 1.62,
+          "k_adj": 0.024,
+          "home_k_era": 1.83,
+          "away_k_era": 1.3,
+          "bet": "\ud83d\udfe2 Away +15%"
+        },
+        {
+          "matchup": "Colorado Rockies @ Los Angeles Dodgers",
+          "side": "Away",
+          "pitchers": "Sugano (4.62/3.9) @ Ohtani (0.84/10.1)",
+          "home_l10": "7.1",
+          "away_l10": "3.5",
+          "exp_runs": "8.8",
+          "base_home_prob": 0.465,
+          "model_home_prob": 0.549,
+          "book_home_prob": 0.804,
+          "k_gap": 5.59,
+          "k_adj": 0.084,
+          "home_k_era": 11.96,
+          "away_k_era": 0.84,
+          "bet": "\ud83d\udfe2 Away +22%"
+        }
+      ],
+      "saved_at": "2026-05-27T05:44:19.331952-04:00",
+      "verified": false
+    }
   }
 }
