@@ -15742,5 +15742,77 @@
       "saved_at": "2026-05-27T05:46:01.801732-04:00",
       "verified": false
     }
+  },
+  "2026-05-28": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Los Angeles Angels @ Detroit Tigers",
+          "side": "Home",
+          "pitchers": "Rodriguez (10.61/8.7) @ Flaherty (7.33/11.3)",
+          "home_l10": "2.9",
+          "away_l10": "4.2",
+          "exp_runs": "5.9",
+          "base_home_prob": 0.65,
+          "model_home_prob": 0.683,
+          "book_home_prob": 0.566,
+          "k_gap": 2.17,
+          "k_adj": 0.033,
+          "home_k_era": 1.55,
+          "away_k_era": 0.82,
+          "bet": "\ud83d\udfe2 Home +12%"
+        },
+        {
+          "matchup": "Minnesota Twins @ Chicago White Sox",
+          "side": "Away",
+          "pitchers": "Rojas (0.00/6.8) @ Martin (1.85/10.5)",
+          "home_l10": "5.4",
+          "away_l10": "4.2",
+          "exp_runs": "8.0",
+          "base_home_prob": 0.345,
+          "model_home_prob": 0.393,
+          "book_home_prob": 0.585,
+          "k_gap": 3.23,
+          "k_adj": 0.048,
+          "home_k_era": 5.68,
+          "away_k_era": 13.5,
+          "bet": "\ud83d\udfe2 Away +15%"
+        },
+        {
+          "matchup": "Chicago Cubs @ Pittsburgh Pirates",
+          "side": "Home",
+          "pitchers": "Rea (5.40/7.1) @ Skenes (2.57/10.1)",
+          "home_l10": "4.5",
+          "away_l10": "3.2",
+          "exp_runs": "6.4",
+          "base_home_prob": 0.68,
+          "model_home_prob": 0.725,
+          "book_home_prob": 0.632,
+          "k_gap": 3.01,
+          "k_adj": 0.045,
+          "home_k_era": 3.92,
+          "away_k_era": 1.32,
+          "bet": "\ud83d\udfe2 Home +9%"
+        },
+        {
+          "matchup": "Houston Astros @ Texas Rangers",
+          "side": "Away",
+          "pitchers": "Arrighetti (1.32/8.8) @ Eovaldi (2.30/8.0)",
+          "home_l10": "5.1",
+          "away_l10": "4.1",
+          "exp_runs": "7.7",
+          "base_home_prob": 0.405,
+          "model_home_prob": 0.402,
+          "book_home_prob": 0.598,
+          "k_gap": -0.22,
+          "k_adj": -0.003,
+          "home_k_era": 3.5,
+          "away_k_era": 6.65,
+          "bet": "\ud83d\udfe2 Away +16%"
+        }
+      ],
+      "saved_at": "2026-05-28T05:37:53.928044-04:00",
+      "verified": false
+    }
   }
 }
