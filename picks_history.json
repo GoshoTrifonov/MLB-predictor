@@ -18817,5 +18817,109 @@
       "saved_at": "2026-05-28T05:39:43.451223-04:00",
       "verified": false
     }
+  },
+  "2026-05-29": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Boston Red Sox @ Cleveland Guardians",
+          "side": "Home",
+          "pitchers": "Samaniego (\u2014/\u2014) @ Cecconi (5.26/6.9)",
+          "home_l10": "3.0",
+          "away_l10": "4.4",
+          "exp_runs": "6.2",
+          "base_home_prob": 0.64,
+          "model_home_prob": 0.64,
+          "book_home_prob": 0.543,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 1.32,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Home +10%"
+        },
+        {
+          "matchup": "Los Angeles Angels @ Tampa Bay Rays",
+          "side": "Away",
+          "pitchers": "Ure\u00f1a (2.70/8.3) @ Martinez (1.26/5.2)",
+          "home_l10": "4.5",
+          "away_l10": "4.8",
+          "exp_runs": "7.8",
+          "base_home_prob": 0.455,
+          "model_home_prob": 0.425,
+          "book_home_prob": 0.641,
+          "k_gap": -3.0,
+          "k_adj": -0.03,
+          "home_k_era": 4.15,
+          "away_k_era": 3.09,
+          "bet": "\ud83d\udfe2 Away +18%"
+        },
+        {
+          "matchup": "Miami Marlins @ New York Mets",
+          "side": "Home",
+          "pitchers": "Meyer (1.76/10.5) @ Peralta (3.35/8.5)",
+          "home_l10": "3.8",
+          "away_l10": "4.0",
+          "exp_runs": "6.5",
+          "base_home_prob": 0.635,
+          "model_home_prob": 0.622,
+          "book_home_prob": 0.555,
+          "k_gap": -1.33,
+          "k_adj": -0.013,
+          "home_k_era": 2.53,
+          "away_k_era": 5.99,
+          "bet": "\ud83d\udfe2 Home +7%"
+        },
+        {
+          "matchup": "Chicago Cubs @ St. Louis Cardinals",
+          "side": "Home",
+          "pitchers": "Imanaga (4.85/7.6) @ Pallante (3.38/8.1)",
+          "home_l10": "2.7",
+          "away_l10": "3.1",
+          "exp_runs": "4.8",
+          "base_home_prob": 0.605,
+          "model_home_prob": 0.593,
+          "book_home_prob": 0.455,
+          "k_gap": -1.17,
+          "k_adj": -0.012,
+          "home_k_era": 2.4,
+          "away_k_era": 1.56,
+          "bet": "\ud83d\udfe2 Home +14%"
+        },
+        {
+          "matchup": "San Francisco Giants @ Colorado Rockies",
+          "side": "Home",
+          "pitchers": "Webb (4.40/7.3) @ Lorenzen (6.81/6.8)",
+          "home_l10": "3.0",
+          "away_l10": "4.9",
+          "exp_runs": "6.6",
+          "base_home_prob": 0.53,
+          "model_home_prob": 0.523,
+          "book_home_prob": 0.414,
+          "k_gap": -0.73,
+          "k_adj": -0.007,
+          "home_k_era": 1.0,
+          "away_k_era": 1.67,
+          "bet": "\ud83d\udfe2 Home +11%"
+        },
+        {
+          "matchup": "Arizona Diamondbacks @ Seattle Mariners",
+          "side": "Away",
+          "pitchers": "Gallen (5.50/7.6) @ Kirby (3.73/7.2)",
+          "home_l10": "4.5",
+          "away_l10": "5.7",
+          "exp_runs": "8.5",
+          "base_home_prob": 0.395,
+          "model_home_prob": 0.397,
+          "book_home_prob": 0.602,
+          "k_gap": 0.2,
+          "k_adj": 0.002,
+          "home_k_era": 1.94,
+          "away_k_era": 1.38,
+          "bet": "\ud83d\udfe2 Away +17%"
+        }
+      ],
+      "saved_at": "2026-05-29T05:29:31.271089-04:00",
+      "verified": false
+    }
   }
 }
