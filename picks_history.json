@@ -23851,5 +23851,93 @@
       "saved_at": "2026-05-31T10:01:19.305376-04:00",
       "verified": false
     }
+  },
+  "2026-06-01": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Miami Marlins @ Washington Nationals",
+          "side": "Home",
+          "pitchers": "Alcantara (6.30/6.5) @ Cavalli (3.38/11.2)",
+          "home_l10": "4.5",
+          "away_l10": "3.2",
+          "exp_runs": "6.4",
+          "base_home_prob": 0.75,
+          "model_home_prob": 0.815,
+          "book_home_prob": 0.592,
+          "k_gap": 4.32,
+          "k_adj": 0.065,
+          "home_k_era": 3.33,
+          "away_k_era": 1.04,
+          "bet": "\ud83d\udfe2 Home +22%"
+        },
+        {
+          "matchup": "Kansas City Royals @ Cincinnati Reds",
+          "side": "Away",
+          "pitchers": "Avila (15.00/12.0) @ Burns (1.71/10.7)",
+          "home_l10": "3.5",
+          "away_l10": "3.0",
+          "exp_runs": "5.4",
+          "base_home_prob": 0.57,
+          "model_home_prob": 0.545,
+          "book_home_prob": 0.677,
+          "k_gap": -1.67,
+          "k_adj": -0.025,
+          "home_k_era": 6.26,
+          "away_k_era": 0.8,
+          "bet": "\ud83d\udfe2 Away +9%"
+        },
+        {
+          "matchup": "Chicago White Sox @ Minnesota Twins",
+          "side": "Away",
+          "pitchers": "TBD (\u2014/\u2014) @ Ryan (2.68/10.2)",
+          "home_l10": "4.5",
+          "away_l10": "5.7",
+          "exp_runs": "8.5",
+          "base_home_prob": 0.445,
+          "model_home_prob": 0.445,
+          "book_home_prob": 0.618,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 3.81,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Away +13%"
+        },
+        {
+          "matchup": "San Francisco Giants @ Milwaukee Brewers",
+          "side": "Away",
+          "pitchers": "Roupp (3.86/10.6) @ Drohan (\u2014/\u2014)",
+          "home_l10": "3.6",
+          "away_l10": "6.2",
+          "exp_runs": "8.2",
+          "base_home_prob": 0.51,
+          "model_home_prob": 0.51,
+          "book_home_prob": 0.61,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": null,
+          "away_k_era": 2.75,
+          "bet": "\ud83d\udfe2 Away +6%"
+        },
+        {
+          "matchup": "Los Angeles Dodgers @ Arizona Diamondbacks",
+          "side": "Away",
+          "pitchers": "Sheehan (3.93/11.1) @ Rodriguez (2.49/7.3)",
+          "home_l10": "4.3",
+          "away_l10": "6.1",
+          "exp_runs": "8.7",
+          "base_home_prob": 0.34,
+          "model_home_prob": 0.285,
+          "book_home_prob": 0.425,
+          "k_gap": -3.69,
+          "k_adj": -0.055,
+          "home_k_era": 2.92,
+          "away_k_era": 2.81,
+          "bet": "\ud83d\udfe2 Away +10%"
+        }
+      ],
+      "saved_at": "2026-06-01T05:31:10.286551-04:00",
+      "verified": false
+    }
   }
 }
