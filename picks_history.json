@@ -28814,5 +28814,109 @@
       "saved_at": "2026-06-03T05:43:18.788426-04:00",
       "verified": false
     }
+  },
+  "2026-06-04": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "San Diego Padres @ Philadelphia Phillies",
+          "side": "Home",
+          "pitchers": "Giolito (4.97/4.3) @ Wheeler (2.27/8.2)",
+          "home_l10": "2.7",
+          "away_l10": "2.4",
+          "exp_runs": "4.2",
+          "base_home_prob": 0.695,
+          "model_home_prob": 0.755,
+          "book_home_prob": 0.653,
+          "k_gap": 3.98,
+          "k_adj": 0.06,
+          "home_k_era": 3.63,
+          "away_k_era": 0.86,
+          "bet": "\ud83d\udfe2 Home +10%"
+        },
+        {
+          "matchup": "Baltimore Orioles @ Boston Red Sox",
+          "side": "Away",
+          "pitchers": "Rogers (10.01/7.3) @ Bello (9.68/5.3)",
+          "home_l10": "5.4",
+          "away_l10": "5.3",
+          "exp_runs": "8.9",
+          "base_home_prob": 0.515,
+          "model_home_prob": 0.487,
+          "book_home_prob": 0.527,
+          "k_gap": -1.85,
+          "k_adj": -0.028,
+          "home_k_era": 0.55,
+          "away_k_era": 0.73,
+          "bet": "\ud83d\udfe2 Away +6%"
+        },
+        {
+          "matchup": "San Francisco Giants @ Milwaukee Brewers",
+          "side": "Away",
+          "pitchers": "Houser (5.71/6.2) @ Crow (3.14/5.0)",
+          "home_l10": "4.7",
+          "away_l10": "5.1",
+          "exp_runs": "8.2",
+          "base_home_prob": 0.565,
+          "model_home_prob": 0.553,
+          "book_home_prob": 0.643,
+          "k_gap": -0.83,
+          "k_adj": -0.012,
+          "home_k_era": 1.6,
+          "away_k_era": 1.09,
+          "bet": "\ud83d\udfe2 Away +5%"
+        },
+        {
+          "matchup": "Toronto Blue Jays @ Atlanta Braves",
+          "side": "Away",
+          "pitchers": "TBD (\u2014/\u2014) @ Sale (1.40/11.6)",
+          "home_l10": "4.6",
+          "away_l10": "3.7",
+          "exp_runs": "6.9",
+          "base_home_prob": 0.535,
+          "model_home_prob": 0.535,
+          "book_home_prob": 0.676,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 8.29,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Away +10%"
+        },
+        {
+          "matchup": "Kansas City Royals @ Minnesota Twins",
+          "side": "Home",
+          "pitchers": "Lugo (5.45/7.3) @ Morris (\u2014/\u2014)",
+          "home_l10": "4.2",
+          "away_l10": "3.9",
+          "exp_runs": "6.8",
+          "base_home_prob": 0.565,
+          "model_home_prob": 0.565,
+          "book_home_prob": 0.119,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": null,
+          "away_k_era": 1.33,
+          "bet": "\ud83d\udfe2 Home +45%"
+        },
+        {
+          "matchup": "Los Angeles Dodgers @ Arizona Diamondbacks",
+          "side": "Home",
+          "pitchers": "Wrobleski (3.15/6.7) @ Nelson (3.83/6.5)",
+          "home_l10": "4.3",
+          "away_l10": "5.9",
+          "exp_runs": "8.5",
+          "base_home_prob": 0.495,
+          "model_home_prob": 0.505,
+          "book_home_prob": 0.452,
+          "k_gap": 0.7,
+          "k_adj": 0.011,
+          "home_k_era": 1.68,
+          "away_k_era": 2.13,
+          "bet": "\ud83d\udfe2 Home +5%"
+        }
+      ],
+      "saved_at": "2026-06-04T05:32:34.938329-04:00",
+      "verified": false
+    }
   }
 }
