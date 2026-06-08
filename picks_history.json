@@ -35218,5 +35218,61 @@
       "saved_at": "2026-06-07T10:03:22.062358-04:00",
       "verified": false
     }
+  },
+  "2026-06-08": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "New York Yankees @ Cleveland Guardians",
+          "side": "Away",
+          "pitchers": "Warren (3.69/9.0) @ Williams (3.13/9.8)",
+          "home_l10": "3.5",
+          "away_l10": "5.1",
+          "exp_runs": "7.2",
+          "base_home_prob": 0.575,
+          "model_home_prob": 0.585,
+          "book_home_prob": 0.534,
+          "k_gap": 0.66,
+          "k_adj": 0.01,
+          "home_k_era": 3.12,
+          "away_k_era": 2.44,
+          "bet": "\ud83d\udfe2 Away +16%"
+        },
+        {
+          "matchup": "Washington Nationals @ San Francisco Giants",
+          "side": "Away",
+          "pitchers": "Mikolas (8.28/6.8) @ Webb (3.92/7.8)",
+          "home_l10": "6.8",
+          "away_l10": "4.8",
+          "exp_runs": "9.7",
+          "base_home_prob": 0.48,
+          "model_home_prob": 0.494,
+          "book_home_prob": 0.62,
+          "k_gap": 0.94,
+          "k_adj": 0.014,
+          "home_k_era": 2.0,
+          "away_k_era": 0.83,
+          "bet": "\ud83d\udfe2 Away +9%"
+        },
+        {
+          "matchup": "Milwaukee Brewers @ Athletics",
+          "side": "Away",
+          "pitchers": "Harrison (0.91/12.5) @ Springs (4.98/7.6)",
+          "home_l10": "3.8",
+          "away_l10": "7.0",
+          "exp_runs": "9.0",
+          "base_home_prob": 0.335,
+          "model_home_prob": 0.272,
+          "book_home_prob": 0.425,
+          "k_gap": -4.2,
+          "k_adj": -0.063,
+          "home_k_era": 1.53,
+          "away_k_era": 13.71,
+          "bet": "\ud83d\udfe2 Away +12%"
+        }
+      ],
+      "saved_at": "2026-06-08T05:32:53.723619-04:00",
+      "verified": false
+    }
   }
 }
