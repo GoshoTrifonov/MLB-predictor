@@ -1588,6 +1588,60 @@
       },
       "saved_at": "2026-06-11T05:44:05.709533-04:00",
       "verified": false
+    },
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Arizona Diamondbacks @ Miami Marlins",
+          "side": "Home",
+          "pitchers": "Kelly (4.53/5.8) @ Phillips (3.12/6.2)",
+          "home_l10": "4.6",
+          "away_l10": "2.7",
+          "exp_runs": "6.1",
+          "base_home_prob": 0.73,
+          "model_home_prob": 0.737,
+          "book_home_prob": 0.53,
+          "k_gap": 0.5,
+          "k_adj": 0.007,
+          "home_k_era": 2.0,
+          "away_k_era": 1.27,
+          "bet": "\ud83d\udfe2 Home +21%"
+        },
+        {
+          "matchup": "Los Angeles Dodgers @ Pittsburgh Pirates",
+          "side": "Home",
+          "pitchers": "Wrobleski (3.02/7.0) @ Keller (6.23/6.9)",
+          "home_l10": "6.3",
+          "away_l10": "6.0",
+          "exp_runs": "10.3",
+          "base_home_prob": 0.48,
+          "model_home_prob": 0.488,
+          "book_home_prob": 0.421,
+          "k_gap": 0.51,
+          "k_adj": 0.008,
+          "home_k_era": 1.11,
+          "away_k_era": 2.33,
+          "bet": "\ud83d\udfe2 Home +7%"
+        },
+        {
+          "matchup": "Atlanta Braves @ Chicago White Sox",
+          "side": "Home",
+          "pitchers": "P\u00e9rez (2.89/8.0) @ TBD (\u2014/\u2014)",
+          "home_l10": "5.2",
+          "away_l10": "4.3",
+          "exp_runs": "7.9",
+          "base_home_prob": 0.55,
+          "model_home_prob": 0.55,
+          "book_home_prob": 0.003,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": null,
+          "away_k_era": 2.75,
+          "bet": "\ud83d\udfe2 Home +55%"
+        }
+      ],
+      "saved_at": "2026-06-11T05:46:43.007160-04:00",
+      "verified": false
     }
   }
 }
