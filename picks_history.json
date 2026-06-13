@@ -2542,5 +2542,109 @@
       "saved_at": "2026-06-12T05:38:34.960764-04:00",
       "verified": false
     }
+  },
+  "2026-06-13": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "St. Louis Cardinals @ Minnesota Twins",
+          "side": "Away",
+          "pitchers": "Liberatore (4.25/10.5) @ Prielipp (5.45/9.9)",
+          "home_l10": "4.3",
+          "away_l10": "5.9",
+          "exp_runs": "8.5",
+          "base_home_prob": 0.26,
+          "model_home_prob": 0.273,
+          "book_home_prob": 0.255,
+          "k_gap": 0.84,
+          "k_adj": 0.013,
+          "home_k_era": 1.81,
+          "away_k_era": 2.47,
+          "bet": "\ud83d\udfe2 Away +19%"
+        },
+        {
+          "matchup": "Los Angeles Dodgers @ Chicago White Sox",
+          "side": "Home",
+          "pitchers": "Yamamoto (2.82/9.1) @ Burke (4.06/9.3)",
+          "home_l10": "5.1",
+          "away_l10": "6.0",
+          "exp_runs": "9.2",
+          "base_home_prob": 0.45,
+          "model_home_prob": 0.451,
+          "book_home_prob": 0.369,
+          "k_gap": 0.09,
+          "k_adj": 0.001,
+          "home_k_era": 2.3,
+          "away_k_era": 3.22,
+          "bet": "\ud83d\udfe2 Home +8%"
+        },
+        {
+          "matchup": "Detroit Tigers @ Cleveland Guardians",
+          "side": "Home",
+          "pitchers": "Skubal (2.70/9.3) @ Cantillo (5.51/7.4)",
+          "home_l10": "3.7",
+          "away_l10": "6.4",
+          "exp_runs": "8.4",
+          "base_home_prob": 0.59,
+          "model_home_prob": 0.57,
+          "book_home_prob": 0.461,
+          "k_gap": -1.3,
+          "k_adj": -0.019,
+          "home_k_era": 1.35,
+          "away_k_era": 3.46,
+          "bet": "\ud83d\udfe2 Home +11%"
+        },
+        {
+          "matchup": "Houston Astros @ Kansas City Royals",
+          "side": "Home",
+          "pitchers": "Burrows (5.40/5.8) @ Cameron (2.97/9.2)",
+          "home_l10": "4.7",
+          "away_l10": "5.4",
+          "exp_runs": "8.4",
+          "base_home_prob": 0.605,
+          "model_home_prob": 0.636,
+          "book_home_prob": 0.558,
+          "k_gap": 2.09,
+          "k_adj": 0.031,
+          "home_k_era": 3.08,
+          "away_k_era": 1.08,
+          "bet": "\ud83d\udfe2 Home +8%"
+        },
+        {
+          "matchup": "Philadelphia Phillies @ Milwaukee Brewers",
+          "side": "Away",
+          "pitchers": "Nola (5.71/8.6) @ Drohan (5.54/7.6)",
+          "home_l10": "7.4",
+          "away_l10": "4.6",
+          "exp_runs": "10.0",
+          "base_home_prob": 0.4,
+          "model_home_prob": 0.379,
+          "book_home_prob": 0.627,
+          "k_gap": -1.37,
+          "k_adj": -0.021,
+          "home_k_era": 1.38,
+          "away_k_era": 1.5,
+          "bet": "\ud83d\udfe2 Away +21%"
+        },
+        {
+          "matchup": "Tampa Bay Rays @ Los Angeles Angels",
+          "side": "Home",
+          "pitchers": "Jax (3.25/7.8) @ Soriano (5.26/8.7)",
+          "home_l10": "5.7",
+          "away_l10": "3.8",
+          "exp_runs": "7.9",
+          "base_home_prob": 0.535,
+          "model_home_prob": 0.556,
+          "book_home_prob": 0.119,
+          "k_gap": 1.41,
+          "k_adj": 0.021,
+          "home_k_era": 1.65,
+          "away_k_era": 2.4,
+          "bet": "\ud83d\udfe2 Home +44%"
+        }
+      ],
+      "saved_at": "2026-06-13T12:12:55.966138-04:00",
+      "verified": false
+    }
   }
 }
