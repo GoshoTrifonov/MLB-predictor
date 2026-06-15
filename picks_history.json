@@ -3887,5 +3887,93 @@
       "saved_at": "2026-06-14T10:39:44.691398-04:00",
       "verified": false
     }
+  },
+  "2026-06-15": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Miami Marlins @ Philadelphia Phillies",
+          "side": "Away",
+          "pitchers": "Gusto (4.50/7.5) @ Wheeler (2.17/7.7)",
+          "home_l10": "4.9",
+          "away_l10": "4.6",
+          "exp_runs": "7.9",
+          "base_home_prob": 0.505,
+          "model_home_prob": 0.514,
+          "book_home_prob": 0.68,
+          "k_gap": 0.63,
+          "k_adj": 0.009,
+          "home_k_era": 3.54,
+          "away_k_era": 1.67,
+          "bet": "\ud83d\udfe2 Away +13%"
+        },
+        {
+          "matchup": "San Diego Padres @ St. Louis Cardinals",
+          "side": "Home",
+          "pitchers": "TBD (\u2014/\u2014) @ May (3.43/9.4)",
+          "home_l10": "6.7",
+          "away_l10": "4.1",
+          "exp_runs": "9.0",
+          "base_home_prob": 0.69,
+          "model_home_prob": 0.69,
+          "book_home_prob": 0.599,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 2.75,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Home +9%"
+        },
+        {
+          "matchup": "Colorado Rockies @ Chicago Cubs",
+          "side": "Away",
+          "pitchers": "Lorenzen (9.09/8.8) @ Imanaga (6.58/8.6)",
+          "home_l10": "4.0",
+          "away_l10": "6.1",
+          "exp_runs": "8.4",
+          "base_home_prob": 0.525,
+          "model_home_prob": 0.536,
+          "book_home_prob": 0.673,
+          "k_gap": 0.74,
+          "k_adj": 0.011,
+          "home_k_era": 1.31,
+          "away_k_era": 0.97,
+          "bet": "\ud83d\udfe2 Away +10%"
+        },
+        {
+          "matchup": "Minnesota Twins @ Texas Rangers",
+          "side": "Away",
+          "pitchers": "TBD (\u2014/\u2014) @ Gore (3.72/7.7)",
+          "home_l10": "3.9",
+          "away_l10": "4.8",
+          "exp_runs": "7.2",
+          "base_home_prob": 0.51,
+          "model_home_prob": 0.51,
+          "book_home_prob": 0.63,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 2.06,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Away +8%"
+        },
+        {
+          "matchup": "Los Angeles Angels @ Arizona Diamondbacks",
+          "side": "Away",
+          "pitchers": "Ure\u00f1a (1.85/8.8) @ Nelson (4.20/5.8)",
+          "home_l10": "2.7",
+          "away_l10": "5.8",
+          "exp_runs": "7.1",
+          "base_home_prob": 0.48,
+          "model_home_prob": 0.443,
+          "book_home_prob": 0.566,
+          "k_gap": -2.49,
+          "k_adj": -0.037,
+          "home_k_era": 1.38,
+          "away_k_era": 4.74,
+          "bet": "\ud83d\udfe2 Away +9%"
+        }
+      ],
+      "saved_at": "2026-06-15T05:39:10.221500-04:00",
+      "verified": false
+    }
   }
 }
