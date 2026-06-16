@@ -4557,5 +4557,125 @@
       "saved_at": "2026-06-15T05:40:13.150126-04:00",
       "verified": false
     }
+  },
+  "2026-06-16": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Miami Marlins @ Philadelphia Phillies",
+          "side": "Away",
+          "pitchers": "Phillips (1.98/7.2) @ Luzardo (3.55/8.8)",
+          "home_l10": "5.0",
+          "away_l10": "4.2",
+          "exp_runs": "7.7",
+          "base_home_prob": 0.45,
+          "model_home_prob": 0.485,
+          "book_home_prob": 0.633,
+          "k_gap": 2.31,
+          "k_adj": 0.035,
+          "home_k_era": 2.47,
+          "away_k_era": 3.66,
+          "bet": "\ud83d\udfe2 Away +11%"
+        },
+        {
+          "matchup": "Kansas City Royals @ Washington Nationals",
+          "side": "Home",
+          "pitchers": "Wacha (4.12/6.8) @ Griffin (4.70/9.6)",
+          "home_l10": "6.8",
+          "away_l10": "4.5",
+          "exp_runs": "9.4",
+          "base_home_prob": 0.6,
+          "model_home_prob": 0.63,
+          "book_home_prob": 0.572,
+          "k_gap": 2.02,
+          "k_adj": 0.03,
+          "home_k_era": 2.05,
+          "away_k_era": 1.65,
+          "bet": "\ud83d\udfe2 Home +6%"
+        },
+        {
+          "matchup": "New York Mets @ Cincinnati Reds",
+          "side": "Home",
+          "pitchers": "Senga (9.00/10.3) @ Singer (6.19/7.9)",
+          "home_l10": "4.1",
+          "away_l10": "3.7",
+          "exp_runs": "6.5",
+          "base_home_prob": 0.625,
+          "model_home_prob": 0.579,
+          "book_home_prob": 0.485,
+          "k_gap": -3.04,
+          "k_adj": -0.046,
+          "home_k_era": 1.27,
+          "away_k_era": 1.15,
+          "bet": "\ud83d\udfe2 Home +9%"
+        },
+        {
+          "matchup": "San Diego Padres @ St. Louis Cardinals",
+          "side": "Away",
+          "pitchers": "King (3.95/7.2) @ Pallante (3.99/7.0)",
+          "home_l10": "6.5",
+          "away_l10": "3.7",
+          "exp_runs": "8.5",
+          "base_home_prob": 0.57,
+          "model_home_prob": 0.562,
+          "book_home_prob": 0.531,
+          "k_gap": -0.56,
+          "k_adj": -0.008,
+          "home_k_era": 1.76,
+          "away_k_era": 1.83,
+          "bet": "\ud83d\udfe2 Away +17%"
+        },
+        {
+          "matchup": "Los Angeles Angels @ Arizona Diamondbacks",
+          "side": "Away",
+          "pitchers": "Detmers (3.73/11.6) @ Kelly (3.57/4.8)",
+          "home_l10": "2.8",
+          "away_l10": "5.0",
+          "exp_runs": "6.5",
+          "base_home_prob": 0.515,
+          "model_home_prob": 0.425,
+          "book_home_prob": 0.523,
+          "k_gap": -6.02,
+          "k_adj": -0.09,
+          "home_k_era": 1.33,
+          "away_k_era": 3.12,
+          "bet": "\ud83d\udfe2 Away +6%"
+        },
+        {
+          "matchup": "Baltimore Orioles @ Seattle Mariners",
+          "side": "Away",
+          "pitchers": "Young (2.59/7.1) @ Gilbert (3.24/9.3)",
+          "home_l10": "4.4",
+          "away_l10": "5.5",
+          "exp_runs": "8.2",
+          "base_home_prob": 0.445,
+          "model_home_prob": 0.481,
+          "book_home_prob": 0.601,
+          "k_gap": 2.39,
+          "k_adj": 0.036,
+          "home_k_era": 2.87,
+          "away_k_era": 2.75,
+          "bet": "\ud83d\udfe2 Away +8%"
+        },
+        {
+          "matchup": "Tampa Bay Rays @ Los Angeles Dodgers",
+          "side": "Away",
+          "pitchers": "Rasmussen (2.76/9.6) @ Wrobleski (3.95/6.2)",
+          "home_l10": "6.0",
+          "away_l10": "3.8",
+          "exp_runs": "8.2",
+          "base_home_prob": 0.55,
+          "model_home_prob": 0.495,
+          "book_home_prob": 0.598,
+          "k_gap": -3.68,
+          "k_adj": -0.055,
+          "home_k_era": 1.58,
+          "away_k_era": 3.47,
+          "bet": "\ud83d\udfe2 Away +6%"
+        }
+      ],
+      "saved_at": "2026-06-16T05:38:25.420916-04:00",
+      "verified": false
+    }
   }
 }
