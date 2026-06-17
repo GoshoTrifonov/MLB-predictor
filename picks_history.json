@@ -5284,5 +5284,77 @@
       "saved_at": "2026-06-16T05:39:50.200271-04:00",
       "verified": false
     }
+  },
+  "2026-06-17": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Miami Marlins @ Philadelphia Phillies",
+          "side": "Away",
+          "pitchers": "Alcantara (4.53/6.9) @ Painter (6.88/6.9)",
+          "home_l10": "5.0",
+          "away_l10": "4.4",
+          "exp_runs": "7.8",
+          "base_home_prob": 0.56,
+          "model_home_prob": 0.562,
+          "book_home_prob": 0.533,
+          "k_gap": 0.13,
+          "k_adj": 0.002,
+          "home_k_era": 1.0,
+          "away_k_era": 1.52,
+          "bet": "\ud83d\udfe2 Away +7%"
+        },
+        {
+          "matchup": "San Diego Padres @ St. Louis Cardinals",
+          "side": "Home",
+          "pitchers": "TBD (\u2014/\u2014) @ Leahy (3.89/7.8)",
+          "home_l10": "5.8",
+          "away_l10": "3.9",
+          "exp_runs": "8.1",
+          "base_home_prob": 0.6,
+          "model_home_prob": 0.6,
+          "book_home_prob": 0.549,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 2.0,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Home +5%"
+        },
+        {
+          "matchup": "Tampa Bay Rays @ Los Angeles Dodgers",
+          "side": "Away",
+          "pitchers": "McClanahan (3.34/9.3) @ Ohtani (1.44/9.9)",
+          "home_l10": "6.0",
+          "away_l10": "3.2",
+          "exp_runs": "7.7",
+          "base_home_prob": 0.535,
+          "model_home_prob": 0.543,
+          "book_home_prob": 0.646,
+          "k_gap": 0.51,
+          "k_adj": 0.008,
+          "home_k_era": 6.87,
+          "away_k_era": 2.77,
+          "bet": "\ud83d\udfe2 Away +6%"
+        },
+        {
+          "matchup": "Colorado Rockies @ Chicago Cubs",
+          "side": "Away",
+          "pitchers": "Sullivan (0.00/6.0) @ Assad (4.15/5.8)",
+          "home_l10": "3.7",
+          "away_l10": "5.9",
+          "exp_runs": "8.0",
+          "base_home_prob": 0.475,
+          "model_home_prob": 0.472,
+          "book_home_prob": 0.65,
+          "k_gap": -0.18,
+          "k_adj": -0.003,
+          "home_k_era": 1.4,
+          "away_k_era": 12.0,
+          "bet": "\ud83d\udfe2 Away +14%"
+        }
+      ],
+      "saved_at": "2026-06-17T05:44:50.076265-04:00",
+      "verified": false
+    }
   }
 }
