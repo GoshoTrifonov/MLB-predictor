@@ -7651,5 +7651,93 @@
       "saved_at": "2026-06-18T06:20:53.826087-04:00",
       "verified": false
     }
+  },
+  "2026-06-19": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Milwaukee Brewers @ Atlanta Braves",
+          "side": "Home",
+          "pitchers": "Misiorowski (0.18/13.2) @ P\u00e9rez (3.19/8.1)",
+          "home_l10": "2.4",
+          "away_l10": "6.6",
+          "exp_runs": "7.5",
+          "base_home_prob": 0.54,
+          "model_home_prob": 0.449,
+          "book_home_prob": 0.39,
+          "k_gap": -6.08,
+          "k_adj": -0.091,
+          "home_k_era": 2.54,
+          "away_k_era": 26.44,
+          "bet": "\ud83d\udfe2 Home +6%"
+        },
+        {
+          "matchup": "San Diego Padres @ Texas Rangers",
+          "side": "Away",
+          "pitchers": "V\u00e1squez (4.11/5.7) @ deGrom (3.23/9.7)",
+          "home_l10": "4.0",
+          "away_l10": "4.2",
+          "exp_runs": "6.8",
+          "base_home_prob": 0.395,
+          "model_home_prob": 0.45,
+          "book_home_prob": 0.614,
+          "k_gap": 3.67,
+          "k_adj": 0.055,
+          "home_k_era": 3.0,
+          "away_k_era": 1.38,
+          "bet": "\ud83d\udfe2 Away +13%"
+        },
+        {
+          "matchup": "Pittsburgh Pirates @ Colorado Rockies",
+          "side": "Away",
+          "pitchers": "Chandler (4.81/9.1) @ Freeland (10.16/6.7)",
+          "home_l10": "6.4",
+          "away_l10": "4.8",
+          "exp_runs": "9.3",
+          "base_home_prob": 0.35,
+          "model_home_prob": 0.324,
+          "book_home_prob": 0.455,
+          "k_gap": -1.71,
+          "k_adj": -0.026,
+          "home_k_era": 0.66,
+          "away_k_era": 1.89,
+          "bet": "\ud83d\udfe2 Away +9%"
+        },
+        {
+          "matchup": "Los Angeles Angels @ Athletics",
+          "side": "Away",
+          "pitchers": "Soriano (4.02/8.5) @ Springs (6.69/7.5)",
+          "home_l10": "7.2",
+          "away_l10": "4.3",
+          "exp_runs": "9.6",
+          "base_home_prob": 0.425,
+          "model_home_prob": 0.403,
+          "book_home_prob": 0.623,
+          "k_gap": -1.47,
+          "k_adj": -0.022,
+          "home_k_era": 1.12,
+          "away_k_era": 2.11,
+          "bet": "\ud83d\udfe2 Away +18%"
+        },
+        {
+          "matchup": "Baltimore Orioles @ Los Angeles Dodgers",
+          "side": "Away",
+          "pitchers": "Gibson (6.05/4.7) @ Sasaki (3.86/9.5)",
+          "home_l10": "5.6",
+          "away_l10": "4.0",
+          "exp_runs": "8.0",
+          "base_home_prob": 0.46,
+          "model_home_prob": 0.53,
+          "book_home_prob": 0.663,
+          "k_gap": 4.7,
+          "k_adj": 0.07,
+          "home_k_era": 2.47,
+          "away_k_era": 0.77,
+          "bet": "\ud83d\udfe2 Away +9%"
+        }
+      ],
+      "saved_at": "2026-06-19T05:41:15.498240-04:00",
+      "verified": false
+    }
   }
 }
