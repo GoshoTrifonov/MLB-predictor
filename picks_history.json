@@ -10180,5 +10180,93 @@
       "saved_at": "2026-06-21T11:13:59.859391-04:00",
       "verified": false
     }
+  },
+  "2026-06-22": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Houston Astros @ Toronto Blue Jays",
+          "side": "Away",
+          "pitchers": "Brown (1.10/13.2) @ TBD (\u2014/\u2014)",
+          "home_l10": "3.9",
+          "away_l10": "4.3",
+          "exp_runs": "6.8",
+          "base_home_prob": 0.405,
+          "model_home_prob": 0.405,
+          "book_home_prob": 0.55,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": null,
+          "away_k_era": 12.02,
+          "bet": "\ud83d\udfe2 Away +11%"
+        },
+        {
+          "matchup": "Milwaukee Brewers @ Cincinnati Reds",
+          "side": "Home",
+          "pitchers": "TBD (\u2014/\u2014) @ Singer (5.08/8.6)",
+          "home_l10": "4.3",
+          "away_l10": "4.8",
+          "exp_runs": "7.6",
+          "base_home_prob": 0.495,
+          "model_home_prob": 0.495,
+          "book_home_prob": 0.42,
+          "k_gap": null,
+          "k_adj": 0.0,
+          "home_k_era": 1.68,
+          "away_k_era": null,
+          "bet": "\ud83d\udfe2 Home +8%"
+        },
+        {
+          "matchup": "Arizona Diamondbacks @ St. Louis Cardinals",
+          "side": "Away",
+          "pitchers": "Kelly (4.74/4.5) @ Pallante (3.20/7.5)",
+          "home_l10": "5.5",
+          "away_l10": "4.2",
+          "exp_runs": "8.1",
+          "base_home_prob": 0.46,
+          "model_home_prob": 0.495,
+          "book_home_prob": 0.587,
+          "k_gap": 2.32,
+          "k_adj": 0.035,
+          "home_k_era": 2.36,
+          "away_k_era": 0.96,
+          "bet": "\ud83d\udfe2 Away +5%"
+        },
+        {
+          "matchup": "Boston Red Sox @ Colorado Rockies",
+          "side": "Home",
+          "pitchers": "Bennett (4.79/5.7) @ Feltner (5.23/7.7)",
+          "home_l10": "6.2",
+          "away_l10": "4.1",
+          "exp_runs": "8.6",
+          "base_home_prob": 0.57,
+          "model_home_prob": 0.597,
+          "book_home_prob": 0.484,
+          "k_gap": 1.77,
+          "k_adj": 0.027,
+          "home_k_era": 1.47,
+          "away_k_era": 1.18,
+          "bet": "\ud83d\udfe2 Home +11%"
+        },
+        {
+          "matchup": "Atlanta Braves @ San Diego Padres",
+          "side": "Home",
+          "pitchers": "Holmes (4.31/9.2) @ King (4.58/6.4)",
+          "home_l10": "4.6",
+          "away_l10": "2.9",
+          "exp_runs": "6.2",
+          "base_home_prob": 0.595,
+          "model_home_prob": 0.576,
+          "book_home_prob": 0.518,
+          "k_gap": -1.28,
+          "k_adj": -0.019,
+          "home_k_era": 1.4,
+          "away_k_era": 2.13,
+          "bet": "\ud83d\udfe2 Home +6%"
+        }
+      ],
+      "saved_at": "2026-06-22T05:36:25.324237-04:00",
+      "verified": false
+    }
   }
 }
