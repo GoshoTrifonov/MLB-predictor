@@ -9232,7 +9232,12 @@
           "k_adj": -0.054,
           "home_k_era": 1.44,
           "away_k_era": 1.82,
-          "bet": "\ud83d\udfe2 Home +10%"
+          "bet": "\ud83d\udfe2 Home +10%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-21"
         },
         {
           "matchup": "Toronto Blue Jays @ Chicago Cubs",
@@ -9248,7 +9253,12 @@
           "k_adj": -0.08,
           "home_k_era": 1.07,
           "away_k_era": 5.09,
-          "bet": "\ud83d\udfe2 Away +7%"
+          "bet": "\ud83d\udfe2 Away +7%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-21"
         },
         {
           "matchup": "San Diego Padres @ Texas Rangers",
@@ -9264,7 +9274,12 @@
           "k_adj": 0.0,
           "home_k_era": 2.2,
           "away_k_era": null,
-          "bet": "\ud83d\udfe2 Away +25%"
+          "bet": "\ud83d\udfe2 Away +25%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-21"
         },
         {
           "matchup": "Boston Red Sox @ Seattle Mariners",
@@ -9280,7 +9295,12 @@
           "k_adj": 0.016,
           "home_k_era": 4.09,
           "away_k_era": 2.47,
-          "bet": "\ud83d\udfe2 Home +6%"
+          "bet": "\ud83d\udfe2 Home +6%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-21"
         }
       ],
       "saved_at": "2026-06-21T11:11:58.293166-04:00",
@@ -9302,7 +9322,12 @@
             "PDF": 1.5,
             "Loc Factor": 0.82,
             "Momentum": 1.06,
-            "2+ Rate": 55.8
+            "2+ Rate": 55.8,
+            "actual_HRR": 7,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 89.2,
@@ -9317,7 +9342,12 @@
             "PDF": 1.5,
             "Loc Factor": 1.11,
             "Momentum": 1.02,
-            "2+ Rate": 60.3
+            "2+ Rate": 60.3,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 84.9,
@@ -9332,7 +9362,12 @@
             "PDF": 1.01,
             "Loc Factor": 1.0,
             "Momentum": 1.11,
-            "2+ Rate": 83.3
+            "2+ Rate": 83.3,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 79.8,
@@ -9347,7 +9382,12 @@
             "PDF": 1.48,
             "Loc Factor": 1.07,
             "Momentum": 1.02,
-            "2+ Rate": 52.3
+            "2+ Rate": 52.3,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 77.9,
@@ -9362,7 +9402,12 @@
             "PDF": 1.48,
             "Loc Factor": 1.01,
             "Momentum": 1.11,
-            "2+ Rate": 51.4
+            "2+ Rate": 51.4,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 77.2,
@@ -9377,7 +9422,12 @@
             "PDF": 1.5,
             "Loc Factor": 1.0,
             "Momentum": 1.02,
-            "2+ Rate": 48.6
+            "2+ Rate": 48.6,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 76.2,
@@ -9392,7 +9442,12 @@
             "PDF": 1.5,
             "Loc Factor": 0.95,
             "Momentum": 0.98,
-            "2+ Rate": 52.1
+            "2+ Rate": 52.1,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 75.0,
@@ -9407,7 +9462,12 @@
             "PDF": 1.41,
             "Loc Factor": 1.14,
             "Momentum": 1.06,
-            "2+ Rate": 60.6
+            "2+ Rate": 60.6,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 72.8,
@@ -9422,7 +9482,12 @@
             "PDF": 1.46,
             "Loc Factor": 1.11,
             "Momentum": 1.02,
-            "2+ Rate": 48.7
+            "2+ Rate": 48.7,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 71.8,
@@ -9437,7 +9502,12 @@
             "PDF": 1.0,
             "Loc Factor": 0.82,
             "Momentum": 1.11,
-            "2+ Rate": 56.1
+            "2+ Rate": 56.1,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           }
         ],
         "model_C": [
@@ -9454,7 +9524,12 @@
             "PDF": 1.5,
             "Loc Factor": 1.11,
             "Momentum": 1.02,
-            "2+ Rate": 60.3
+            "2+ Rate": 60.3,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 85.5,
@@ -9469,7 +9544,12 @@
             "PDF": 1.41,
             "Loc Factor": 1.14,
             "Momentum": 1.06,
-            "2+ Rate": 60.6
+            "2+ Rate": 60.6,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 85.4,
@@ -9484,7 +9564,12 @@
             "PDF": 1.48,
             "Loc Factor": 1.07,
             "Momentum": 1.02,
-            "2+ Rate": 52.3
+            "2+ Rate": 52.3,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 84.9,
@@ -9499,7 +9584,12 @@
             "PDF": 1.01,
             "Loc Factor": 1.0,
             "Momentum": 1.11,
-            "2+ Rate": 83.3
+            "2+ Rate": 83.3,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 80.8,
@@ -9514,7 +9604,12 @@
             "PDF": 1.46,
             "Loc Factor": 1.11,
             "Momentum": 1.02,
-            "2+ Rate": 48.7
+            "2+ Rate": 48.7,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 80.0,
@@ -9529,7 +9624,12 @@
             "PDF": 1.41,
             "Loc Factor": 1.14,
             "Momentum": 1.02,
-            "2+ Rate": 47.9
+            "2+ Rate": 47.9,
+            "actual_HRR": 6,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 78.6,
@@ -9544,7 +9644,12 @@
             "PDF": 1.48,
             "Loc Factor": 1.01,
             "Momentum": 1.11,
-            "2+ Rate": 51.4
+            "2+ Rate": 51.4,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 77.2,
@@ -9559,7 +9664,12 @@
             "PDF": 1.5,
             "Loc Factor": 1.0,
             "Momentum": 1.02,
-            "2+ Rate": 48.6
+            "2+ Rate": 48.6,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 75.4,
@@ -9574,7 +9684,12 @@
             "PDF": 1.5,
             "Loc Factor": 0.82,
             "Momentum": 1.06,
-            "2+ Rate": 55.8
+            "2+ Rate": 55.8,
+            "actual_HRR": 7,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 73.1,
@@ -9589,7 +9704,12 @@
             "PDF": 1.48,
             "Loc Factor": 1.03,
             "Momentum": 0.98,
-            "2+ Rate": 55.7
+            "2+ Rate": 55.7,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": false,
+            "verified_date": "2026-06-21"
           }
         ],
         "model_D": [
@@ -9606,7 +9726,12 @@
             "PDF": 1.5,
             "Loc Factor": 1.11,
             "Momentum": 1.02,
-            "2+ Rate": 60.3
+            "2+ Rate": 60.3,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 94.2,
@@ -9621,7 +9746,12 @@
             "PDF": 1.01,
             "Loc Factor": 1.0,
             "Momentum": 1.11,
-            "2+ Rate": 83.3
+            "2+ Rate": 83.3,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 90.6,
@@ -9636,7 +9766,12 @@
             "PDF": 1.41,
             "Loc Factor": 1.14,
             "Momentum": 1.06,
-            "2+ Rate": 60.6
+            "2+ Rate": 60.6,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 87.3,
@@ -9651,7 +9786,12 @@
             "PDF": 1.48,
             "Loc Factor": 1.01,
             "Momentum": 1.11,
-            "2+ Rate": 51.4
+            "2+ Rate": 51.4,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 87.1,
@@ -9666,7 +9806,12 @@
             "PDF": 1.48,
             "Loc Factor": 1.07,
             "Momentum": 1.02,
-            "2+ Rate": 52.3
+            "2+ Rate": 52.3,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 82.4,
@@ -9681,7 +9826,12 @@
             "PDF": 1.46,
             "Loc Factor": 1.11,
             "Momentum": 1.02,
-            "2+ Rate": 48.7
+            "2+ Rate": 48.7,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 81.6,
@@ -9696,7 +9846,12 @@
             "PDF": 1.41,
             "Loc Factor": 1.14,
             "Momentum": 1.02,
-            "2+ Rate": 47.9
+            "2+ Rate": 47.9,
+            "actual_HRR": 6,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 80.0,
@@ -9711,7 +9866,12 @@
             "PDF": 1.5,
             "Loc Factor": 0.82,
             "Momentum": 1.06,
-            "2+ Rate": 55.8
+            "2+ Rate": 55.8,
+            "actual_HRR": 7,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 78.7,
@@ -9726,7 +9886,12 @@
             "PDF": 1.5,
             "Loc Factor": 1.0,
             "Momentum": 1.02,
-            "2+ Rate": 48.6
+            "2+ Rate": 48.6,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 73.8,
@@ -9741,7 +9906,12 @@
             "PDF": 1.46,
             "Loc Factor": 1.06,
             "Momentum": 1.02,
-            "2+ Rate": 52.0
+            "2+ Rate": 52.0,
+            "actual_HRR": 4,
+            "actual_HR": 1,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           }
         ]
       },
@@ -9763,7 +9933,12 @@
             "OPS": 1.14,
             "PDF": 1.5,
             "Loc Factor": 0.82,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 7,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 99.2,
@@ -9777,7 +9952,12 @@
             "OPS": 0.901,
             "PDF": 1.5,
             "Loc Factor": 1.11,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 97.8,
@@ -9791,7 +9971,12 @@
             "OPS": 0.987,
             "PDF": 1.48,
             "Loc Factor": 1.07,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 97.1,
@@ -9805,7 +9990,12 @@
             "OPS": 1.056,
             "PDF": 1.5,
             "Loc Factor": 1.0,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 93.3,
@@ -9819,7 +10009,12 @@
             "OPS": 0.85,
             "PDF": 1.46,
             "Loc Factor": 1.11,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 90.2,
@@ -9833,7 +10028,12 @@
             "OPS": 1.06,
             "PDF": 1.48,
             "Loc Factor": 1.01,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 88.1,
@@ -9847,7 +10047,12 @@
             "OPS": 1.23,
             "PDF": 1.0,
             "Loc Factor": 0.82,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 87.3,
@@ -9861,7 +10066,12 @@
             "OPS": 0.988,
             "PDF": 1.41,
             "Loc Factor": 1.14,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 6,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 86.2,
@@ -9875,7 +10085,12 @@
             "OPS": 0.936,
             "PDF": 1.5,
             "Loc Factor": 0.95,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 81.3,
@@ -9889,7 +10104,12 @@
             "OPS": 0.835,
             "PDF": 1.41,
             "Loc Factor": 1.14,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           }
         ],
         "model_C": [
@@ -9905,7 +10125,12 @@
             "OPS": 0.901,
             "PDF": 1.5,
             "Loc Factor": 1.11,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 104.6,
@@ -9919,7 +10144,12 @@
             "OPS": 0.987,
             "PDF": 1.48,
             "Loc Factor": 1.07,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 103.5,
@@ -9933,7 +10163,12 @@
             "OPS": 0.85,
             "PDF": 1.46,
             "Loc Factor": 1.11,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 99.5,
@@ -9947,7 +10182,12 @@
             "OPS": 0.988,
             "PDF": 1.41,
             "Loc Factor": 1.14,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 6,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 97.1,
@@ -9961,7 +10201,12 @@
             "OPS": 1.056,
             "PDF": 1.5,
             "Loc Factor": 1.0,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 92.7,
@@ -9975,7 +10220,12 @@
             "OPS": 0.835,
             "PDF": 1.41,
             "Loc Factor": 1.14,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 91.1,
@@ -9989,7 +10239,12 @@
             "OPS": 1.06,
             "PDF": 1.48,
             "Loc Factor": 1.01,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 89.2,
@@ -10003,7 +10258,12 @@
             "OPS": 1.14,
             "PDF": 1.5,
             "Loc Factor": 0.82,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 7,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 81.9,
@@ -10017,7 +10277,12 @@
             "OPS": 0.936,
             "PDF": 1.5,
             "Loc Factor": 0.95,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 80.5,
@@ -10031,7 +10296,12 @@
             "OPS": 0.853,
             "PDF": 1.41,
             "Loc Factor": 1.07,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           }
         ],
         "model_D": [
@@ -10047,7 +10317,12 @@
             "OPS": 0.901,
             "PDF": 1.5,
             "Loc Factor": 1.11,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 110.5,
@@ -10061,7 +10336,12 @@
             "OPS": 0.988,
             "PDF": 1.41,
             "Loc Factor": 1.14,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 6,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 109.8,
@@ -10075,7 +10355,12 @@
             "OPS": 0.85,
             "PDF": 1.46,
             "Loc Factor": 1.11,
-            "Momentum": 1.06
+            "Momentum": 1.06,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 3,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 107.8,
@@ -10089,7 +10374,12 @@
             "OPS": 1.056,
             "PDF": 1.5,
             "Loc Factor": 1.0,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 0,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 106.7,
@@ -10103,7 +10393,12 @@
             "OPS": 0.987,
             "PDF": 1.48,
             "Loc Factor": 1.07,
-            "Momentum": 1.02
+            "Momentum": 1.02,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 102.9,
@@ -10117,7 +10412,12 @@
             "OPS": 0.835,
             "PDF": 1.41,
             "Loc Factor": 1.14,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 1,
+            "actual_HR": 0,
+            "actual_K": 0,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 102.6,
@@ -10131,7 +10431,12 @@
             "OPS": 1.14,
             "PDF": 1.5,
             "Loc Factor": 0.82,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 7,
+            "actual_HR": 1,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 101.1,
@@ -10145,7 +10450,12 @@
             "OPS": 1.06,
             "PDF": 1.48,
             "Loc Factor": 1.01,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 5,
+            "actual_HR": 1,
+            "actual_K": 2,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 92.6,
@@ -10159,7 +10469,12 @@
             "OPS": 0.853,
             "PDF": 1.41,
             "Loc Factor": 1.07,
-            "Momentum": 1.15
+            "Momentum": 1.15,
+            "actual_HRR": 2,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           },
           {
             "Score": 91.0,
@@ -10173,7 +10488,12 @@
             "OPS": 0.936,
             "PDF": 1.5,
             "Loc Factor": 0.95,
-            "Momentum": 1.11
+            "Momentum": 1.11,
+            "actual_HRR": 3,
+            "actual_HR": 0,
+            "actual_K": 1,
+            "played": true,
+            "verified_date": "2026-06-21"
           }
         ]
       },
