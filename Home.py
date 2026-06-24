@@ -205,8 +205,9 @@ def get_probable_pitchers():
 
 @st.cache_data(ttl=3600)
 def get_pitcher_form(pitcher_id, recent_n=RECENT_STARTS):
-    """One game-log call → ERA + K/9 for both the last-N-start window and
-    the whole season. Returns None if the pitcher is unknown or has < 3 IP."""
+    """One game-log call → ERA, K/9, and last-7 W/L outcomes for the last-N
+    window and the whole season. Returns None if the pitcher is unknown or
+    has < 3 IP."""
     if pitcher_id is None:
         return None
     season = datetime.now(TORONTO_TZ).year
@@ -217,7 +218,7 @@ def get_pitcher_form(pitcher_id, recent_n=RECENT_STARTS):
     except Exception:
         return None
 
-    starts = []  # (er, ip, so) per start, oldest → newest
+    starts = []  # list of dicts per start, oldest → newest
     for split_group in data.get("stats", []):
         for s in split_group.get("splits", []):
             stat = s.get("stat", {})
@@ -225,14 +226,20 @@ def get_pitcher_form(pitcher_id, recent_n=RECENT_STARTS):
                 er = stat.get("earnedRuns", 0)  or 0
                 ip = parse_ip(stat.get("inningsPitched", 0))
                 so = stat.get("strikeOuts", 0)  or 0
-                starts.append((er, ip, so))
+                w  = stat.get("wins", 0)        or 0
+                l  = stat.get("losses", 0)      or 0
+                # MLB Stats API gives W/L per start; if both 0 it's a No Decision.
+                if   w >= 1: result = "W"
+                elif l >= 1: result = "L"
+                else:        result = "ND"
+                starts.append({"er": er, "ip": ip, "so": so, "result": result})
     if not starts:
         return None
 
     def agg(window):
-        tot_er = sum(er for er, ip, so in window)
-        tot_ip = sum(ip for er, ip, so in window)
-        tot_so = sum(so for er, ip, so in window)
+        tot_er = sum(x["er"] for x in window)
+        tot_ip = sum(x["ip"] for x in window)
+        tot_so = sum(x["so"] for x in window)
         if tot_ip < 3.0:
             return None, None
         return round(9.0 * tot_er / tot_ip, 2), round(9.0 * tot_so / tot_ip, 2)
@@ -246,12 +253,22 @@ def get_pitcher_form(pitcher_id, recent_n=RECENT_STARTS):
     else:
         k9_blend = k9_season if k9_season is not None else k9_recent
 
+    # Last 7 W/L icons, oldest → newest
+    _icon = {"W": "✅", "L": "❌", "ND": "⚪"}
+    last7 = starts[-7:]
+    last7_icons = "".join(_icon[x["result"]] for x in last7) if last7 else "—"
+    wins_last7 = sum(1 for x in last7 if x["result"] == "W")
+    losses_last7 = sum(1 for x in last7 if x["result"] == "L")
+
     return {
-        "era_recent": era_recent,  # used as the model's ERA feature
-        "k9_recent":  k9_recent,   # shown in the table
-        "era_season": era_season,
-        "k9_season":  k9_season,
-        "k9_blend":   k9_blend,    # used for the K-rate adjustment
+        "era_recent":   era_recent,  # used as the model's ERA feature
+        "k9_recent":    k9_recent,   # shown in the table
+        "era_season":   era_season,
+        "k9_season":    k9_season,   # also shown for verification vs Baseball-Ref
+        "k9_blend":     k9_blend,    # used for the K-rate adjustment
+        "last7_icons":  last7_icons, # ✅/❌/⚪ string, oldest → newest
+        "wins_last7":   wins_last7,
+        "losses_last7": losses_last7,
     }
 
 def calc_rest_days(last_game_date, game_date):
@@ -359,6 +376,10 @@ for i, game in enumerate(games):
     away_era = away_form["era_recent"] if away_form else None
     home_k9  = home_form["k9_recent"]  if home_form else None
     away_k9  = away_form["k9_recent"]  if away_form else None
+    home_k9_season = home_form["k9_season"]   if home_form else None
+    away_k9_season = away_form["k9_season"]   if away_form else None
+    home_l7        = home_form["last7_icons"] if home_form else "—"
+    away_l7        = away_form["last7_icons"] if away_form else "—"
 
     home_k_era = k_per_era(home_k9, home_era)
     away_k_era = k_per_era(away_k9, away_era)
@@ -418,25 +439,30 @@ for i, game in enumerate(games):
 
     expected_runs = (home_stats["runs_10"] + away_stats["runs_10"]) / 1.2
 
+    # SP column shows recent ERA / recent K9 (s = season K9 for verification)
     pitchers_str = (
-        f"{away_pit_name.split()[-1]} ({fmt(away_era)}/{fmt(away_k9, 1)})"
+        f"{away_pit_name.split()[-1]} ({fmt(away_era)}/{fmt(away_k9, 1)}"
+        f"·s{fmt(away_k9_season, 1)})"
         f" @ "
-        f"{home_pit_name.split()[-1]} ({fmt(home_era)}/{fmt(home_k9, 1)})"
+        f"{home_pit_name.split()[-1]} ({fmt(home_era)}/{fmt(home_k9, 1)}"
+        f"·s{fmt(home_k9_season, 1)})"
     )
-    k_gap_str = f"{k_gap:+.1f}" if k_gap is not None else "—"
-    k_era_str = f"{fmt(away_k_era, 1)} / {fmt(home_k_era, 1)}"
+    k_gap_str  = f"{k_gap:+.1f}" if k_gap is not None else "—"
+    k_era_str  = f"{fmt(away_k_era, 1)} / {fmt(home_k_era, 1)}"
+    last7_str  = f"{away_l7}  {home_l7}"   # away first, home second — matches A/H
 
     results.append({
-        "Time (TO)":      utc_to_toronto(game["commence_time"]),
-        "Matchup":        f"{away} @ {home}",
-        "SP (ERA/K9)":    pitchers_str,
-        "K Gap (H−A)":    k_gap_str,
-        "K/ERA (A/H)":    k_era_str,
-        "Exp Runs":       f"{expected_runs:.1f}",
-        "Base Home %":    f"{base_home_prob*100:.0f}%",
-        "Model Home %":   f"{model_home_prob*100:.0f}%",
-        "Book Home %":    f"{book_home_prob*100:.0f}%",
-        "Bet?":           bet,
+        "Time (TO)":         utc_to_toronto(game["commence_time"]),
+        "Matchup":           f"{away} @ {home}",
+        "SP (ERA/K9·sK9)":   pitchers_str,
+        "Last 7 (A | H)":    last7_str,
+        "K Gap (H−A)":       k_gap_str,
+        "K/ERA (A/H)":       k_era_str,
+        "Exp Runs":          f"{expected_runs:.1f}",
+        "Base Home %":       f"{base_home_prob*100:.0f}%",
+        "Model Home %":      f"{model_home_prob*100:.0f}%",
+        "Book Home %":       f"{book_home_prob*100:.0f}%",
+        "Bet?":              bet,
         # extra fields for the Results page
         "_side":             side,
         "_home_l10":         f"{home_stats['runs_10']:.1f}",
@@ -448,11 +474,16 @@ for i, game in enumerate(games):
         "_k_adj":            round(k_adj, 3),
         "_home_k_era":       home_k_era,
         "_away_k_era":       away_k_era,
+        "_home_k9_season":   home_k9_season,
+        "_away_k9_season":   away_k9_season,
+        "_home_last7":       home_l7,
+        "_away_last7":       away_l7,
     })
 
 progress_text.empty()
 
-table_cols = ["Time (TO)","Matchup","SP (ERA/K9)","K Gap (H−A)","K/ERA (A/H)","Exp Runs",
+table_cols = ["Time (TO)","Matchup","SP (ERA/K9·sK9)","Last 7 (A | H)",
+              "K Gap (H−A)","K/ERA (A/H)","Exp Runs",
               "Base Home %","Model Home %","Book Home %","Bet?"]
 results_df = pd.DataFrame(results)
 
@@ -474,7 +505,7 @@ if len(results_df) > 0:
                 picks_to_save.append({
                     "matchup":         r["Matchup"],
                     "side":            r["_side"],
-                    "pitchers":        r["SP (ERA/K9)"],
+                    "pitchers":        r["SP (ERA/K9·sK9)"],
                     "home_l10":        r["_home_l10"],
                     "away_l10":        r["_away_l10"],
                     "exp_runs":        r["Exp Runs"],
@@ -485,6 +516,10 @@ if len(results_df) > 0:
                     "k_adj":           r["_k_adj"],
                     "home_k_era":      r["_home_k_era"],
                     "away_k_era":      r["_away_k_era"],
+                    "home_k9_season":  r["_home_k9_season"],
+                    "away_k9_season":  r["_away_k9_season"],
+                    "home_last7":      r["_home_last7"],
+                    "away_last7":      r["_away_last7"],
                     "bet":             r["Bet?"],
                 })
             if save_todays_picks("moneyline", picks_to_save):
@@ -506,9 +541,17 @@ if len(value_bets) > 0:
 with st.expander("ℹ️ How this works"):
     st.markdown(f"""
 **Pitcher columns**
-- **SP (ERA/K9)** = each probable starter's last **{RECENT_STARTS}**-start
-  ERA and K/9. "—" means TBD or too few innings (<3) — model then falls back
-  to league averages (ERA {LEAGUE_AVG_ERA}, K/9 {LEAGUE_AVG_K9}).
+- **SP (ERA/K9·sK9)** = each probable starter shown as `Lastname (ERA/K9·sK9)`.
+  ERA and K9 are over the last **{RECENT_STARTS}** starts; **sK9** is the
+  full-season K/9 for cross-checking against Baseball-Reference. A recent
+  K/9 running 2–3 above season K/9 is normal during a hot streak — it's
+  not a bug, it's why we look at recent form. "—" means TBD or too few
+  innings (<3) and the model falls back to league averages (ERA
+  {LEAGUE_AVG_ERA}, K/9 {LEAGUE_AVG_K9}).
+- **Last 7 (A | H)** = each starter's W/L outcomes over his last 7 starts,
+  oldest → newest. ✅ = win, ❌ = loss, ⚪ = no decision. Useful as a glance
+  read on form; pitcher wins/losses depend heavily on run support and
+  bullpen luck, so this is more "vibe check" than predictive signal.
 - **K Gap (H−A)** = home K/9 minus away K/9 (60% season + 40% recent blend).
   Positive = home pitcher misses more bats.
 - **K/ERA (A/H)** = strikeouts per earned run, per pitcher. Higher = more
