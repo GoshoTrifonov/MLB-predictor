@@ -13864,7 +13864,12 @@
           "away_k9_season": 6.8,
           "home_last7": "\u274c\u274c\u274c\u26aa\u26aa\u274c\u274c",
           "away_last7": "\u2705\u2705\u274c\u26aa\u274c\u26aa\u2705",
-          "bet": "\ud83d\udfe2 Away +8%"
+          "bet": "\ud83d\udfe2 Away +8%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-26"
         },
         {
           "matchup": "Texas Rangers @ Toronto Blue Jays",
@@ -13884,7 +13889,12 @@
           "away_k9_season": 8.87,
           "home_last7": "\u26aa\u2705\u26aa\u274c\u274c\u26aa\u26aa",
           "away_last7": "\u2705\u274c\u274c\u26aa\u274c\u2705\u2705",
-          "bet": "\ud83d\udfe2 Home +9%"
+          "bet": "\ud83d\udfe2 Home +9%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-26"
         },
         {
           "matchup": "Arizona Diamondbacks @ Tampa Bay Rays",
@@ -13904,7 +13914,12 @@
           "away_k9_season": 5.87,
           "home_last7": "\u26aa\u26aa\u2705\u274c\u2705\u26aa\u26aa",
           "away_last7": "\u2705\u2705\u26aa\u274c\u26aa\u26aa\u274c",
-          "bet": "\ud83d\udfe2 Home +15%"
+          "bet": "\ud83d\udfe2 Home +15%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-26"
         },
         {
           "matchup": "New York Yankees @ Boston Red Sox",
@@ -13924,7 +13939,12 @@
           "away_k9_season": 9.65,
           "home_last7": "\u2705\u26aa\u26aa\u2705\u274c\u274c\u274c",
           "away_last7": "\u2705\u2705\u26aa\u2705\u26aa\u26aa\u274c",
-          "bet": "\ud83d\udfe2 Home +17%"
+          "bet": "\ud83d\udfe2 Home +17%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-26"
         },
         {
           "matchup": "Chicago Cubs @ Milwaukee Brewers",
@@ -13944,7 +13964,12 @@
           "away_k9_season": 6.35,
           "home_last7": "\u26aa\u2705\u2705\u2705\u2705\u2705\u274c",
           "away_last7": "\u274c\u26aa\u274c\u2705\u26aa\u274c\u26aa",
-          "bet": "\ud83d\udfe2 Away +7%"
+          "bet": "\ud83d\udfe2 Away +7%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-26"
         },
         {
           "matchup": "Colorado Rockies @ Minnesota Twins",
@@ -13964,7 +13989,12 @@
           "away_k9_season": 5.22,
           "home_last7": "\u2705\u2705\u26aa\u274c\u274c\u26aa\u2705",
           "away_last7": "\u2705\u26aa\u274c\u2705\u2705\u2705\u2705",
-          "bet": "\ud83d\udfe2 Away +11%"
+          "bet": "\ud83d\udfe2 Away +11%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-26"
         },
         {
           "matchup": "Miami Marlins @ St. Louis Cardinals",
@@ -13984,7 +14014,12 @@
           "away_k9_season": 10.2,
           "home_last7": "\u26aa\u274c\u274c\u274c\u26aa\u26aa\u274c",
           "away_last7": "\u2705\u2705\u26aa\u2705\u26aa\u2705\u2705",
-          "bet": "\ud83d\udfe2 Away +41%"
+          "bet": "\ud83d\udfe2 Away +41%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-26"
         }
       ],
       "saved_at": "2026-06-26T05:44:02.957154-04:00",
