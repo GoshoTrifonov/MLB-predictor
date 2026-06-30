@@ -15617,7 +15617,12 @@
           "away_k9_season": 9.42,
           "home_last7": "\u2705\u274c\u26aa\u274c\u2705\u26aa\u26aa",
           "away_last7": "\u274c\u26aa\u26aa",
-          "bet": "\ud83d\udfe2 Away +9%"
+          "bet": "\ud83d\udfe2 Away +9%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-29"
         },
         {
           "matchup": "San Diego Padres @ Chicago Cubs",
@@ -15637,7 +15642,12 @@
           "away_k9_season": null,
           "home_last7": "\u274c\u274c\u274c\u26aa\u26aa\u26aa\u2705",
           "away_last7": "\u2014",
-          "bet": "\ud83d\udfe2 Away +16%"
+          "bet": "\ud83d\udfe2 Away +16%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-29"
         },
         {
           "matchup": "San Francisco Giants @ Arizona Diamondbacks",
@@ -15657,7 +15667,12 @@
           "away_k9_season": 8.81,
           "home_last7": "\u26aa\u2705\u26aa\u274c\u26aa\u2705\u26aa",
           "away_last7": "\u274c\u26aa\u26aa\u274c\u274c\u274c\u26aa",
-          "bet": "\ud83d\udfe2 Away +15%"
+          "bet": "\ud83d\udfe2 Away +15%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-29"
         },
         {
           "matchup": "Los Angeles Dodgers @ Athletics",
@@ -15677,7 +15692,12 @@
           "away_k9_season": 5.92,
           "home_last7": "\u274c\u2705\u2705\u26aa\u2705\u26aa",
           "away_last7": "\u26aa\u26aa\u274c\u2705\u26aa\u26aa\u26aa",
-          "bet": "\ud83d\udfe2 Home +36%"
+          "bet": "\ud83d\udfe2 Home +36%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-29"
         },
         {
           "matchup": "Los Angeles Angels @ Seattle Mariners",
@@ -15697,7 +15717,12 @@
           "away_k9_season": 7.53,
           "home_last7": "\u274c\u274c\u26aa\u274c\u274c\u274c\u2705",
           "away_last7": "\u274c\u274c\u2705",
-          "bet": "\ud83d\udfe2 Away +7%"
+          "bet": "\ud83d\udfe2 Away +7%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-06-29"
         }
       ],
       "saved_at": "2026-06-29T05:42:40.361854-04:00",
