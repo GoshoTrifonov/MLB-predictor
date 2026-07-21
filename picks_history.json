@@ -20090,5 +20090,93 @@
       "saved_at": "2026-07-20T05:43:26.955224-04:00",
       "verified": false
     }
+  },
+  "2026-07-21": {
+    "moneyline": {
+      "picks": [
+        {
+          "matchup": "Tampa Bay Rays @ Toronto Blue Jays",
+          "side": "Home",
+          "pitchers": "Rasmussen (3.12/9.6\u00b7s8.9) @ Gausman (6.27/10.1\u00b7s9.3)",
+          "home_l10": "4.2",
+          "away_l10": "3.9",
+          "exp_runs": "6.8",
+          "base_home_prob": 0.5,
+          "model_home_prob": 0.507,
+          "book_home_prob": 0.267,
+          "k_gap": 0.45,
+          "k_adj": 0.007,
+          "home_k_era": 1.61,
+          "away_k_era": 3.08,
+          "home_k9_season": 9.29,
+          "away_k9_season": 8.88,
+          "home_last7": "\u26aa\u26aa\u274c\u274c\u274c\u274c\u26aa",
+          "away_last7": "\u2705\u2705\u274c\u274c\u2705\u26aa\u274c",
+          "bet": "\ud83d\udfe2 Home +24%"
+        },
+        {
+          "matchup": "Chicago White Sox @ Texas Rangers",
+          "side": "Away",
+          "pitchers": "Schultz (7.67/7.7\u00b7s8.0) @ Rocker (5.14/7.5\u00b7s7.5)",
+          "home_l10": "4.8",
+          "away_l10": "5.1",
+          "exp_runs": "8.2",
+          "base_home_prob": 0.335,
+          "model_home_prob": 0.329,
+          "book_home_prob": 0.561,
+          "k_gap": -0.41,
+          "k_adj": -0.006,
+          "home_k_era": 1.45,
+          "away_k_era": 1.0,
+          "home_k9_season": 7.45,
+          "away_k9_season": 7.98,
+          "home_last7": "\u26aa\u26aa\u26aa\u274c\u26aa\u274c\u274c",
+          "away_last7": "\u274c\u26aa\u274c\u274c\u274c\u274c\u2705",
+          "bet": "\ud83d\udfe2 Away +19%"
+        },
+        {
+          "matchup": "St. Louis Cardinals @ Los Angeles Angels",
+          "side": "Home",
+          "pitchers": "Liberatore (6.25/8.8\u00b7s8.5) @ Ure\u00f1a (3.41/9.0\u00b7s8.6)",
+          "home_l10": "3.8",
+          "away_l10": "3.7",
+          "exp_runs": "6.2",
+          "base_home_prob": 0.65,
+          "model_home_prob": 0.652,
+          "book_home_prob": 0.517,
+          "k_gap": 0.15,
+          "k_adj": 0.002,
+          "home_k_era": 2.64,
+          "away_k_era": 1.41,
+          "home_k9_season": 8.59,
+          "away_k9_season": 8.46,
+          "home_last7": "\u2705\u2705\u274c\u2705\u274c\u274c\u26aa",
+          "away_last7": "\u26aa\u26aa\u274c\u274c\u2705\u274c\u2705",
+          "bet": "\ud83d\udfe2 Home +14%"
+        },
+        {
+          "matchup": "Cincinnati Reds @ Seattle Mariners",
+          "side": "Home",
+          "pitchers": "Burns (3.52/10.8\u00b7s10.3) @ Castillo (3.08/7.8\u00b7s8.2)",
+          "home_l10": "3.8",
+          "away_l10": "4.2",
+          "exp_runs": "6.7",
+          "base_home_prob": 0.69,
+          "model_home_prob": 0.653,
+          "book_home_prob": 0.529,
+          "k_gap": -2.44,
+          "k_adj": -0.037,
+          "home_k_era": 2.54,
+          "away_k_era": 3.07,
+          "home_k9_season": 8.25,
+          "away_k9_season": 10.34,
+          "home_last7": "\u2705\u26aa\u26aa\u274c\u2705\u274c\u274c",
+          "away_last7": "\u26aa\u26aa\u2705\u2705\u26aa\u2705\u2705",
+          "bet": "\ud83d\udfe2 Home +12%"
+        }
+      ],
+      "saved_at": "2026-07-21T05:52:33.140559-04:00",
+      "verified": false
+    }
   }
 }
