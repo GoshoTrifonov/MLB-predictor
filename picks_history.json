@@ -20112,7 +20112,12 @@
           "away_k9_season": 8.88,
           "home_last7": "\u26aa\u26aa\u274c\u274c\u274c\u274c\u26aa",
           "away_last7": "\u2705\u2705\u274c\u274c\u2705\u26aa\u274c",
-          "bet": "\ud83d\udfe2 Home +24%"
+          "bet": "\ud83d\udfe2 Home +24%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-07-21"
         },
         {
           "matchup": "Chicago White Sox @ Texas Rangers",
@@ -20132,7 +20137,12 @@
           "away_k9_season": 7.98,
           "home_last7": "\u26aa\u26aa\u26aa\u274c\u26aa\u274c\u274c",
           "away_last7": "\u274c\u26aa\u274c\u274c\u274c\u274c\u2705",
-          "bet": "\ud83d\udfe2 Away +19%"
+          "bet": "\ud83d\udfe2 Away +19%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-07-21"
         },
         {
           "matchup": "St. Louis Cardinals @ Los Angeles Angels",
@@ -20152,7 +20162,12 @@
           "away_k9_season": 8.46,
           "home_last7": "\u2705\u2705\u274c\u2705\u274c\u274c\u26aa",
           "away_last7": "\u26aa\u26aa\u274c\u274c\u2705\u274c\u2705",
-          "bet": "\ud83d\udfe2 Home +14%"
+          "bet": "\ud83d\udfe2 Home +14%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-07-21"
         },
         {
           "matchup": "Cincinnati Reds @ Seattle Mariners",
@@ -20172,7 +20187,12 @@
           "away_k9_season": 10.34,
           "home_last7": "\u2705\u26aa\u26aa\u274c\u2705\u274c\u274c",
           "away_last7": "\u26aa\u26aa\u2705\u2705\u26aa\u2705\u2705",
-          "bet": "\ud83d\udfe2 Home +12%"
+          "bet": "\ud83d\udfe2 Home +12%",
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-07-21"
         }
       ],
       "saved_at": "2026-07-21T05:52:33.140559-04:00",
