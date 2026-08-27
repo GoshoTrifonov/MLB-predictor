@@ -20405,7 +20405,12 @@
           "ml_edge": 0.031,
           "model_home": 0.5,
           "book_home": 0.4694835680751174,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-25"
         },
         {
           "matchup": "Kansas City Royals @ Toronto Blue Jays",
@@ -20422,7 +20427,12 @@
           "ml_edge": -0.031,
           "model_home": 0.525,
           "book_home": 0.5559940799210656,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-25"
         },
         {
           "matchup": "Milwaukee Brewers @ New York Mets",
@@ -20439,7 +20449,12 @@
           "ml_edge": -0.016,
           "model_home": 0.405,
           "book_home": 0.4205607476635514,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-25"
         },
         {
           "matchup": "Texas Rangers @ Chicago White Sox",
@@ -20456,7 +20471,12 @@
           "ml_edge": -0.179,
           "model_home": 0.375,
           "book_home": 0.5538461538461539,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-25"
         },
         {
           "matchup": "Cleveland Guardians @ Los Angeles Angels",
@@ -20473,7 +20493,12 @@
           "ml_edge": -0.029,
           "model_home": 0.42,
           "book_home": 0.44932601098352476,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-25"
         },
         {
           "matchup": "Chicago Cubs @ Arizona Diamondbacks",
@@ -20490,7 +20515,12 @@
           "ml_edge": -0.065,
           "model_home": 0.45,
           "book_home": 0.5148247978436657,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-25"
         },
         {
           "matchup": "Minnesota Twins @ Athletics",
@@ -20507,7 +20537,12 @@
           "ml_edge": 0.051,
           "model_home": 0.485,
           "book_home": 0.4341534008683068,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-25"
         },
         {
           "matchup": "Philadelphia Phillies @ Seattle Mariners",
@@ -20524,7 +20559,12 @@
           "ml_edge": -0.068,
           "model_home": 0.465,
           "book_home": 0.5334370139968896,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-25"
         }
       ],
       "saved_at": "2026-08-25T06:02:04.419413-04:00",
