@@ -20589,7 +20589,12 @@
           "ml_edge": 0.076,
           "model_home": 0.625,
           "book_home": 0.5486459378134404,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-27"
         },
         {
           "matchup": "Houston Astros @ New York Yankees",
@@ -20606,7 +20611,12 @@
           "ml_edge": 0.056,
           "model_home": 0.67,
           "book_home": 0.6138996138996139,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-27"
         },
         {
           "matchup": "Kansas City Royals @ Toronto Blue Jays",
@@ -20623,7 +20633,12 @@
           "ml_edge": 0.029,
           "model_home": 0.54,
           "book_home": 0.5111352525801195,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-27"
         },
         {
           "matchup": "Milwaukee Brewers @ New York Mets",
@@ -20640,7 +20655,12 @@
           "ml_edge": 0.015,
           "model_home": 0.365,
           "book_home": 0.34965034965034963,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-27"
         },
         {
           "matchup": "Los Angeles Dodgers @ Atlanta Braves",
@@ -20657,7 +20677,12 @@
           "ml_edge": 0.109,
           "model_home": 0.64,
           "book_home": 0.5305164319248826,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-27"
         },
         {
           "matchup": "Arizona Diamondbacks @ San Francisco Giants",
@@ -20674,7 +20699,12 @@
           "ml_edge": 0.059,
           "model_home": 0.57,
           "book_home": 0.511400651465798,
-          "k_line": 5
+          "k_line": 5,
+          "actual_HRR": 0,
+          "actual_HR": 0,
+          "actual_K": 0,
+          "played": false,
+          "verified_date": "2026-08-27"
         }
       ],
       "saved_at": "2026-08-27T05:45:20.161215-04:00",
