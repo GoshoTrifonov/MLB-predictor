@@ -20820,5 +20820,81 @@
       "saved_at": "2026-08-28T05:56:56.331763-04:00",
       "verified": false
     }
+  },
+  "2026-08-29": {
+    "convergence": {
+      "picks": [
+        {
+          "matchup": "Chicago White Sox @ Minnesota Twins",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Chicago White Sox",
+          "home_sp": "Ober",
+          "away_sp": "Fedde",
+          "home_k9": 5.95,
+          "away_k9": 6.57,
+          "home_pk": 0.263,
+          "away_pk": 0.235,
+          "k_edge": 0.028,
+          "ml_edge": -0.071,
+          "model_home": 0.475,
+          "book_home": 0.5459132189707366,
+          "k_line": 5
+        },
+        {
+          "matchup": "Miami Marlins @ Washington Nationals",
+          "signal": "\ud83d\udd25 STRONG \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Washington Nationals",
+          "home_sp": "Cavalli",
+          "away_sp": "Alcantara",
+          "home_k9": 10.23,
+          "away_k9": 6.32,
+          "home_pk": 0.841,
+          "away_pk": 0.506,
+          "k_edge": 0.335,
+          "ml_edge": 0.091,
+          "model_home": 0.61,
+          "book_home": 0.5189738107963656,
+          "k_line": 5
+        },
+        {
+          "matchup": "Kansas City Royals @ Cleveland Guardians",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Cleveland Guardians",
+          "home_sp": "Griffin",
+          "away_sp": "IV",
+          "home_k9": 7.28,
+          "away_k9": 5.84,
+          "home_pk": 0.474,
+          "away_pk": 0.171,
+          "k_edge": 0.303,
+          "ml_edge": -0.046,
+          "model_home": 0.555,
+          "book_home": 0.6005326231691078,
+          "k_line": 5
+        },
+        {
+          "matchup": "San Diego Padres @ Tampa Bay Rays",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "San Diego Padres",
+          "home_sp": "Martinez",
+          "away_sp": "Buehler",
+          "home_k9": 5.3,
+          "away_k9": 7.22,
+          "home_pk": 0.281,
+          "away_pk": 0.42,
+          "k_edge": -0.139,
+          "ml_edge": -0.131,
+          "model_home": 0.435,
+          "book_home": 0.5660559305689489,
+          "k_line": 5
+        }
+      ],
+      "saved_at": "2026-08-29T10:49:52.822316-04:00",
+      "verified": false
+    }
   }
 }
