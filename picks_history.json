@@ -21489,5 +21489,115 @@
       "saved_at": "2026-08-30T09:56:45.643890-04:00",
       "verified": false
     }
+  },
+  "2026-08-31": {
+    "convergence": {
+      "picks": [
+        {
+          "matchup": "San Diego Padres @ Cincinnati Reds",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "San Diego Padres",
+          "home_sp": "Singer",
+          "away_sp": "King",
+          "home_k9": 7.06,
+          "away_k9": 7.97,
+          "home_pk": 0.477,
+          "away_pk": 0.627,
+          "k_edge": -0.15,
+          "ml_edge": -0.022,
+          "model_home": 0.415,
+          "book_home": 0.4371053909664886,
+          "k_line": 5
+        },
+        {
+          "matchup": "New York Mets @ Tampa Bay Rays",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Tampa Bay Rays",
+          "home_sp": "Seymour",
+          "away_sp": "Stock",
+          "home_k9": 12.82,
+          "away_k9": 9.15,
+          "home_pk": 0.838,
+          "away_pk": 0.482,
+          "k_edge": 0.356,
+          "ml_edge": 0.029,
+          "model_home": 0.665,
+          "book_home": 0.6362166531932093,
+          "k_line": 5
+        },
+        {
+          "matchup": "Milwaukee Brewers @ Chicago Cubs",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Milwaukee Brewers",
+          "home_sp": "Holmes",
+          "away_sp": "Harrison",
+          "home_k9": 6.65,
+          "away_k9": 11.23,
+          "home_pk": 0.412,
+          "away_pk": 0.66,
+          "k_edge": -0.248,
+          "ml_edge": -0.098,
+          "model_home": 0.43,
+          "book_home": 0.5275590551181102,
+          "k_line": 5
+        },
+        {
+          "matchup": "Detroit Tigers @ Minnesota Twins",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Minnesota Twins",
+          "home_sp": "Bradley",
+          "away_sp": "Jobe",
+          "home_k9": 10.28,
+          "away_k9": 7.36,
+          "home_pk": 0.778,
+          "away_pk": 0.325,
+          "k_edge": 0.453,
+          "ml_edge": -0.017,
+          "model_home": 0.555,
+          "book_home": 0.572039942938659,
+          "k_line": 5
+        },
+        {
+          "matchup": "Athletics @ Texas Rangers",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Athletics",
+          "home_sp": "deGrom",
+          "away_sp": "Jump",
+          "home_k9": 11.08,
+          "away_k9": 10.03,
+          "home_pk": 0.649,
+          "away_pk": 0.67,
+          "k_edge": -0.021,
+          "ml_edge": -0.184,
+          "model_home": 0.51,
+          "book_home": 0.6935648621041879,
+          "k_line": 5
+        },
+        {
+          "matchup": "New York Yankees @ Los Angeles Angels",
+          "signal": "\ud83d\udd25 STRONG \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Los Angeles Angels",
+          "home_sp": "Ure\u00f1a",
+          "away_sp": "Rodr\u00edguez",
+          "home_k9": 8.67,
+          "away_k9": 6.26,
+          "home_pk": 0.527,
+          "away_pk": 0.219,
+          "k_edge": 0.308,
+          "ml_edge": 0.083,
+          "model_home": 0.53,
+          "book_home": 0.4468718967229394,
+          "k_line": 5
+        }
+      ],
+      "saved_at": "2026-08-31T05:43:17.585796-04:00",
+      "verified": false
+    }
   }
 }
