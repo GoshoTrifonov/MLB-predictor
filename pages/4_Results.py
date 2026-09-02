@@ -431,9 +431,7 @@ else:
     c4.metric("🔥 Strong Win %", f"{s_pct}%", f"{len(strong)} bets")
     c5.metric("✅ Lean Win %",   f"{l_pct}%", f"{len(lean)} bets")
 
-    show_cols = [c for c in ["Date","Matchup","Signal","Bet Team","Home SP","Away SP",
-                              "Home K9","Away K9","Home P(K≥5)","Away P(K≥5)",
-                              "K Edge","ML Edge","Score","Result"] if c in conv_df.columns]
+    show_cols = [c for c in ["Date","Matchup","Signal","Bet Team","Score","Result"] if c in conv_df.columns]
     st.dataframe(conv_df[show_cols], hide_index=True, use_container_width=True)
 
     if c_total >= 5:
