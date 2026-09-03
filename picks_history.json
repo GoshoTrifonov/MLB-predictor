@@ -21904,5 +21904,98 @@
       "saved_at": "2026-09-02T05:59:17.397592-04:00",
       "verified": false
     }
+  },
+  "2026-09-03": {
+    "convergence": {
+      "picks": [
+        {
+          "matchup": "Toronto Blue Jays @ Cleveland Guardians",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Cleveland Guardians",
+          "home_sp": "Bibee",
+          "away_sp": "Soriano",
+          "home_k9": 7.25,
+          "away_k9": 8.35,
+          "home_pk": 0.559,
+          "away_pk": 0.624,
+          "k_edge": -0.065,
+          "ml_edge": 0.075,
+          "model_home": 0.59,
+          "book_home": 0.5148247978436657,
+          "k_line": 5
+        },
+        {
+          "matchup": "Boston Red Sox @ Baltimore Orioles",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Baltimore Orioles",
+          "home_sp": "Young",
+          "away_sp": "Bennett",
+          "home_k9": 6.94,
+          "away_k9": 7.51,
+          "home_pk": 0.433,
+          "away_pk": 0.516,
+          "k_edge": -0.083,
+          "ml_edge": 0.061,
+          "model_home": 0.53,
+          "book_home": 0.4689942678478374,
+          "k_line": 5
+        },
+        {
+          "matchup": "Miami Marlins @ Kansas City Royals",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Miami Marlins",
+          "home_sp": "Wacha",
+          "away_sp": "Alcantara",
+          "home_k9": 7.08,
+          "away_k9": 6.33,
+          "home_pk": 0.579,
+          "away_pk": 0.495,
+          "k_edge": 0.084,
+          "ml_edge": -0.438,
+          "model_home": 0.465,
+          "book_home": 0.9027081243731194,
+          "k_line": 5
+        },
+        {
+          "matchup": "Tampa Bay Rays @ Texas Rangers",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Texas Rangers",
+          "home_sp": "Quantrill",
+          "away_sp": "McClanahan",
+          "home_k9": 8.17,
+          "away_k9": 7.73,
+          "home_pk": 0.574,
+          "away_pk": 0.395,
+          "k_edge": 0.179,
+          "ml_edge": -0.018,
+          "model_home": 0.465,
+          "book_home": 0.48257372654155495,
+          "k_line": 5
+        },
+        {
+          "matchup": "Athletics @ Seattle Mariners",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Athletics",
+          "home_sp": "Anderson",
+          "away_sp": "Perkins",
+          "home_k9": 7.2,
+          "away_k9": 10.07,
+          "home_pk": 0.371,
+          "away_pk": 0.604,
+          "k_edge": -0.233,
+          "ml_edge": -0.085,
+          "model_home": 0.585,
+          "book_home": 0.6704503844745514,
+          "k_line": 5
+        }
+      ],
+      "saved_at": "2026-09-03T05:45:49.946912-04:00",
+      "verified": false
+    }
   }
 }
