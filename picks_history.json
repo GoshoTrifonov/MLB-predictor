@@ -22285,5 +22285,98 @@
       "saved_at": "2026-09-06T12:54:08.870031-04:00",
       "verified": false
     }
+  },
+  "2026-09-07": {
+    "convergence": {
+      "picks": [
+        {
+          "matchup": "Cleveland Guardians @ Baltimore Orioles",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Baltimore Orioles",
+          "home_sp": "Rogers",
+          "away_sp": "Cantillo",
+          "home_k9": 9.27,
+          "away_k9": 9.69,
+          "home_pk": 0.711,
+          "away_pk": 0.551,
+          "k_edge": 0.16,
+          "ml_edge": 0.004,
+          "model_home": 0.58,
+          "book_home": 0.5756718528995757,
+          "k_line": 5
+        },
+        {
+          "matchup": "Los Angeles Angels @ Boston Red Sox",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Los Angeles Angels",
+          "home_sp": "Bello",
+          "away_sp": "Rodriguez",
+          "home_k9": 5.65,
+          "away_k9": 8.92,
+          "home_pk": 0.156,
+          "away_pk": 0.635,
+          "k_edge": -0.479,
+          "ml_edge": -0.144,
+          "model_home": 0.49,
+          "book_home": 0.6335504885993485,
+          "k_line": 5
+        },
+        {
+          "matchup": "Chicago Cubs @ Milwaukee Brewers",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Chicago Cubs",
+          "home_sp": "Gasser",
+          "away_sp": "Boyd",
+          "home_k9": 8.44,
+          "away_k9": 6.16,
+          "home_pk": 0.503,
+          "away_pk": 0.419,
+          "k_edge": 0.084,
+          "ml_edge": -0.124,
+          "model_home": 0.43,
+          "book_home": 0.5542347696879644,
+          "k_line": 5
+        },
+        {
+          "matchup": "Minnesota Twins @ Detroit Tigers",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Minnesota Twins",
+          "home_sp": "Melton",
+          "away_sp": "Ryan",
+          "home_k9": 6.9,
+          "away_k9": 9.59,
+          "home_pk": 0.487,
+          "away_pk": 0.696,
+          "k_edge": -0.209,
+          "ml_edge": -0.076,
+          "model_home": 0.47,
+          "book_home": 0.5456839979808178,
+          "k_line": 5
+        },
+        {
+          "matchup": "Toronto Blue Jays @ Athletics",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Toronto Blue Jays",
+          "home_sp": "Lopez",
+          "away_sp": "Cease",
+          "home_k9": 9.79,
+          "away_k9": 12.15,
+          "home_pk": 0.754,
+          "away_pk": 0.913,
+          "k_edge": -0.159,
+          "ml_edge": -0.069,
+          "model_home": 0.3,
+          "book_home": 0.36900369003690037,
+          "k_line": 5
+        }
+      ],
+      "saved_at": "2026-09-07T11:16:27.018296-04:00",
+      "verified": false
+    }
   }
 }
