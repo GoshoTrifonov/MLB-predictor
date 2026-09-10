@@ -22505,5 +22505,47 @@
       "saved_at": "2026-09-09T06:11:34.288972-04:00",
       "verified": false
     }
+  },
+  "2026-09-10": {
+    "convergence": {
+      "picks": [
+        {
+          "matchup": "Tampa Bay Rays @ Atlanta Braves",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Tampa Bay Rays",
+          "home_sp": "P\u00e9rez",
+          "away_sp": "Martinez",
+          "home_k9": 6.51,
+          "away_k9": 5.57,
+          "home_pk": 0.283,
+          "away_pk": 0.327,
+          "k_edge": -0.044,
+          "ml_edge": -0.056,
+          "model_home": 0.485,
+          "book_home": 0.5412844036697247,
+          "k_line": 5
+        },
+        {
+          "matchup": "Texas Rangers @ Seattle Mariners",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Texas Rangers",
+          "home_sp": "Gilbert",
+          "away_sp": "deGrom",
+          "home_k9": 9.7,
+          "away_k9": 11.14,
+          "home_pk": 0.72,
+          "away_pk": 0.69,
+          "k_edge": 0.03,
+          "ml_edge": -0.097,
+          "model_home": 0.465,
+          "book_home": 0.5622568093385214,
+          "k_line": 5
+        }
+      ],
+      "saved_at": "2026-09-10T05:50:33.214361-04:00",
+      "verified": false
+    }
   }
 }
