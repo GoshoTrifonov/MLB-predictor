@@ -22547,5 +22547,115 @@
       "saved_at": "2026-09-10T05:50:33.214361-04:00",
       "verified": false
     }
+  },
+  "2026-09-11": {
+    "convergence": {
+      "picks": [
+        {
+          "matchup": "Colorado Rockies @ Detroit Tigers",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Colorado Rockies",
+          "home_sp": "Valdez",
+          "away_sp": "Adams",
+          "home_k9": 6.27,
+          "away_k9": 11.2,
+          "home_pk": 0.447,
+          "away_pk": 0.676,
+          "k_edge": -0.229,
+          "ml_edge": -0.145,
+          "model_home": 0.505,
+          "book_home": 0.6496691319579603,
+          "k_line": 5
+        },
+        {
+          "matchup": "New York Mets @ New York Yankees",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "New York Mets",
+          "home_sp": "Rod\u00f3n",
+          "away_sp": "McLean",
+          "home_k9": 9.83,
+          "away_k9": 9.12,
+          "home_pk": 0.583,
+          "away_pk": 0.726,
+          "k_edge": -0.143,
+          "ml_edge": -0.095,
+          "model_home": 0.485,
+          "book_home": 0.5798319327731093,
+          "k_line": 5
+        },
+        {
+          "matchup": "Kansas City Royals @ Boston Red Sox",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Boston Red Sox",
+          "home_sp": "Gray",
+          "away_sp": "Lugo",
+          "home_k9": 8.27,
+          "away_k9": 6.39,
+          "home_pk": 0.686,
+          "away_pk": 0.284,
+          "k_edge": 0.402,
+          "ml_edge": -0.017,
+          "model_home": 0.655,
+          "book_home": 0.6722505462490896,
+          "k_line": 5
+        },
+        {
+          "matchup": "Cincinnati Reds @ Milwaukee Brewers",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Cincinnati Reds",
+          "home_sp": "May",
+          "away_sp": "Abbott",
+          "home_k9": 8.23,
+          "away_k9": 6.9,
+          "home_pk": 0.394,
+          "away_pk": 0.339,
+          "k_edge": 0.055,
+          "ml_edge": -0.209,
+          "model_home": 0.44,
+          "book_home": 0.6491228070175439,
+          "k_line": 5
+        },
+        {
+          "matchup": "Chicago White Sox @ St. Louis Cardinals",
+          "signal": "\ud83d\udd25 STRONG \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "St. Louis Cardinals",
+          "home_sp": "Liberatore",
+          "away_sp": "Kay",
+          "home_k9": 9.95,
+          "away_k9": 7.43,
+          "home_pk": 0.68,
+          "away_pk": 0.444,
+          "k_edge": 0.236,
+          "ml_edge": 0.226,
+          "model_home": 0.49,
+          "book_home": 0.2641046606704824,
+          "k_line": 5
+        },
+        {
+          "matchup": "San Diego Padres @ San Francisco Giants",
+          "signal": "\ud83d\udd25 STRONG \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "San Francisco Giants",
+          "home_sp": "Molina",
+          "away_sp": "Ray",
+          "home_k9": 10.8,
+          "away_k9": 7.13,
+          "home_pk": 0.715,
+          "away_pk": 0.364,
+          "k_edge": 0.351,
+          "ml_edge": 0.122,
+          "model_home": 0.565,
+          "book_home": 0.44291338582677164,
+          "k_line": 5
+        }
+      ],
+      "saved_at": "2026-09-11T05:58:03.515913-04:00",
+      "verified": false
+    }
   }
 }
