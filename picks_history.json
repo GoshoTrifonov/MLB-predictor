@@ -22657,5 +22657,98 @@
       "saved_at": "2026-09-11T05:58:03.515913-04:00",
       "verified": false
     }
+  },
+  "2026-09-15": {
+    "convergence": {
+      "picks": [
+        {
+          "matchup": "Athletics @ Tampa Bay Rays",
+          "signal": "\u2705 LEAN \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Athletics",
+          "home_sp": "Jax",
+          "away_sp": "Perkins",
+          "home_k9": 9.75,
+          "away_k9": 10.33,
+          "home_pk": 0.612,
+          "away_pk": 0.626,
+          "k_edge": -0.014,
+          "ml_edge": -0.055,
+          "model_home": 0.635,
+          "book_home": 0.6896016554578376,
+          "k_line": 5
+        },
+        {
+          "matchup": "Philadelphia Phillies @ Washington Nationals",
+          "signal": "\ud83d\udd25 STRONG \u2014 Away",
+          "favoured": "Away",
+          "bet_team": "Philadelphia Phillies",
+          "home_sp": "Kent",
+          "away_sp": "S\u00e1nchez",
+          "home_k9": 7.52,
+          "away_k9": 9.35,
+          "home_pk": 0.341,
+          "away_pk": 0.781,
+          "k_edge": -0.44,
+          "ml_edge": -0.517,
+          "model_home": 0.445,
+          "book_home": 0.962332852030887,
+          "k_line": 5
+        },
+        {
+          "matchup": "San Francisco Giants @ St. Louis Cardinals",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "St. Louis Cardinals",
+          "home_sp": "Pallante",
+          "away_sp": "Tidwell",
+          "home_k9": 5.7,
+          "away_k9": 6.97,
+          "home_pk": 0.236,
+          "away_pk": 0.272,
+          "k_edge": -0.036,
+          "ml_edge": 0.243,
+          "model_home": 0.44,
+          "book_home": 0.19736842105263158,
+          "k_line": 5
+        },
+        {
+          "matchup": "San Diego Padres @ Colorado Rockies",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Colorado Rockies",
+          "home_sp": "Freeland",
+          "away_sp": "Buehler",
+          "home_k9": 6.89,
+          "away_k9": 7.75,
+          "home_pk": 0.382,
+          "away_pk": 0.414,
+          "k_edge": -0.032,
+          "ml_edge": 0.103,
+          "model_home": 0.45,
+          "book_home": 0.34682080924855485,
+          "k_line": 5
+        },
+        {
+          "matchup": "Miami Marlins @ Arizona Diamondbacks",
+          "signal": "\u2705 LEAN \u2014 Home",
+          "favoured": "Home",
+          "bet_team": "Arizona Diamondbacks",
+          "home_sp": "Soroka",
+          "away_sp": "Junk",
+          "home_k9": 8.41,
+          "away_k9": 5.12,
+          "home_pk": 0.483,
+          "away_pk": 0.117,
+          "k_edge": 0.366,
+          "ml_edge": 0.014,
+          "model_home": 0.615,
+          "book_home": 0.6008869179600886,
+          "k_line": 5
+        }
+      ],
+      "saved_at": "2026-09-15T20:56:25.358838-04:00",
+      "verified": false
+    }
   }
 }
